@@ -44,7 +44,7 @@ export type Experience = {
   id: string;
   place: string;
   period: string;
-  skills: ("service" | "teamwork" | "responsibility" | "pressure")[];
+  skills: ("service" | "teamwork" | "responsibility" | "pressure" | "organization")[];
 };
 
 /** Role and quote come from messages `testimonials.items.<id>`. */
