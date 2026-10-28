@@ -1,35 +1,37 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Glass } from "@/components/atoms/Glass";
 import { LanguageToggle } from "@/components/molecules/LanguageToggle";
 import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { profile } from "@/data/profile";
 
-const links = ["about", "skills", "projects", "experience", "contact"] as const;
+const links = ["about", "skills", "projects", "experience", "testimonials", "contact"] as const;
 
-/** The nav slab that sits above the hero panel and stays with you as you scroll. */
+/** The nav bar that stays with you as you scroll. Each link opens that section's own page. */
 export function Header() {
   const t = useTranslations("nav");
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 px-4 pt-3 md:px-[5.5vw] md:pt-4">
-      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-pill focus:px-4 focus:py-2 focus:text-pill-ink">
+    <header className="sticky top-0 z-50 bg-ground px-4 pt-3 pb-1 md:px-[5.5vw] md:pt-4">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">
         {t("skip")}
       </a>
-      <Glass className="flex h-14 items-center gap-2 rounded-2xl px-3 md:h-16 md:gap-4 md:px-5">
-        <a href="#top" className="flex min-w-0 items-center gap-2.5 font-medium tracking-[-0.02em] text-ink">
-          <span aria-hidden className="size-3.5 shrink-0 rounded-[3px] bg-ink" />
+      <div className="flex h-14 items-center gap-2 rounded-2xl bg-surface px-3 md:h-16 md:gap-4 md:px-5">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5 font-medium tracking-[-0.02em] text-ink">
+          <span aria-hidden className="size-3.5 shrink-0 rounded-[3px] bg-primary" />
           <span className="truncate">{profile.name}</span>
-        </a>
+        </Link>
 
         <nav aria-label={t("menu")} className="ml-auto">
           <button
             type="button"
-            className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md text-ink md:hidden"
+            className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md text-ink xl:hidden"
             aria-expanded={open}
             aria-controls="nav-links"
             aria-label={t("menu")}
@@ -39,19 +41,25 @@ export function Header() {
           </button>
           <ul
             id="nav-links"
-            className={`${open ? "flex" : "hidden"} glass absolute inset-x-0 top-[4.25rem] flex-col p-2 md:static md:flex md:flex-row md:bg-transparent md:p-0 md:shadow-none md:before:hidden`}
+            className={`${open ? "flex" : "hidden"} absolute inset-x-4 top-[4.75rem] flex-col rounded-2xl bg-surface p-2 shadow-[0_12px_32px_rgb(0_0_0/0.14)] md:inset-x-[5.5vw] xl:static xl:flex xl:flex-row xl:bg-transparent xl:p-0 xl:shadow-none`}
           >
-            {links.map((id) => (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  onClick={() => setOpen(false)}
-                  className="flex h-11 items-center rounded-md px-3 text-sm text-ink-soft transition-colors hover:text-ink"
-                >
-                  {t(id)}
-                </a>
-              </li>
-            ))}
+            {links.map((id) => {
+              const current = pathname === `/${id}` || pathname.startsWith(`/${id}/`);
+              return (
+                <li key={id}>
+                  <Link
+                    href={`/${id}`}
+                    onClick={() => setOpen(false)}
+                    aria-current={current ? "page" : undefined}
+                    className={`flex h-11 items-center rounded-md px-3 text-sm transition-colors ${
+                      current ? "bg-primary-soft font-medium text-primary-soft-ink" : "text-ink-soft hover:text-primary-text"
+                    }`}
+                  >
+                    {t(id)}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -59,7 +67,7 @@ export function Header() {
           <LanguageToggle />
           <ThemeToggle />
         </div>
-      </Glass>
+      </div>
     </header>
   );
 }
