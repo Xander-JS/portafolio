@@ -5,12 +5,12 @@ export const experience: Experience[] = [
     id: "restaurant",
     place: "[TODO Nombre del restaurante, ciudad]",
     period: "[TODO 2023 – 2024]",
-    skills: ["service", "teamwork", "pressure"],
+    skills: ["service", "teamwork", "pressure", "responsibility"],
   },
   {
     id: "store",
     place: "[TODO Nombre de la tienda, ciudad]",
     period: "[TODO 2022 – 2023]",
-    skills: ["service", "responsibility", "teamwork"],
+    skills: ["service", "organization", "responsibility"],
   },
 ];
