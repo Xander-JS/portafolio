@@ -6,12 +6,6 @@
   "nav": {
     "skip": "Saltar al contenido",
     "menu": "Menú",
-    "about": "Sobre mí",
-    "skills": "Habilidades",
-    "projects": "Proyectos",
-    "experience": "Experiencia",
-    "testimonials": "Testimonios",
-    "contact": "Contacto",
     "language": "Switch to English",
     "theme": "Cambiar entre tema claro y oscuro",
     "home": "Inicio"
@@ -31,17 +25,12 @@
   },
   "modules": {
     "heading": "Recorre el portafolio",
-    "intro": "Cada tarjeta abre una parte de mi trabajo. Gíralas y dales la vuelta.",
-    "hint": "Pasa el cursor o toca la tarjeta del centro para voltearla. Usa las flechas para girar.",
-    "carousel": "carrusel",
-    "slide": "tarjeta",
-    "flip": "Voltear la tarjeta {title}",
-    "prev": "Tarjeta anterior",
-    "next": "Tarjeta siguiente",
-    "position": "{current} de {total}: {title}"
+    "go": "Ir",
+    "open": "Abrir {label}: {title}",
+    "progress": "Tarjetas",
+    "dot": "Ir a la tarjeta {n} de {total}: {label}"
   },
   "about": {
-    "heading": "Sobre mí",
     "lead": "Soy de la ciudad Pasto, Nariño, y estudio quinto semestre de Ingeniería de Software en la universidad Cooperativa de colombia.",
     "origin": "Llegué a la tecnología en el colegio, experimentando con distintas herramientas de flujos de trabajo.",
     "drive": "Me mueven las oportunidades, aprender conceptos nuevos y construir tecnología que resuelva problemas reales.",
@@ -57,8 +46,6 @@
     }
   },
   "skills": {
-    "heading": "Habilidades",
-    "intro": "Entiendo la arquitectura de los lenguajes de programación, así que me adapto rápido a uno nuevo.",
     "groups": {
       "technical": "Técnicas",
       "soft": "Blandas",
@@ -91,8 +78,6 @@
     }
   },
   "projects": {
-    "heading": "Proyectos",
-    "intro": "Lo que he construido y lo que viene.",
     "demo": "Ver demo",
     "repo": "Ver código",
     "soon": "Enlaces pronto",
@@ -118,8 +103,6 @@
     "galleryAlt": "Captura {n} de {name}"
   },
   "experience": {
-    "heading": "Experiencia",
-    "intro": "Empecé en tecnología como freelance; antes, un restaurante y una tienda me enseñaron a trabajar con personas.",
     "skillsLabel": "Lo que me llevo",
     "tabs": "Tipo de experiencia",
     "work": "Trabajo",
@@ -132,8 +115,6 @@
     "seminars": "Seminarios"
   },
   "testimonials": {
-    "heading": "Testimonios",
-    "intro": "Lo que dicen quienes han trabajado conmigo.",
     "soonTitle": "Pronto, en sus palabras",
     "soonBody": "Estoy reuniendo testimonios de profesores, compañeros y clientes. Aparecerán aquí en texto y en video.",
     "slot": "Espacio reservado",
@@ -141,19 +122,16 @@
     "videoTitle": "Testimonio en video de {name}"
   },
   "contact": {
-    "heading": "Escríbeme sobre el vidrio",
-    "intro": "Deja tu nombre y tu mensaje. Al enviarlo se rompe el vidrio y se abre tu correo con todo listo.",
     "name": "Tu nombre",
     "message": "Tu mensaje",
     "messagePlaceholder": "Hola, me gustaría hablar sobre…",
-    "send": "Romper y enviar →",
+    "send": "Enviar →",
     "emailLabel": "Correo",
     "emailMissing": "[TODO mi correo]",
     "elsewhere": "También estoy en",
     "subject": "Mensaje desde tu portafolio — {name}",
     "sentTitle": "Mensaje listo.",
-    "sentBody": "Tu cliente de correo se abrió con el mensaje escrito. Solo falta pulsar enviar allí. Si no se abrió, escríbeme a {email}.",
-    "back": "← Volver"
+    "sentBody": "Tu cliente de correo se abrió con el mensaje escrito. Solo falta pulsar enviar allí. Si no se abrió, escríbeme a {email}."
   },
   "footer": {
     "rights": "Todos los derechos reservados."

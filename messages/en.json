@@ -6,12 +6,6 @@
   "nav": {
     "skip": "Skip to content",
     "menu": "Menu",
-    "about": "About",
-    "skills": "Skills",
-    "projects": "Projects",
-    "experience": "Experience",
-    "testimonials": "Testimonials",
-    "contact": "Contact",
     "language": "Cambiar a español",
     "theme": "Toggle light and dark theme",
     "home": "Home"
@@ -31,17 +25,12 @@
   },
   "modules": {
     "heading": "Explore the portfolio",
-    "intro": "Each card opens one part of my work. Spin them and turn them over.",
-    "hint": "Hover or tap the center card to flip it. Use the arrows to rotate.",
-    "carousel": "carousel",
-    "slide": "card",
-    "flip": "Flip the {title} card",
-    "prev": "Previous card",
-    "next": "Next card",
-    "position": "{current} of {total}: {title}"
+    "go": "Go",
+    "open": "Open {label}: {title}",
+    "progress": "Cards",
+    "dot": "Go to card {n} of {total}: {label}"
   },
   "about": {
-    "heading": "About me",
     "lead": "I'm from {city}, Nariño, and I'm a 5th-semester Software Engineering student at {university}.",
     "origin": "I got into technology in high school, experimenting with different workflow tools.",
     "drive": "I'm driven by opportunities, by learning new concepts and by building technology that solves real problems.",
@@ -57,8 +46,6 @@
     }
   },
   "skills": {
-    "heading": "Skills",
-    "intro": "I understand how programming languages are built, so I pick up new ones quickly.",
     "groups": {
       "technical": "Technical",
       "soft": "Soft skills",
@@ -91,8 +78,6 @@
     }
   },
   "projects": {
-    "heading": "Projects",
-    "intro": "What I've built, and what's next.",
     "demo": "Live demo",
     "repo": "Source code",
     "soon": "Links coming soon",
@@ -118,8 +103,6 @@
     "galleryAlt": "Screenshot {n} of {name}"
   },
   "experience": {
-    "heading": "Experience",
-    "intro": "I started in tech as a freelancer; before that, a restaurant and a store taught me to work with people.",
     "skillsLabel": "What I took from it",
     "tabs": "Experience type",
     "work": "Work",
@@ -132,8 +115,6 @@
     "seminars": "Seminars"
   },
   "testimonials": {
-    "heading": "Testimonials",
-    "intro": "What people I've worked with say.",
     "soonTitle": "Soon, in their words",
     "soonBody": "I'm gathering testimonials from professors, teammates and clients. They will appear here as text and video.",
     "slot": "Reserved slot",
@@ -141,19 +122,16 @@
     "videoTitle": "Video testimonial from {name}"
   },
   "contact": {
-    "heading": "Write on the glass",
-    "intro": "Leave your name and message. Sending breaks the glass and opens your email with everything ready.",
     "name": "Your name",
     "message": "Your message",
     "messagePlaceholder": "Hi, I'd like to talk about…",
-    "send": "Break and send →",
+    "send": "Send →",
     "emailLabel": "Email",
     "emailMissing": "[TODO my email]",
     "elsewhere": "Also on",
     "subject": "Message from your portfolio — {name}",
     "sentTitle": "Message ready.",
-    "sentBody": "Your email app opened with the message written. Just press send there. If it didn't open, write to me at {email}.",
-    "back": "← Back"
+    "sentBody": "Your email app opened with the message written. Just press send there. If it didn't open, write to me at {email}."
   },
   "footer": {
     "rights": "All rights reserved."
