@@ -216,7 +216,7 @@ export function ModuleCarousel() {
         {modules.map((m, i) => (
           <li key={m.id} className="flex flex-col overflow-hidden rounded-2xl">
             <ModuleCardFace module={m} side="front" index={i} className="min-h-56 rounded-b-none ring-0" />
-            <ModuleCardFace module={m} side="back" index={i} className="min-h-72 rounded-t-none ring-0" />
+            <ModuleCardFace module={m} side="back" index={i} repeatTitle={false} className="flex-1 rounded-t-none ring-0" />
           </li>
         ))}
       </ul>

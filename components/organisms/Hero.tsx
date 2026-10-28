@@ -27,7 +27,7 @@ export function Hero() {
               </div>
             )}
             <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink-soft md:text-xs">{t("eyebrow")}</p>
-            <Title className="mt-5 bg-gradient-to-b from-ink to-ink/75 bg-clip-text text-[clamp(2.75rem,7vw,7.5rem)] leading-[0.97] font-medium tracking-[-0.045em] text-transparent">
+            <Title className="mt-5 bg-gradient-to-b from-ink to-ink/75 bg-clip-text text-[clamp(2.75rem,5.6vw,6.5rem)] leading-[0.97] font-medium tracking-[-0.045em] text-transparent">
               {profile.name}
             </Title>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70 md:text-xl">{t("tagline")}</p>

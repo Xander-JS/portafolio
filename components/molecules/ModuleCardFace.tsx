@@ -15,11 +15,13 @@ type Props = {
   index: number;
   id?: string;
   linkRef?: Ref<HTMLAnchorElement>;
+  /** The back repeats the tag and title, unless the front sits right above it (the reduced-motion grid). */
+  repeatTitle?: boolean;
   className?: string;
 };
 
 /** One face of a module card: front is tag, icon, title, one line; back is quick facts and "View more". */
-export function ModuleCardFace({ module, side, index, id, linkRef, className = "" }: Props) {
+export function ModuleCardFace({ module, side, index, id, linkRef, repeatTitle = true, className = "" }: Props) {
   const t = useTranslations();
   const locale = useLocale();
   const title = module.title[locale];
@@ -29,7 +31,7 @@ export function ModuleCardFace({ module, side, index, id, linkRef, className = "
       <div aria-hidden className="module-bg" style={{ animationDelay: `${index * -2.7}s` }} />
       {side === "back" && <div aria-hidden className="absolute inset-0 bg-primary-950/55" />}
       {/* The intersecting circles from the reference, in the red scale. */}
-      <div aria-hidden className={`absolute right-6 flex -space-x-3.5 ${side === "front" ? "top-[44%]" : "top-6"}`}>
+      <div aria-hidden className={`absolute right-6 flex -space-x-3.5 ${side === "front" ? "top-[44%]" : "top-6"} ${repeatTitle ? "" : "hidden"}`}>
         <span className="size-8 rounded-full border border-white/15 bg-primary-300/30" />
         <span className="size-8 rounded-full border border-white/15 bg-primary-200/45" />
       </div>
@@ -49,9 +51,13 @@ export function ModuleCardFace({ module, side, index, id, linkRef, className = "
         </div>
       ) : (
         <div className="relative flex h-full flex-col p-6">
-          <p className="text-xs font-medium">{t(`nav.${module.id}`)}</p>
-          <p className="mt-2 max-w-[75%] text-xl leading-tight font-medium tracking-[-0.02em]">{title}</p>
-          <ul className="mt-6 space-y-3">
+          {repeatTitle && (
+            <>
+              <p className="text-xs font-medium">{t(`nav.${module.id}`)}</p>
+              <p className="mt-2 mb-6 max-w-[75%] text-xl leading-tight font-medium tracking-[-0.02em]">{title}</p>
+            </>
+          )}
+          <ul className="mb-6 space-y-3">
             {module.facts.map((f) => (
               <li key={f.en} className="flex items-start gap-2.5 text-[15px] leading-snug">
                 <Check className="mt-0.5 size-4 shrink-0 text-primary-200" aria-hidden />
