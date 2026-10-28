@@ -1,80 +1,53 @@
-"use client";
-
-import { ArrowRight, Check } from "lucide-react";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import type { Ref } from "react";
 import { Icon } from "@/components/atoms/Icon";
-import type { PortfolioModule } from "@/data/types";
-import { useLocale } from "@/i18n/Providers";
+import type { Localized, PortfolioModule } from "@/data/types";
 
 type Props = {
   module: PortfolioModule;
   side: "front" | "back";
+  locale: keyof Localized;
   /** Staggers the background drift so neighbouring cards don't move in step. */
   index: number;
-  id?: string;
-  linkRef?: Ref<HTMLAnchorElement>;
-  /** The back repeats the tag and title, unless the front sits right above it (the reduced-motion grid). */
-  repeatTitle?: boolean;
   className?: string;
 };
 
-/** One face of a module card: front is tag, icon, title, one line; back is quick facts and "View more". */
-export function ModuleCardFace({ module, side, index, id, linkRef, repeatTitle = true, className = "" }: Props) {
-  const t = useTranslations();
-  const locale = useLocale();
-  const title = module.title[locale];
-
+/**
+ * One face of a landscape module card. Front: tag, icon, short title, the guide's intersecting circles on a drifting
+ * red gradient. Back: the same gradient darker, with the icon as a watermark. Decorative: the drum's link and panel carry
+ * the words for assistive tech. Sizes follow the card's width (cqw), so it reads the same at every card size.
+ */
+export function ModuleCardFace({ module, side, locale, index, className = "" }: Props) {
   return (
-    <div id={id} className={`relative flex flex-col overflow-hidden rounded-2xl text-white ring-1 ring-white/10 ring-inset ${className}`}>
-      <div aria-hidden className="module-bg" style={{ animationDelay: `${index * -2.7}s` }} />
-      {side === "back" && <div aria-hidden className="absolute inset-0 bg-primary-950/55" />}
-      {/* The intersecting circles from the reference, in the red scale. */}
-      <div aria-hidden className={`absolute right-6 flex -space-x-3.5 ${side === "front" ? "top-[44%]" : "top-6"} ${repeatTitle ? "" : "hidden"}`}>
-        <span className="size-8 rounded-full border border-white/15 bg-primary-300/30" />
-        <span className="size-8 rounded-full border border-white/15 bg-primary-200/45" />
-      </div>
-
+    <div
+      aria-hidden
+      className={`module-face relative overflow-hidden rounded-2xl text-white ring-1 ring-white/10 ring-inset [container-type:inline-size] ${className}`}
+    >
+      <div className="module-bg" style={{ animationDelay: `${index * -2.7}s` }} />
       {side === "front" ? (
-        <div className="relative flex h-full flex-col p-6">
-          <div className="flex items-start justify-between gap-4">
-            <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium">{t(`nav.${module.id}`)}</span>
-            <span className="grid size-12 place-items-center rounded-2xl bg-white text-primary-700">
-              <Icon name={module.icon} className="size-6" />
-            </span>
+        <>
+          <div className="relative flex h-full flex-col justify-between p-[7cqw]">
+            <div className="flex items-start justify-between gap-4">
+              <span className="rounded-full bg-white/15 px-[3.5cqw] py-[1.2cqw] text-[max(11px,3.6cqw)] font-medium">{module.label[locale]}</span>
+              <span className="grid size-[13cqw] place-items-center rounded-[3.5cqw] bg-white text-primary-700">
+                <Icon name={module.icon} className="size-[55%]" />
+              </span>
+            </div>
+            <p className="max-w-[68%] text-[8cqw] leading-[1.05] font-medium tracking-[-0.025em] text-balance">{module.title[locale]}</p>
           </div>
-          <div className="mt-auto max-w-[85%]">
-            <h3 className="text-[1.75rem] leading-[1.1] font-medium tracking-[-0.025em] text-balance">{title}</h3>
-            <p className="mt-2 text-[15px] leading-snug">{module.description[locale]}</p>
+          <div className="absolute right-[7cqw] bottom-[7cqw] flex -space-x-[3.5cqw]">
+            <span className="size-[9cqw] rounded-full border border-white/15 bg-primary-300/30" />
+            <span className="size-[9cqw] rounded-full border border-white/15 bg-primary-200/45" />
           </div>
-        </div>
+        </>
       ) : (
-        <div className="relative flex h-full flex-col p-6">
-          {repeatTitle && (
-            <>
-              <p className="text-xs font-medium">{t(`nav.${module.id}`)}</p>
-              <p className="mt-2 mb-6 max-w-[75%] text-xl leading-tight font-medium tracking-[-0.02em]">{title}</p>
-            </>
-          )}
-          <ul className="mb-6 space-y-3">
-            {module.facts.map((f) => (
-              <li key={f.en} className="flex items-start gap-2.5 text-[15px] leading-snug">
-                <Check className="mt-0.5 size-4 shrink-0 text-primary-200" aria-hidden />
-                {f[locale]}
-              </li>
-            ))}
-          </ul>
-          <Link
-            ref={linkRef}
-            href={module.href}
-            aria-label={t("common.viewMoreAbout", { section: title })}
-            className="group mt-auto inline-flex h-11 items-center justify-center gap-2 rounded-md bg-white px-5 text-sm font-medium text-primary-700 transition-colors hover:bg-primary-50"
-          >
-            {t("common.viewMore")}
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-          </Link>
-        </div>
+        <>
+          <div className="absolute inset-0 bg-primary-950/60" />
+          <Icon name={module.icon} className="absolute -right-[6cqw] -bottom-[10cqw] size-[58cqw] text-white/[0.08]" />
+          <div className="absolute top-[7cqw] left-[7cqw] flex -space-x-[3.5cqw]">
+            <span className="size-[7cqw] rounded-full border border-white/10 bg-primary-400/20" />
+            <span className="size-[7cqw] rounded-full border border-white/10 bg-primary-300/25" />
+          </div>
+          <p className="absolute bottom-[7cqw] left-[7cqw] text-[max(11px,3.6cqw)] font-medium text-white/60">{module.label[locale]}</p>
+        </>
       )}
     </div>
   );
