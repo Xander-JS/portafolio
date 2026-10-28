@@ -13,19 +13,36 @@
     "testimonials": "Testimonios",
     "contact": "Contacto",
     "language": "Switch to English",
-    "theme": "Cambiar entre tema claro y oscuro"
+    "theme": "Cambiar entre tema claro y oscuro",
+    "home": "Inicio"
+  },
+  "common": {
+    "viewMore": "Ver más",
+    "viewMoreAbout": "Ver más sobre {section}"
   },
   "hero": {
     "eyebrow": "Estudiante de Ingeniería de Software",
     "tagline": "Construyo tecnología que resuelve problemas reales, y nunca dejo de aprender.",
     "viewProjects": "Ver proyectos",
     "contact": "Contáctame →",
-    "location": "{city}, Nariño, Colombia",
-    "photoAlt": "Foto de {name}"
+    "location": "Pasto, Nariño, Colombia",
+    "photoAlt": "Foto de {name}",
+    "downloadCv": "Descargar CV"
+  },
+  "modules": {
+    "heading": "Recorre el portafolio",
+    "intro": "Cada tarjeta abre una parte de mi trabajo. Gíralas y dales la vuelta.",
+    "hint": "Pasa el cursor o toca la tarjeta del centro para voltearla. Usa las flechas para girar.",
+    "carousel": "carrusel",
+    "slide": "tarjeta",
+    "flip": "Voltear la tarjeta {title}",
+    "prev": "Tarjeta anterior",
+    "next": "Tarjeta siguiente",
+    "position": "{current} de {total}: {title}"
   },
   "about": {
     "heading": "Sobre mí",
-    "lead": "Soy de {city}, Nariño, y estudio quinto semestre de Ingeniería de Software en {university}.",
+    "lead": "Soy de la ciudad Pasto, Nariño, y estudio quinto semestre de Ingeniería de Software en la universidad Cooperativa de colombia.",
     "origin": "Llegué a la tecnología en el colegio, experimentando con distintas herramientas de flujos de trabajo.",
     "drive": "Me mueven las oportunidades, aprender conceptos nuevos y construir tecnología que resuelva problemas reales.",
     "character": "Soy escéptico y perfeccionista: me gusta que todo quede bien hecho.",
@@ -45,7 +62,11 @@
     "groups": {
       "technical": "Técnicas",
       "soft": "Blandas",
-      "languages": "Idiomas"
+      "languages": "Idiomas",
+      "ai": "Herramientas de IA",
+      "editors": "Editores e IDEs",
+      "agents": "Agentes de terminal",
+      "vcs": "Control de versiones"
     },
     "items": {
       "flutter": "Flutter",
@@ -56,7 +77,17 @@
       "communication": "Comunicación",
       "teamwork": "Trabajo en equipo",
       "spanish": "Español · nativo",
-      "english": "Inglés · básico"
+      "english": "Inglés · básico",
+      "claude": "Claude",
+      "gemini": "Gemini",
+      "chatgpt": "ChatGPT",
+      "vscode": "Visual Studio Code",
+      "cursor": "Cursor",
+      "antigravity": "Antigravity",
+      "claudecode": "Claude Code",
+      "opencode": "OpenCode",
+      "git": "Git",
+      "github": "GitHub"
     }
   },
   "projects": {
@@ -66,60 +97,48 @@
     "repo": "Ver código",
     "soon": "Enlaces pronto",
     "imageAlt": "Captura de {name}",
-    "items": {
-      "marketplace": {
-        "name": "Marketplace agrícola",
-        "description": "Un marketplace donde los agricultores venden su cosecha. Tiene tres roles (agricultor, comprador y moderador) y está disponible en español e inglés."
-      },
-      "future1": {
-        "name": "[TODO Próximo proyecto]",
-        "description": "[TODO Una frase sobre qué hace y para quién.]"
-      },
-      "future2": {
-        "name": "[TODO Próximo proyecto]",
-        "description": "[TODO Una frase sobre qué hace y para quién.]"
-      },
-      "future3": {
-        "name": "[TODO Próximo proyecto]",
-        "description": "[TODO Una frase sobre qué hace y para quién.]"
-      }
-    }
+    "details": "Ver proyecto",
+    "back": "← Todos los proyectos",
+    "type": {
+      "freelance": "Freelance",
+      "personal": "Personal",
+      "academic": "Académico"
+    },
+    "status": {
+      "completed": "Terminado",
+      "inProgress": "En desarrollo",
+      "planned": "Planeado"
+    },
+    "role": "Rol",
+    "duration": "Duración",
+    "stack": "Tecnologías",
+    "features": "Funciones clave",
+    "gallery": "Galería",
+    "imagePending": "Captura pendiente",
+    "galleryAlt": "Captura {n} de {name}"
   },
   "experience": {
     "heading": "Experiencia",
-    "intro": "Todavía no he trabajado en tecnología, pero estos trabajos me dieron habilidades que llevo a cualquier equipo.",
+    "intro": "Empecé en tecnología como freelance; antes, un restaurante y una tienda me enseñaron a trabajar con personas.",
     "skillsLabel": "Lo que me llevo",
-    "skills": {
-      "service": "Atención al cliente",
-      "teamwork": "Trabajo en equipo",
-      "responsibility": "Responsabilidad",
-      "pressure": "Trabajo bajo presión",
-      "organization": "Organización"
+    "tabs": "Tipo de experiencia",
+    "work": "Trabajo",
+    "academic": "Académico",
+    "kind": {
+      "freelance": "Freelance",
+      "job": "Empleo"
     },
-    "items": {
-      "restaurant": {
-        "role": "Restaurante",
-        "summary": "En el restaurante aprendí a atender bien a cada cliente, a trabajar en equipo y a responder con calma cuando había presión."
-      },
-      "store": {
-        "role": "Tienda",
-        "summary": "En la tienda aprendí a atender clientes, a mantener todo en orden y a responder por lo que tenía a cargo."
-      }
-    }
+    "studies": "Estudios",
+    "seminars": "Seminarios"
   },
   "testimonials": {
     "heading": "Testimonios",
     "intro": "Lo que dicen quienes han trabajado conmigo.",
-    "items": {
-      "t1": {
-        "role": "[TODO Relación, p. ej. Profesor]",
-        "quote": "[TODO Texto del testimonio.]"
-      },
-      "t2": {
-        "role": "[TODO Relación, p. ej. Compañero de equipo]",
-        "quote": "[TODO Texto del testimonio.]"
-      }
-    }
+    "soonTitle": "Pronto, en sus palabras",
+    "soonBody": "Estoy reuniendo testimonios de profesores, compañeros y clientes. Aparecerán aquí en texto y en video.",
+    "slot": "Espacio reservado",
+    "video": "Video",
+    "videoTitle": "Testimonio en video de {name}"
   },
   "contact": {
     "heading": "Escríbeme sobre el vidrio",

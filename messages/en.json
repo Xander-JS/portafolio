@@ -13,7 +13,12 @@
     "testimonials": "Testimonials",
     "contact": "Contact",
     "language": "Cambiar a español",
-    "theme": "Toggle light and dark theme"
+    "theme": "Toggle light and dark theme",
+    "home": "Home"
+  },
+  "common": {
+    "viewMore": "View more",
+    "viewMoreAbout": "View more about {section}"
   },
   "hero": {
     "eyebrow": "Software Engineering Student",
@@ -21,7 +26,19 @@
     "viewProjects": "View projects",
     "contact": "Contact me →",
     "location": "{city}, Nariño, Colombia",
-    "photoAlt": "Photo of {name}"
+    "photoAlt": "Photo of {name}",
+    "downloadCv": "Download CV (Spanish)"
+  },
+  "modules": {
+    "heading": "Explore the portfolio",
+    "intro": "Each card opens one part of my work. Spin them and turn them over.",
+    "hint": "Hover or tap the center card to flip it. Use the arrows to rotate.",
+    "carousel": "carousel",
+    "slide": "card",
+    "flip": "Flip the {title} card",
+    "prev": "Previous card",
+    "next": "Next card",
+    "position": "{current} of {total}: {title}"
   },
   "about": {
     "heading": "About me",
@@ -45,7 +62,11 @@
     "groups": {
       "technical": "Technical",
       "soft": "Soft skills",
-      "languages": "Languages"
+      "languages": "Languages",
+      "ai": "AI tools",
+      "editors": "Editors & IDEs",
+      "agents": "Terminal agents",
+      "vcs": "Version control"
     },
     "items": {
       "flutter": "Flutter",
@@ -56,7 +77,17 @@
       "communication": "Communication",
       "teamwork": "Teamwork",
       "spanish": "Spanish · native",
-      "english": "English · basic"
+      "english": "English · basic",
+      "claude": "Claude",
+      "gemini": "Gemini",
+      "chatgpt": "ChatGPT",
+      "vscode": "Visual Studio Code",
+      "cursor": "Cursor",
+      "antigravity": "Antigravity",
+      "claudecode": "Claude Code",
+      "opencode": "OpenCode",
+      "git": "Git",
+      "github": "GitHub"
     }
   },
   "projects": {
@@ -66,60 +97,48 @@
     "repo": "Source code",
     "soon": "Links coming soon",
     "imageAlt": "Screenshot of {name}",
-    "items": {
-      "marketplace": {
-        "name": "Agricultural marketplace",
-        "description": "A marketplace where farmers sell their harvest. It has three roles (farmer, buyer and moderator) and is available in Spanish and English."
-      },
-      "future1": {
-        "name": "[TODO Next project]",
-        "description": "[TODO One sentence on what it does and who it's for.]"
-      },
-      "future2": {
-        "name": "[TODO Next project]",
-        "description": "[TODO One sentence on what it does and who it's for.]"
-      },
-      "future3": {
-        "name": "[TODO Next project]",
-        "description": "[TODO One sentence on what it does and who it's for.]"
-      }
-    }
+    "details": "View project",
+    "back": "← All projects",
+    "type": {
+      "freelance": "Freelance",
+      "personal": "Personal",
+      "academic": "Academic"
+    },
+    "status": {
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "planned": "Planned"
+    },
+    "role": "Role",
+    "duration": "Duration",
+    "stack": "Tech stack",
+    "features": "Key features",
+    "gallery": "Gallery",
+    "imagePending": "Screenshot coming",
+    "galleryAlt": "Screenshot {n} of {name}"
   },
   "experience": {
     "heading": "Experience",
-    "intro": "I haven't worked in tech yet, but these jobs gave me skills I bring to any team.",
+    "intro": "I started in tech as a freelancer; before that, a restaurant and a store taught me to work with people.",
     "skillsLabel": "What I took from it",
-    "skills": {
-      "service": "Customer service",
-      "teamwork": "Teamwork",
-      "responsibility": "Responsibility",
-      "pressure": "Working under pressure",
-      "organization": "Organization"
+    "tabs": "Experience type",
+    "work": "Work",
+    "academic": "Academic",
+    "kind": {
+      "freelance": "Freelance",
+      "job": "Job"
     },
-    "items": {
-      "restaurant": {
-        "role": "Restaurant",
-        "summary": "At the restaurant I learned to look after every customer, work as part of a team and stay calm under pressure."
-      },
-      "store": {
-        "role": "Store",
-        "summary": "At the store I learned to serve customers, keep things organized and own what I was responsible for."
-      }
-    }
+    "studies": "Studies",
+    "seminars": "Seminars"
   },
   "testimonials": {
     "heading": "Testimonials",
     "intro": "What people I've worked with say.",
-    "items": {
-      "t1": {
-        "role": "[TODO Relationship, e.g. Professor]",
-        "quote": "[TODO Testimonial text.]"
-      },
-      "t2": {
-        "role": "[TODO Relationship, e.g. Teammate]",
-        "quote": "[TODO Testimonial text.]"
-      }
-    }
+    "soonTitle": "Soon, in their words",
+    "soonBody": "I'm gathering testimonials from professors, teammates and clients. They will appear here as text and video.",
+    "slot": "Reserved slot",
+    "video": "Video",
+    "videoTitle": "Video testimonial from {name}"
   },
   "contact": {
     "heading": "Write on the glass",
