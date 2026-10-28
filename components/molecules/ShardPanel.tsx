@@ -234,7 +234,8 @@ export function ShardPanel({ pattern, render, shattered = false, enter = false, 
               ref={(el) => {
                 shards.current[i] = el;
               }}
-              className="pointer-events-none absolute inset-0 will-change-transform [transform-style:preserve-3d]"
+              // Flat on purpose: its two layers are coplanar, and preserve-3d let nested 3D (a drum card) sort the face over the print.
+              className="pointer-events-none absolute inset-0 will-change-transform"
               aria-hidden
             >
               <svg className="absolute inset-0 size-full overflow-visible">

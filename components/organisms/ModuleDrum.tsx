@@ -114,7 +114,9 @@ export function ModuleDrum() {
         const w = Math.max(0, 1 - Math.abs(o)) * wave;
         const y = p.y + Math.sin(phase) * WAVE.amplitude * w;
         const rx = p.rot + Math.cos(phase) * WAVE.tilt * w;
-        card.style.opacity = drumOpacity(o, fadeFrom).toFixed(3);
+        // Opacity on the flat layers, not the card: opacity below 1 would flatten its 3D and show the front through the back.
+        const op = drumOpacity(o, fadeFrom).toFixed(3);
+        for (const layer of card.children) (layer as HTMLElement).style.opacity = op;
         card.style.transform = `translate3d(0,${y.toFixed(1)}px,${p.z.toFixed(1)}px) rotateX(${rx.toFixed(2)}deg)`;
       });
     };
