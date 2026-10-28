@@ -4,7 +4,7 @@ import { CalendarDays } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { Section } from "@/components/atoms/Section";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { ExperienceItem } from "@/components/molecules/ExperienceItem";
 import { academic, seminars, work } from "@/data/experience";
 import { useLocale } from "@/i18n/Providers";
@@ -14,7 +14,6 @@ const tabs = ["work", "academic"] as const;
 /** Work and academic timelines in two tabs. `summary` (home page) shows the first entry of each, with a link to /experience. */
 export function Experience({ summary = false }: { summary?: boolean }) {
   const t = useTranslations("experience");
-  const tc = useTranslations("common");
   const locale = useLocale();
   const [tab, setTab] = useState<(typeof tabs)[number]>("work");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -56,13 +55,7 @@ export function Experience({ summary = false }: { summary?: boolean }) {
 
   return (
     <Section id="experience">
-      <SectionHeading
-        id="experience-title"
-        title={t("heading")}
-        intro={t("intro")}
-        level={summary ? 2 : 1}
-        more={summary ? { href: "/experience", label: tc("viewMore"), srLabel: tc("viewMoreAbout", { section: t("heading") }) } : undefined}
-      />
+      <ModuleHeading id="experience" summary={summary} />
 
       {summary ? (
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">

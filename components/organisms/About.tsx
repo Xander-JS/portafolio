@@ -2,13 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/atoms/Section";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { profile } from "@/data/profile";
 
 /** `summary` is the home page version: the lead and the facts, with a link to /about. */
 export function About({ summary = false }: { summary?: boolean }) {
   const t = useTranslations("about");
-  const tc = useTranslations("common");
   const facts = [
     [t("facts.from"), `${profile.city}, Nariño`],
     [t("facts.study"), t("facts.studyValue")],
@@ -18,12 +17,7 @@ export function About({ summary = false }: { summary?: boolean }) {
 
   return (
     <Section id="about">
-      <SectionHeading
-        id="about-title"
-        title={t("heading")}
-        level={summary ? 2 : 1}
-        more={summary ? { href: "/about", label: tc("viewMore"), srLabel: tc("viewMoreAbout", { section: t("heading") }) } : undefined}
-      />
+      <ModuleHeading id="about" summary={summary} intro={false} />
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
         <div className="space-y-6">
           <p className="text-2xl leading-snug tracking-[-0.015em] text-ink md:text-[2rem]">

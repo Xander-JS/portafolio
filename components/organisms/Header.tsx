@@ -7,14 +7,15 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { LanguageToggle } from "@/components/molecules/LanguageToggle";
 import { ThemeToggle } from "@/components/molecules/ThemeToggle";
+import { moduleHref, modules } from "@/data/modules";
 import { profile } from "@/data/profile";
-
-const links = ["about", "skills", "projects", "experience", "testimonials", "contact"] as const;
+import { useLocale } from "@/i18n/Providers";
 
 /** The nav bar that stays with you as you scroll. Each link opens that section's own page. */
 export function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
 
   return (
@@ -43,19 +44,20 @@ export function Header() {
             id="nav-links"
             className={`${open ? "flex" : "hidden"} absolute inset-x-4 top-[4.75rem] flex-col rounded-2xl bg-surface p-2 shadow-[0_12px_32px_rgb(0_0_0/0.14)] md:inset-x-[5.5vw] xl:static xl:flex xl:flex-row xl:bg-transparent xl:p-0 xl:shadow-none`}
           >
-            {links.map((id) => {
-              const current = pathname === `/${id}` || pathname.startsWith(`/${id}/`);
+            {modules.map((m) => {
+              const href = moduleHref(m);
+              const current = pathname === href || pathname.startsWith(`${href}/`);
               return (
-                <li key={id}>
+                <li key={m.id}>
                   <Link
-                    href={`/${id}`}
+                    href={href}
                     onClick={() => setOpen(false)}
                     aria-current={current ? "page" : undefined}
                     className={`flex h-11 items-center rounded-md px-3 text-sm transition-colors ${
                       current ? "bg-primary-soft font-medium text-primary-soft-ink" : "text-ink-soft hover:text-primary-text"
                     }`}
                   >
-                    {t(id)}
+                    {m.label[locale]}
                   </Link>
                 </li>
               );

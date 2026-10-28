@@ -2,23 +2,16 @@
 
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/atoms/Section";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { SkillItem } from "@/components/molecules/SkillItem";
 import { skillGroups, toolGroups } from "@/data/skills";
 
 /** `summary` is the home page version: every tool as a logo strip, with a link to /skills. */
 export function Skills({ summary = false }: { summary?: boolean }) {
   const t = useTranslations("skills");
-  const tc = useTranslations("common");
   return (
     <Section id="skills">
-      <SectionHeading
-        id="skills-title"
-        title={t("heading")}
-        intro={t("intro")}
-        level={summary ? 2 : 1}
-        more={summary ? { href: "/skills", label: tc("viewMore"), srLabel: tc("viewMoreAbout", { section: t("heading") }) } : undefined}
-      />
+      <ModuleHeading id="skills" summary={summary} />
       {summary ? (
         <ul className="flex flex-wrap gap-2.5">
           {toolGroups.flatMap((g) => g.skills).map((s) => (

@@ -3,25 +3,18 @@
 import { Quote, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/atoms/Section";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { TestimonialCard } from "@/components/molecules/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
 
 /** Three slots. Filled ones show the testimonial; while none is filled, one red "coming soon" panel stands in. */
 export function Testimonials({ summary = false }: { summary?: boolean }) {
   const t = useTranslations("testimonials");
-  const tc = useTranslations("common");
   const filled = testimonials.filter((x) => x.name);
 
   return (
     <Section id="testimonials">
-      <SectionHeading
-        id="testimonials-title"
-        title={t("heading")}
-        intro={t("intro")}
-        level={summary ? 2 : 1}
-        more={summary ? { href: "/testimonials", label: tc("viewMore"), srLabel: tc("viewMoreAbout", { section: t("heading") }) } : undefined}
-      />
+      <ModuleHeading id="testimonials" summary={summary} />
       {filled.length ? (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {testimonials.map((item) =>
