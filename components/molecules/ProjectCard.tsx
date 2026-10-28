@@ -16,7 +16,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
 
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-transform duration-300 ease-out hover:-translate-y-1 has-[a:focus-visible]:-translate-y-1 motion-reduce:transform-none ${featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""}`}
+      className={`group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-transform duration-300 ease-out hover:-translate-y-1 has-[a:focus-visible]:-translate-y-1 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-primary-ring has-[a:focus-visible]:outline-solid motion-reduce:transform-none ${featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""}`}
     >
       <div className={`relative m-2 overflow-hidden rounded-xl ${featured ? "aspect-[16/10] md:aspect-auto md:min-h-80" : "aspect-[16/10]"}`}>
         <ProjectImage src={project.cover} alt={t("imageAlt", { name: title })} label={title} note={t("imagePending")} sizes="(min-width: 768px) 50vw, 100vw" />
@@ -27,7 +27,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
           <Badge>{t(`status.${project.status}`)}</Badge>
         </div>
         <h3 className={`mt-4 font-medium tracking-[-0.025em] text-ink ${featured ? "text-3xl md:text-4xl" : "text-2xl"}`}>
-          {/* The link covers the whole card. */}
+          {/* The link covers the whole card; the card draws its focus ring. */}
           <Link href={`/projects/${project.slug}`} className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none">
             {title}
           </Link>
@@ -46,8 +46,6 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
           <span className="text-ink-faint">{project.duration[locale]}</span>
         </p>
       </div>
-      {/* The card's own focus ring, since the stretched link's outline would only wrap the title. */}
-      <span aria-hidden className="pointer-events-none absolute inset-0 hidden rounded-2xl outline-2 outline-offset-4 outline-primary-ring outline-solid group-has-[a:focus-visible]:block" />
     </article>
   );
 }
