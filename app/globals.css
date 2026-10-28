@@ -128,10 +128,13 @@ body {
   background: var(--select);
 }
 
-:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-  border-radius: 6px;
+/* In the base layer so a component's utilities can restyle its own ring. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
 }
 
 /* Stored English locale: hidden until React swaps the text; revealed anyway after 1.2 s if JS fails. */
@@ -239,4 +242,33 @@ html[data-locale-pending] body {
   --glass-rim: transparent;
   --glass-studio: transparent;
   --glow: transparent;
+}
+
+/* Module cards: an oversized red-scale gradient drifting under the face. Moves by transform only.
+   The lightest stop is red-600, so white text on it stays at 4.8:1 or more. */
+.module-bg {
+  position: absolute;
+  inset: -50%;
+  background:
+    radial-gradient(circle at 32% 34%, var(--red-600) 0, transparent 38%),
+    radial-gradient(circle at 68% 62%, var(--red-900) 0, transparent 42%),
+    linear-gradient(135deg, var(--red-600), var(--red-800) 52%, var(--red-950));
+  animation: module-drift 13s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+[data-paused] .module-bg {
+  animation-play-state: paused;
+}
+@keyframes module-drift {
+  from {
+    transform: translate(-10%, -8%) rotate(-6deg);
+  }
+  to {
+    transform: translate(9%, 10%) rotate(10deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .module-bg {
+    animation: none;
+  }
 }
