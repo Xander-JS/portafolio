@@ -212,38 +212,6 @@ html[data-locale-pending] body {
   }
 }
 
-/* The "← Back" sliver left behind when the contact pane breaks: leans in 3D and wobbles slowly. */
-.back-sliver {
-  transform: perspective(600px) rotateY(-9deg) rotateX(4.6deg) rotate(-7deg);
-  transition:
-    transform 0.3s,
-    color 0.2s;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .back-sliver {
-    animation: wobble 1s ease-in-out infinite alternate;
-  }
-}
-.back-sliver:hover,
-.back-sliver:focus-visible {
-  animation: none;
-  transform: perspective(600px) rotateY(-2deg) rotateX(8deg) rotate(-6deg);
-}
-@keyframes wobble {
-  to {
-    transform: perspective(600px) rotateY(-11deg) rotateX(6.5deg) rotate(-5.5deg);
-  }
-}
-
-/* The contact pane keeps its shatter but loses the glass: a flat primary-tinted slab. */
-.pane-solid {
-  --glass-face: var(--primary-soft);
-  --glass-edge: var(--primary-edge);
-  --glass-rim: transparent;
-  --glass-studio: transparent;
-  --glow: transparent;
-}
-
 /* Module cards: an oversized red-scale gradient drifting under the face. Moves by transform only.
    The lightest stop is red-600, so white text on it stays at 4.8:1 or more. */
 .module-bg {
@@ -270,5 +238,33 @@ html[data-locale-pending] body {
 @media (prefers-reduced-motion: reduce) {
   .module-bg {
     animation: none;
+  }
+}
+
+/* Drum: cards beside the focused one are slightly out of focus (set when focus changes, not per frame). */
+.module-face {
+  transition: filter 0.4s ease-out;
+}
+[data-dim] .module-face {
+  filter: blur(1.5px);
+}
+/* The hero's glass on a card: red pieces with a dark red edge, no studio light. */
+.card-glass {
+  --glass-face: var(--red-700);
+  --glass-edge: var(--red-950);
+  --glass-rim: rgb(255 255 255 / 0.25);
+  --glass-studio: transparent;
+  --glow: transparent;
+}
+/* The drum panel's words slide in when the focused card changes. */
+@media (prefers-reduced-motion: no-preference) {
+  .panel-in {
+    animation: panel-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
 }
