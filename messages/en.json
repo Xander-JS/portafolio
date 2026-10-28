@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "title": "Portfolio · Software Engineering",
+    "description": "Software Engineering student in Nariño, Colombia. Projects, skills and contact."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "language": "Cambiar a español",
+    "theme": "Toggle light and dark theme"
+  },
+  "hero": {
+    "eyebrow": "[TODO My title, e.g. Software Engineering Student]",
+    "tagline": "I build technology that solves real problems, and I like it done right.",
+    "viewProjects": "View projects",
+    "contact": "Contact me →",
+    "location": "{city}, Nariño, Colombia",
+    "photoAlt": "Photo of {name}"
+  },
+  "about": {
+    "heading": "About me",
+    "lead": "I'm from {city}, Nariño, and I'm a 5th-semester Software Engineering student at {university}.",
+    "origin": "I got into technology in high school, experimenting with workflow tools until I understood what happened behind every step.",
+    "drive": "I'm driven by opportunities, by learning new concepts and by building technology that solves real problems.",
+    "character": "I'm skeptical and a perfectionist: I like things done right.",
+    "facts": {
+      "from": "From",
+      "study": "Studying",
+      "studyValue": "Software Engineering, 5th semester",
+      "play": "I play",
+      "playValue": "Football, basketball and swimming",
+      "free": "Free time",
+      "freeValue": "Learning something new"
+    }
+  },
+  "skills": {
+    "heading": "Skills",
+    "intro": "I understand how programming languages are built, so I pick up new ones quickly.",
+    "groups": {
+      "technical": "Technical",
+      "soft": "Soft skills",
+      "languages": "Languages"
+    },
+    "items": {
+      "flutter": "Flutter",
+      "supabase": "Supabase",
+      "nextjs": "Next.js",
+      "figma": "Figma",
+      "languagesArch": "Language architecture",
+      "communication": "Communication",
+      "teamwork": "Teamwork",
+      "spanish": "Spanish · native",
+      "english": "English · basic"
+    }
+  },
+  "projects": {
+    "heading": "Projects",
+    "intro": "What I've built, and what's next.",
+    "demo": "Live demo",
+    "repo": "Source code",
+    "soon": "Links coming soon",
+    "imageAlt": "Screenshot of {name}",
+    "items": {
+      "marketplace": {
+        "name": "Agricultural marketplace",
+        "description": "An app where farmers sell their harvest directly. Three roles: farmer, buyer and moderator. Available in Spanish and English."
+      },
+      "future1": {
+        "name": "[TODO Next project]",
+        "description": "[TODO One sentence on what it does and who it's for.]"
+      },
+      "future2": {
+        "name": "[TODO Next project]",
+        "description": "[TODO One sentence on what it does and who it's for.]"
+      },
+      "future3": {
+        "name": "[TODO Next project]",
+        "description": "[TODO One sentence on what it does and who it's for.]"
+      }
+    }
+  },
+  "experience": {
+    "heading": "Experience",
+    "intro": "I haven't worked in tech yet. These jobs taught me what no course does.",
+    "skillsLabel": "What I took from it",
+    "skills": {
+      "service": "Customer service",
+      "teamwork": "Teamwork",
+      "responsibility": "Responsibility",
+      "pressure": "Working under pressure"
+    },
+    "items": {
+      "restaurant": {
+        "role": "Restaurant",
+        "summary": "Served tables and orders at rush hour, working with the kitchen so nothing went out late or wrong."
+      },
+      "store": {
+        "role": "Store",
+        "summary": "Served customers, ran the till and stock, and was responsible for closing the day."
+      }
+    }
+  },
+  "testimonials": {
+    "heading": "Testimonials",
+    "intro": "What people I've worked with say.",
+    "items": {
+      "t1": {
+        "role": "[TODO Relationship, e.g. Professor]",
+        "quote": "[TODO Testimonial text.]"
+      },
+      "t2": {
+        "role": "[TODO Relationship, e.g. Teammate]",
+        "quote": "[TODO Testimonial text.]"
+      }
+    }
+  },
+  "contact": {
+    "heading": "Write on the glass",
+    "intro": "Leave your name and message. Sending breaks the glass and opens your email with everything ready.",
+    "name": "Your name",
+    "message": "Your message",
+    "messagePlaceholder": "Hi, I'd like to talk about…",
+    "send": "Break and send →",
+    "emailLabel": "Email",
+    "emailMissing": "[TODO my email]",
+    "elsewhere": "Also on",
+    "subject": "Message from your portfolio — {name}",
+    "sentTitle": "Message ready.",
+    "sentBody": "Your email app opened with the message written. Just press send there. If it didn't open, write to me at {email}.",
+    "back": "← Back"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
