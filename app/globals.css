@@ -1,26 +1,232 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Theme tokens. Light is frosted pale glass, dark is the guide's smoked glass on black. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #eeeef1;
+  --ink: #141417;
+  --ink-soft: #4a4a52;
+  --ink-faint: #6b6b74;
+  --glass-face: #fafafc;
+  --glass-edge: #cfcfd6;
+  --glass-rim: rgb(255 255 255 / 0.95);
+  --glass-line: rgb(20 20 30 / 0.09);
+  --glass-studio: rgb(255 255 255 / 0.8);
+  --glow: rgb(107 94 170 / 0.16);
+  --accent: #1f9d5b;
+  --accent-ink: #ffffff;
+  --pill: #141417;
+  --pill-ink: #fafafc;
+  --focus: #3b6cff;
+  --select: rgb(59 108 255 / 0.3);
+}
+
+.dark {
+  --ground: #050507;
+  --ink: #e6e6ea;
+  --ink-soft: #b0b0b8;
+  --ink-faint: #8a8a93;
+  --glass-face: #17171b;
+  --glass-edge: #08080a;
+  --glass-rim: rgb(255 255 255 / 0.2);
+  --glass-line: rgb(255 255 255 / 0.06);
+  --glass-studio: rgb(255 255 255 / 0.07);
+  --glow: rgb(107 94 158 / 0.16);
+  --accent: #36d67e;
+  --accent-ink: #050507;
+  --pill: #ececf0;
+  --pill-ink: #0b0b0e;
+  --focus: #8fb0ff;
+  --select: rgb(90 140 255 / 0.4);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ground: var(--ground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-glass: var(--glass-face);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-pill: var(--pill);
+  --color-pill-ink: var(--pill-ink);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--select);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Stored English locale: hidden until React swaps the text; revealed anyway after 1.2 s if JS fails. */
+html[data-locale-pending] body {
+  visibility: hidden;
+  animation: locale-reveal 0s 1.2s forwards;
+}
+@keyframes locale-reveal {
+  to {
+    visibility: visible;
+  }
+}
+
+@layer components {
+/* A static glass surface: charcoal face, bright top rim, a thick edge below. */
+.glass {
+  position: relative;
+  background: var(--glass-face);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 var(--glass-rim),
+    inset 0 0 0 1px var(--glass-line),
+    0 5px 0 var(--glass-edge);
+  isolation: isolate;
+}
+.glass::before {
+  /* the soft studio light from the top-left */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(140deg, var(--glass-studio), transparent 45%);
+  pointer-events: none;
+  z-index: -1;
+}
+.glass-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s;
+}
+.glass-hover::after {
+  /* green/violet iridescent sheen when the piece tips toward the light */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgb(54 214 126 / 0.16), transparent 40%, transparent 60%, rgb(155 123 255 / 0.18));
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+.glass-hover:hover,
+.glass-hover:focus-within {
+  transform: translateY(-6px) rotate(-0.4deg);
+  box-shadow:
+    inset 0 1px 0 var(--glass-rim),
+    inset 0 0 0 1px var(--glass-line),
+    0 11px 0 var(--glass-edge);
+}
+.glass-hover:hover::after,
+.glass-hover:focus-within::after {
+  opacity: 1;
+}
+}
+
+/* Shard panels: the real, interactive copy of the content sits on top but is invisible;
+   what you see is the copy printed on each shard. Selection and focus still show.
+   Before the script runs (or without JS) the real copy is shown as is and the printed ones are hidden. */
+.shard-panel:not([data-ready]) .print {
+  visibility: hidden;
+}
+[data-ready] .ghost,
+[data-ready] .ghost * {
+  color: transparent !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  text-decoration-color: transparent !important;
+}
+[data-ready] .ghost ::placeholder {
+  color: transparent;
+}
+[data-ready] .ghost input,
+[data-ready] .ghost textarea {
+  caret-color: var(--ink);
+}
+[data-ready] .ghost svg {
+  opacity: 0;
+}
+/* The printed copy mirrors the hover / focus state of the real element with the same data-hit. */
+[data-hit-active="primary"] .print [data-hit="primary"] {
+  background: #36d67e;
+  color: #050507;
+}
+[data-hit-active="link"] .print [data-hit="link"] {
+  text-decoration-color: currentColor;
+}
+
+/* Sections rise in as they enter; content stays visible where scroll timelines are unsupported. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal > * {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+    .reveal > *:nth-child(2) {
+      animation-range: entry 5% entry 40%;
+    }
+    .reveal > *:nth-child(3) {
+      animation-range: entry 10% entry 45%;
+    }
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .glass-hover:hover,
+  .glass-hover:focus-within {
+    transform: none;
+  }
+}
+
+/* The "← Back" sliver left behind when the contact pane breaks: leans in 3D and wobbles slowly. */
+.back-sliver {
+  transform: perspective(600px) rotateY(-9deg) rotateX(4.6deg) rotate(-7deg);
+  transition:
+    transform 0.3s,
+    color 0.2s;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .back-sliver {
+    animation: wobble 1s ease-in-out infinite alternate;
+  }
+}
+.back-sliver:hover,
+.back-sliver:focus-visible {
+  animation: none;
+  transform: perspective(600px) rotateY(-2deg) rotateX(8deg) rotate(-6deg);
+}
+@keyframes wobble {
+  to {
+    transform: perspective(600px) rotateY(-11deg) rotateX(6.5deg) rotate(-5.5deg);
+  }
 }
