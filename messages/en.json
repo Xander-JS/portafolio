@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Portfolio · Software Engineering",
-    "description": "Software Engineering student in Nariño, Colombia. Projects, skills and contact."
+    "title": "Marlon Alexander Imbajoa | Portfolio",
+    "description": "Fifth-semester Software Engineering student from Nariño, Colombia, driven by learning and by building technology that solves real problems."
   },
   "nav": {
     "skip": "Skip to content",
@@ -16,8 +16,8 @@
     "theme": "Toggle light and dark theme"
   },
   "hero": {
-    "eyebrow": "[TODO My title, e.g. Software Engineering Student]",
-    "tagline": "I build technology that solves real problems, and I like it done right.",
+    "eyebrow": "Software Engineering Student",
+    "tagline": "I build technology that solves real problems, and I never stop learning.",
     "viewProjects": "View projects",
     "contact": "Contact me →",
     "location": "{city}, Nariño, Colombia",
@@ -26,9 +26,9 @@
   "about": {
     "heading": "About me",
     "lead": "I'm from {city}, Nariño, and I'm a 5th-semester Software Engineering student at {university}.",
-    "origin": "I got into technology in high school, experimenting with workflow tools until I understood what happened behind every step.",
+    "origin": "I got into technology in high school, experimenting with different workflow tools.",
     "drive": "I'm driven by opportunities, by learning new concepts and by building technology that solves real problems.",
-    "character": "I'm skeptical and a perfectionist: I like things done right.",
+    "character": "I'm skeptical and a perfectionist: I like everything done right.",
     "facts": {
       "from": "From",
       "study": "Studying",
@@ -36,7 +36,7 @@
       "play": "I play",
       "playValue": "Football, basketball and swimming",
       "free": "Free time",
-      "freeValue": "Learning something new"
+      "freeValue": "Learning new concepts"
     }
   },
   "skills": {
@@ -69,7 +69,7 @@
     "items": {
       "marketplace": {
         "name": "Agricultural marketplace",
-        "description": "An app where farmers sell their harvest directly. Three roles: farmer, buyer and moderator. Available in Spanish and English."
+        "description": "A marketplace where farmers sell their harvest. It has three roles (farmer, buyer and moderator) and is available in Spanish and English."
       },
       "future1": {
         "name": "[TODO Next project]",
@@ -87,22 +87,23 @@
   },
   "experience": {
     "heading": "Experience",
-    "intro": "I haven't worked in tech yet. These jobs taught me what no course does.",
+    "intro": "I haven't worked in tech yet, but these jobs gave me skills I bring to any team.",
     "skillsLabel": "What I took from it",
     "skills": {
       "service": "Customer service",
       "teamwork": "Teamwork",
       "responsibility": "Responsibility",
-      "pressure": "Working under pressure"
+      "pressure": "Working under pressure",
+      "organization": "Organization"
     },
     "items": {
       "restaurant": {
         "role": "Restaurant",
-        "summary": "Served tables and orders at rush hour, working with the kitchen so nothing went out late or wrong."
+        "summary": "At the restaurant I learned to look after every customer, work as part of a team and stay calm under pressure."
       },
       "store": {
         "role": "Store",
-        "summary": "Served customers, ran the till and stock, and was responsible for closing the day."
+        "summary": "At the store I learned to serve customers, keep things organized and own what I was responsible for."
       }
     }
   },
