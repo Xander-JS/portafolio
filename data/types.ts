@@ -112,12 +112,19 @@ export type Testimonial = {
   videoUrl: string;
 };
 
-/** One card of the module carousel on the home page. */
+/**
+ * One part of the portfolio. The single source for the drum card, the nav link, the home summary's heading and
+ * intro, and the detail page at /<slug> (whose folder in app/ must match the slug).
+ */
 export type PortfolioModule = {
   id: "about" | "skills" | "projects" | "experience" | "testimonials" | "contact";
-  href: string;
+  slug: string;
   icon: IconName;
+  /** Section name: nav link, card tag and section heading. */
+  label: Localized;
+  /** Short title on the card and in the drum panel. */
   title: Localized;
+  /** Two or three lines: the drum panel and the section intro. */
   description: Localized;
   facts: Localized[];
 };
