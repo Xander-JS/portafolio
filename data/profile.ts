@@ -1,7 +1,7 @@
 import type { Profile } from "./types";
 
 export const profile: Profile = {
-  name: "[TODO Mi nombre]", // TODO: your full name
+  name: "Marlon Alexander Imbajoa",
   email: "", // TODO: your email, e.g. "you@example.com"
   city: "[TODO Ciudad]", // TODO: your city in Nariño
   university: "[TODO Universidad]", // TODO: your university
