@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "title": "Portafolio · Ingeniería de Software",
+    "description": "Estudiante de Ingeniería de Software en Nariño, Colombia. Proyectos, habilidades y contacto."
+  },
+  "nav": {
+    "skip": "Saltar al contenido",
+    "menu": "Menú",
+    "about": "Sobre mí",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "testimonials": "Testimonios",
+    "contact": "Contacto",
+    "language": "Switch to English",
+    "theme": "Cambiar entre tema claro y oscuro"
+  },
+  "hero": {
+    "eyebrow": "[TODO Mi título, p. ej. Estudiante de Ingeniería de Software]",
+    "tagline": "Construyo tecnología que resuelve problemas reales, y me gusta que quede bien hecha.",
+    "viewProjects": "Ver proyectos",
+    "contact": "Contáctame →",
+    "location": "{city}, Nariño, Colombia",
+    "photoAlt": "Foto de {name}"
+  },
+  "about": {
+    "heading": "Sobre mí",
+    "lead": "Soy de {city}, Nariño, y estudio quinto semestre de Ingeniería de Software en {university}.",
+    "origin": "Llegué a la tecnología en el colegio, experimentando con herramientas de flujos de trabajo hasta entender qué pasaba detrás de cada paso.",
+    "drive": "Me mueven las oportunidades, aprender conceptos nuevos y construir tecnología que resuelva problemas reales.",
+    "character": "Soy escéptico y perfeccionista: me gusta que las cosas se hagan bien.",
+    "facts": {
+      "from": "De",
+      "study": "Estudio",
+      "studyValue": "Ingeniería de Software, 5.º semestre",
+      "play": "Juego",
+      "playValue": "Fútbol, baloncesto y natación",
+      "free": "Tiempo libre",
+      "freeValue": "Aprender algo nuevo"
+    }
+  },
+  "skills": {
+    "heading": "Habilidades",
+    "intro": "Entiendo la arquitectura de los lenguajes de programación, así que me adapto rápido a uno nuevo.",
+    "groups": {
+      "technical": "Técnicas",
+      "soft": "Blandas",
+      "languages": "Idiomas"
+    },
+    "items": {
+      "flutter": "Flutter",
+      "supabase": "Supabase",
+      "nextjs": "Next.js",
+      "figma": "Figma",
+      "languagesArch": "Arquitectura de lenguajes",
+      "communication": "Comunicación",
+      "teamwork": "Trabajo en equipo",
+      "spanish": "Español · nativo",
+      "english": "Inglés · básico"
+    }
+  },
+  "projects": {
+    "heading": "Proyectos",
+    "intro": "Lo que he construido y lo que viene.",
+    "demo": "Ver demo",
+    "repo": "Ver código",
+    "soon": "Enlaces pronto",
+    "imageAlt": "Captura de {name}",
+    "items": {
+      "marketplace": {
+        "name": "Marketplace agrícola",
+        "description": "Una app para que los campesinos vendan su cosecha directamente. Tres roles: agricultor, comprador y moderador. Disponible en español e inglés."
+      },
+      "future1": {
+        "name": "[TODO Próximo proyecto]",
+        "description": "[TODO Una frase sobre qué hace y para quién.]"
+      },
+      "future2": {
+        "name": "[TODO Próximo proyecto]",
+        "description": "[TODO Una frase sobre qué hace y para quién.]"
+      },
+      "future3": {
+        "name": "[TODO Próximo proyecto]",
+        "description": "[TODO Una frase sobre qué hace y para quién.]"
+      }
+    }
+  },
+  "experience": {
+    "heading": "Experiencia",
+    "intro": "Aún no he trabajado en tecnología. Estos trabajos me enseñaron lo que ningún curso enseña.",
+    "skillsLabel": "Lo que me llevo",
+    "skills": {
+      "service": "Atención al cliente",
+      "teamwork": "Trabajo en equipo",
+      "responsibility": "Responsabilidad",
+      "pressure": "Trabajo bajo presión"
+    },
+    "items": {
+      "restaurant": {
+        "role": "Restaurante",
+        "summary": "Atendía mesas y pedidos en horas pico, coordinándome con cocina para que nada saliera tarde ni mal."
+      },
+      "store": {
+        "role": "Tienda",
+        "summary": "Atendía clientes, manejaba caja e inventario y respondía por el cierre del día."
+      }
+    }
+  },
+  "testimonials": {
+    "heading": "Testimonios",
+    "intro": "Lo que dicen quienes han trabajado conmigo.",
+    "items": {
+      "t1": {
+        "role": "[TODO Relación, p. ej. Profesor]",
+        "quote": "[TODO Texto del testimonio.]"
+      },
+      "t2": {
+        "role": "[TODO Relación, p. ej. Compañero de equipo]",
+        "quote": "[TODO Texto del testimonio.]"
+      }
+    }
+  },
+  "contact": {
+    "heading": "Escríbeme sobre el vidrio",
+    "intro": "Deja tu nombre y tu mensaje. Al enviarlo se rompe el vidrio y se abre tu correo con todo listo.",
+    "name": "Tu nombre",
+    "message": "Tu mensaje",
+    "messagePlaceholder": "Hola, me gustaría hablar sobre…",
+    "send": "Romper y enviar →",
+    "emailLabel": "Correo",
+    "emailMissing": "[TODO mi correo]",
+    "elsewhere": "También estoy en",
+    "subject": "Mensaje desde tu portafolio — {name}",
+    "sentTitle": "Mensaje listo.",
+    "sentBody": "Tu cliente de correo se abrió con el mensaje escrito. Solo falta pulsar enviar allí. Si no se abrió, escríbeme a {email}.",
+    "back": "← Volver"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}
