@@ -6,11 +6,11 @@ export const work: WorkItem[] = [
     id: "marketplace",
     kind: "freelance",
     icon: "briefcase",
-    role: { es: "Desarrollador de apps móviles", en: "Mobile App Developer" },
+    role: { es: "Desarrollo de apps móviles", en: "Mobile App Developer" },
     place: { es: "Freelance · Marketplace agrícola", en: "Freelance · Agricultural Marketplace" },
     period: { es: "2 meses", en: "2 months" }, // TODO: add the dates, e.g. "Mar – Abr 2025"
     summary: {
-      es: "Diseñé y construí la app de principio a fin, por mi cuenta:tres roles (agricultor, comprador y moderador), base de datos en Supabase e interfaz bilingüe.",
+      es: "Diseñé y construí la app de principio a fin, por mi cuenta: tres roles (agricultor, comprador y moderador), base de datos en Supabase e interfaz bilingüe.",
       en: "Designed and built the app end to end on my own: three roles (farmer, buyer and moderator), a Supabase backend and a bilingual interface.",
     },
     skills: [

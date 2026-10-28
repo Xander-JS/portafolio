@@ -21,7 +21,7 @@ export const projects: Project[] = [
       },
     ],
     type: "freelance",
-    role: { es: "Desarrollador móvil", en: "Mobile developer" },
+    role: { es: "Desarrollo móvil", en: "Mobile developer" },
     duration: { es: "2 meses", en: "2 months" },
     status: "completed",
     stack: ["Flutter", "Supabase", "i18n"],
