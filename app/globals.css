@@ -2,6 +2,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Primary red scale (base 600 in light, 500 in dark). Same values in both themes; the semantic tokens below pick from it. */
+:root {
+  --red-50: #fef2f2;
+  --red-100: #fee2e2;
+  --red-200: #fecaca;
+  --red-300: #fca5a5;
+  --red-400: #f87171;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --red-800: #991b1b;
+  --red-900: #7f1d1d;
+  --red-950: #450a0a;
+}
+
 /* Theme tokens. Light is frosted pale glass, dark is the guide's smoked glass on black. */
 :root {
   --ground: #eeeef1;
@@ -18,8 +33,18 @@
   --accent-ink: #ffffff;
   --pill: #141417;
   --pill-ink: #fafafc;
-  --focus: #3b6cff;
-  --select: rgb(59 108 255 / 0.3);
+  /* AA: white on #dc2626 is 4.8:1; primary-text on the ground is 5.6:1. */
+  --primary: var(--red-600);
+  --primary-foreground: #ffffff;
+  --primary-hover: var(--red-700);
+  --primary-text: var(--red-700);
+  --primary-soft: var(--red-50);
+  --primary-soft-ink: var(--red-800);
+  --primary-edge: var(--red-200);
+  --primary-ring: var(--red-600);
+  --surface: #fafafc;
+  --focus: var(--primary-ring);
+  --select: rgb(220 38 38 / 0.22);
 }
 
 .dark {
@@ -37,8 +62,18 @@
   --accent-ink: #050507;
   --pill: #ececf0;
   --pill-ink: #0b0b0e;
-  --focus: #8fb0ff;
-  --select: rgb(90 140 255 / 0.4);
+  /* AA: white on #ef4444 is only 3.8:1, so text on primary is near-black here (5.2:1). */
+  --primary: var(--red-500);
+  --primary-foreground: #0b0b0e;
+  --primary-hover: var(--red-400);
+  --primary-text: var(--red-400);
+  --primary-soft: #1c0b0c;
+  --primary-soft-ink: var(--red-300);
+  --primary-edge: var(--red-950);
+  --primary-ring: var(--red-400);
+  --surface: #121215;
+  --focus: var(--primary-ring);
+  --select: rgb(239 68 68 / 0.35);
 }
 
 @theme inline {
@@ -51,6 +86,26 @@
   --color-accent-ink: var(--accent-ink);
   --color-pill: var(--pill);
   --color-pill-ink: var(--pill-ink);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-text: var(--primary-text);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-ink: var(--primary-soft-ink);
+  --color-primary-edge: var(--primary-edge);
+  --color-primary-ring: var(--primary-ring);
+  --color-primary-50: var(--red-50);
+  --color-primary-100: var(--red-100);
+  --color-primary-200: var(--red-200);
+  --color-primary-300: var(--red-300);
+  --color-primary-400: var(--red-400);
+  --color-primary-500: var(--red-500);
+  --color-primary-600: var(--red-600);
+  --color-primary-700: var(--red-700);
+  --color-primary-800: var(--red-800);
+  --color-primary-900: var(--red-900);
+  --color-primary-950: var(--red-950);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -90,58 +145,6 @@ html[data-locale-pending] body {
   }
 }
 
-@layer components {
-/* A static glass surface: charcoal face, bright top rim, a thick edge below. */
-.glass {
-  position: relative;
-  background: var(--glass-face);
-  border-radius: 20px;
-  box-shadow:
-    inset 0 1px 0 var(--glass-rim),
-    inset 0 0 0 1px var(--glass-line),
-    0 5px 0 var(--glass-edge);
-  isolation: isolate;
-}
-.glass::before {
-  /* the soft studio light from the top-left */
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(140deg, var(--glass-studio), transparent 45%);
-  pointer-events: none;
-  z-index: -1;
-}
-.glass-hover {
-  transition:
-    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.35s;
-}
-.glass-hover::after {
-  /* green/violet iridescent sheen when the piece tips toward the light */
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(120deg, rgb(54 214 126 / 0.16), transparent 40%, transparent 60%, rgb(155 123 255 / 0.18));
-  opacity: 0;
-  transition: opacity 0.35s;
-  pointer-events: none;
-}
-.glass-hover:hover,
-.glass-hover:focus-within {
-  transform: translateY(-6px) rotate(-0.4deg);
-  box-shadow:
-    inset 0 1px 0 var(--glass-rim),
-    inset 0 0 0 1px var(--glass-line),
-    0 11px 0 var(--glass-edge);
-}
-.glass-hover:hover::after,
-.glass-hover:focus-within::after {
-  opacity: 1;
-}
-}
-
 /* Shard panels: the real, interactive copy of the content sits on top but is invisible;
    what you see is the copy printed on each shard. Selection and focus still show.
    Before the script runs (or without JS) the real copy is shown as is and the printed ones are hidden. */
@@ -163,13 +166,15 @@ html[data-locale-pending] body {
 [data-ready] .ghost textarea {
   caret-color: var(--ink);
 }
-[data-ready] .ghost svg {
+[data-ready] .ghost svg,
+[data-ready] .ghost img {
   opacity: 0;
 }
 /* The printed copy mirrors the hover / focus state of the real element with the same data-hit. */
+[data-hit-active="pill"] .print [data-hit="pill"],
 [data-hit-active="primary"] .print [data-hit="primary"] {
-  background: #36d67e;
-  color: #050507;
+  background: var(--primary-hover);
+  color: var(--primary-foreground);
 }
 [data-hit-active="link"] .print [data-hit="link"] {
   text-decoration-color: currentColor;
@@ -202,10 +207,6 @@ html[data-locale-pending] body {
   html {
     scroll-behavior: auto;
   }
-  .glass-hover:hover,
-  .glass-hover:focus-within {
-    transform: none;
-  }
 }
 
 /* The "← Back" sliver left behind when the contact pane breaks: leans in 3D and wobbles slowly. */
@@ -229,4 +230,13 @@ html[data-locale-pending] body {
   to {
     transform: perspective(600px) rotateY(-11deg) rotateX(6.5deg) rotate(-5.5deg);
   }
+}
+
+/* The contact pane keeps its shatter but loses the glass: a flat primary-tinted slab. */
+.pane-solid {
+  --glass-face: var(--primary-soft);
+  --glass-edge: var(--primary-edge);
+  --glass-rim: transparent;
+  --glass-studio: transparent;
+  --glow: transparent;
 }
