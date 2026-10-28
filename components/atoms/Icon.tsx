@@ -1,12 +1,78 @@
-import { Code2, Languages, Mail, MessagesSquare, Users } from "lucide-react";
-import { siFacebook, siFigma, siFlutter, siNextdotjs, siSupabase } from "simple-icons";
+import {
+  Bot,
+  Briefcase,
+  Code2,
+  FolderOpen,
+  GraduationCap,
+  Languages,
+  Layers,
+  Mail,
+  MessagesSquare,
+  Mic,
+  Orbit,
+  Quote,
+  SquareCode,
+  Store,
+  User,
+  Users,
+  UtensilsCrossed,
+} from "lucide-react";
+import {
+  siClaude,
+  siClaudecode,
+  siCursor,
+  siFacebook,
+  siFigma,
+  siFlutter,
+  siGit,
+  siGithub,
+  siGooglegemini,
+  siNextdotjs,
+  siOpencode,
+  siSupabase,
+} from "simple-icons";
 import type { IconName } from "@/data/types";
 
-const brands = { flutter: siFlutter, supabase: siSupabase, nextjs: siNextdotjs, figma: siFigma, facebook: siFacebook };
-const generic = { code: Code2, chat: MessagesSquare, team: Users, languages: Languages, mail: Mail };
+const brands = {
+  flutter: siFlutter,
+  supabase: siSupabase,
+  nextjs: siNextdotjs,
+  figma: siFigma,
+  facebook: siFacebook,
+  claude: siClaude,
+  gemini: siGooglegemini,
+  cursor: siCursor,
+  claudecode: siClaudecode,
+  opencode: siOpencode,
+  git: siGit,
+  github: siGithub,
+};
+// simple-icons does not ship these marks, so a generic glyph in the brand colour stands in.
+// TODO: paste the official SVG <path d> of ChatGPT, VS Code and Antigravity here if you want the real logos.
+const standIns = {
+  chatgpt: { Glyph: Bot, hex: "10A37F" },
+  vscode: { Glyph: SquareCode, hex: "007ACC" },
+  antigravity: { Glyph: Orbit, hex: "4285F4" },
+};
+const generic = {
+  code: Code2,
+  chat: MessagesSquare,
+  team: Users,
+  languages: Languages,
+  mail: Mail,
+  user: User,
+  layers: Layers,
+  folder: FolderOpen,
+  briefcase: Briefcase,
+  quote: Quote,
+  graduation: GraduationCap,
+  store: Store,
+  utensils: UtensilsCrossed,
+  mic: Mic,
+};
 
-/** Decorative by default; the label next to it carries the meaning. */
-export function Icon({ name, className = "size-6" }: { name: IconName; className?: string }) {
+/** Decorative by default; the label next to it carries the meaning. `colored` paints brand marks in their brand colour. */
+export function Icon({ name, className = "size-6", colored = false }: { name: IconName; className?: string; colored?: boolean }) {
   if (name === "linkedin") {
     // simple-icons no longer ships LinkedIn, so this is a plain "in" mark.
     return (
@@ -16,11 +82,16 @@ export function Icon({ name, className = "size-6" }: { name: IconName; className
     );
   }
   if (name in brands) {
+    const icon = brands[name as keyof typeof brands];
     return (
-      <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
-        <path d={brands[name as keyof typeof brands].path} />
+      <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor" style={colored ? { color: `#${icon.hex}` } : undefined}>
+        <path d={icon.path} />
       </svg>
     );
+  }
+  if (name in standIns) {
+    const { Glyph, hex } = standIns[name as keyof typeof standIns];
+    return <Glyph className={className} aria-hidden strokeWidth={1.8} style={colored ? { color: `#${hex}` } : undefined} />;
   }
   const Generic = generic[name as keyof typeof generic];
   return <Generic className={className} aria-hidden strokeWidth={1.6} />;

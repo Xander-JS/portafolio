@@ -16,7 +16,7 @@ export function Avatar({ name, photo, alt, size }: { name: string; photo: string
   return (
     <span
       aria-hidden
-      className="inline-flex shrink-0 items-center justify-center rounded-full bg-ink/10 font-medium text-ink-soft"
+      className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary-soft font-medium text-primary-soft-ink"
       style={{ width: size, height: size, fontSize: size * 0.36 }}
     >
       {initials || "?"}
