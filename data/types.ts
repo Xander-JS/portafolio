@@ -1,17 +1,39 @@
-// Typed content models. Every visible sentence lives in messages/{es,en}.json under the same id.
+// Typed content models. Interface text lives in messages/{es,en}.json; content text lives here as { es, en }.
+
+/** A string in both site languages. */
+export type Localized = { es: string; en: string };
 
 export type IconName =
   | "flutter"
   | "supabase"
   | "nextjs"
   | "figma"
+  | "claude"
+  | "gemini"
+  | "chatgpt"
+  | "vscode"
+  | "cursor"
+  | "antigravity"
+  | "claudecode"
+  | "opencode"
+  | "git"
+  | "github"
   | "code"
   | "chat"
   | "team"
   | "languages"
   | "facebook"
   | "linkedin"
-  | "mail";
+  | "mail"
+  | "user"
+  | "layers"
+  | "folder"
+  | "briefcase"
+  | "quote"
+  | "graduation"
+  | "store"
+  | "utensils"
+  | "mic";
 
 export type Social = { id: "facebook" | "linkedin"; href: string };
 
@@ -27,25 +49,75 @@ export type Profile = {
 
 /** Label comes from messages `skills.items.<id>`. */
 export type Skill = { id: string; icon: IconName };
-export type SkillGroup = { id: "technical" | "soft" | "languages"; skills: Skill[] };
+export type SkillGroup = {
+  id: "technical" | "ai" | "editors" | "agents" | "vcs" | "soft" | "languages";
+  skills: Skill[];
+};
 
-/** Name and description come from messages `projects.items.<id>`. */
 export type Project = {
-  id: string;
-  /** Path under /public. Leave empty to show the drawn placeholder. */
-  image: string;
-  tags: string[];
-  demoUrl: string;
+  /** URL segment: /projects/<slug>. Images go in public/projects/<slug>/. */
+  slug: string;
+  title: Localized;
+  /** One or two sentences for cards. */
+  summary: Localized;
+  /** Full text for the detail page; one entry per paragraph. */
+  description: Localized[];
+  type: "freelance" | "personal" | "academic";
+  role: Localized;
+  duration: Localized;
+  status: "completed" | "inProgress" | "planned";
+  stack: string[];
+  features: Localized[];
+  /** Path under /public. Empty shows the red placeholder. */
+  cover: string;
+  /** Paths under /public. Empty entries show placeholders. */
+  gallery: string[];
+  /** Empty links are hidden. */
   repoUrl: string;
+  demoUrl: string;
 };
 
-/** Role and summary come from messages `experience.items.<id>`; skills from `experience.skills.<key>`. */
-export type Experience = {
+export type WorkItem = {
   id: string;
-  place: string;
-  period: string;
-  skills: ("service" | "teamwork" | "responsibility" | "pressure" | "organization")[];
+  kind: "freelance" | "job";
+  icon: IconName;
+  role: Localized;
+  place: Localized;
+  period: Localized;
+  summary: Localized;
+  skills: Localized[];
 };
 
-/** Role and quote come from messages `testimonials.items.<id>`. */
-export type Testimonial = { id: string; name: string; photo: string };
+export type AcademicItem = {
+  id: string;
+  title: Localized;
+  place: Localized;
+  period: Localized;
+  summary: Localized;
+};
+
+export type Seminar = { id: string; name: Localized; topic: Localized; date: string };
+
+export type Testimonial = {
+  id: string;
+  type: "text" | "video";
+  /** Leave empty to keep the slot as "coming soon". */
+  name: string;
+  role: Localized;
+  /** Path under /public. Empty shows initials. */
+  avatar: string;
+  /** For type "text". */
+  quote: Localized;
+  /** For type "video": a YouTube/Vimeo embed URL or a video file under /public. */
+  videoUrl: string;
+};
+
+/** One card of the module carousel on the home page. */
+export type PortfolioModule = {
+  id: "about" | "skills" | "projects" | "experience" | "testimonials" | "contact";
+  href: string;
+  icon: IconName;
+  title: Localized;
+  description: Localized;
+  facts: Localized[];
+};
