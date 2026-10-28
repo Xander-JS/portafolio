@@ -202,10 +202,10 @@ export function ShardPanel({ pattern, render, shattered = false, after, enter = 
               <stop offset="0.6" stopOpacity="0" style={{ stopColor: "var(--glass-studio)" }} />
             </linearGradient>
             <linearGradient id={`${id}-sheen`} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#36d67e" stopOpacity="0.22" />
-              <stop offset="0.45" stopColor="#36d67e" stopOpacity="0" />
-              <stop offset="0.6" stopColor="#9b7bff" stopOpacity="0" />
-              <stop offset="1" stopColor="#9b7bff" stopOpacity="0.26" />
+              <stop offset="0" stopOpacity="0.22" style={{ stopColor: "var(--primary)" }} />
+              <stop offset="0.45" stopOpacity="0" style={{ stopColor: "var(--primary)" }} />
+              <stop offset="0.6" stopOpacity="0" style={{ stopColor: "var(--red-300)" }} />
+              <stop offset="1" stopOpacity="0.26" style={{ stopColor: "var(--red-300)" }} />
             </linearGradient>
           </defs>
         </svg>
