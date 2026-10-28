@@ -34,26 +34,6 @@ export const heroPattern: CutPattern = {
   ],
 };
 
-// Five spokes around one junction, for the contact panel.
-export const contactPattern: CutPattern = {
-  points: {
-    ...corners,
-    tA: { x: 0.3, y: 0, m: "x" },
-    tB: { x: 0.7, y: 0, m: "x" },
-    rA: { x: 1, y: 0.38, m: "y" },
-    bA: { x: 0.46, y: 1, m: "x" },
-    lA: { x: 0, y: 0.62, m: "y" },
-    J: { x: 0.56, y: 0.44, m: "xy" },
-  },
-  cells: [
-    ["TL", "tA", "J", "lA"],
-    ["tA", "tB", "J"],
-    ["tB", "TR", "rA", "J"],
-    ["J", "rA", "BR", "bA"],
-    ["lA", "J", "bA", "BL"],
-  ],
-};
-
 /** Live point positions in panel-normalised coords: slow sine drift plus a push away from the pointer. */
 export function livePoints(p: CutPattern, t: number, pointer: Pt | null, transpose: boolean) {
   const out: Record<string, Pt> = {};

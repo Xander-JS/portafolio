@@ -1,7 +1,7 @@
 // Run with: node --test lib/shards.test.ts
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { contains, contactPattern, heroPattern, inset, livePoints } from "./shards.ts";
+import { contains, heroPattern, inset, livePoints } from "./shards.ts";
 
 test("inset moves every edge of a square inwards by d", () => {
   const sq = [
@@ -19,7 +19,7 @@ test("inset moves every edge of a square inwards by d", () => {
 });
 
 test("cells tile the whole panel: every sample point lands in exactly one cell", () => {
-  for (const pattern of [heroPattern, contactPattern]) {
+  for (const pattern of [heroPattern]) {
     for (const transpose of [false, true]) {
       const pts = livePoints(pattern, 7.3, { x: 0.4, y: 0.5 }, transpose);
       const cells = pattern.cells.map((c) => c.map((n) => pts[n]));
