@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Portafolio · Ingeniería de Software",
-    "description": "Estudiante de Ingeniería de Software en Nariño, Colombia. Proyectos, habilidades y contacto."
+    "title": "Marlon Alexander Imbajoa | Portafolio",
+    "description": "Estudiante de quinto semestre de Ingeniería de Software en Nariño, Colombia. Me mueve aprender y construir tecnología que resuelva problemas reales."
   },
   "nav": {
     "skip": "Saltar al contenido",
@@ -16,8 +16,8 @@
     "theme": "Cambiar entre tema claro y oscuro"
   },
   "hero": {
-    "eyebrow": "[TODO Mi título, p. ej. Estudiante de Ingeniería de Software]",
-    "tagline": "Construyo tecnología que resuelve problemas reales, y me gusta que quede bien hecha.",
+    "eyebrow": "Estudiante de Ingeniería de Software",
+    "tagline": "Construyo tecnología que resuelve problemas reales, y nunca dejo de aprender.",
     "viewProjects": "Ver proyectos",
     "contact": "Contáctame →",
     "location": "{city}, Nariño, Colombia",
@@ -26,9 +26,9 @@
   "about": {
     "heading": "Sobre mí",
     "lead": "Soy de {city}, Nariño, y estudio quinto semestre de Ingeniería de Software en {university}.",
-    "origin": "Llegué a la tecnología en el colegio, experimentando con herramientas de flujos de trabajo hasta entender qué pasaba detrás de cada paso.",
+    "origin": "Llegué a la tecnología en el colegio, experimentando con distintas herramientas de flujos de trabajo.",
     "drive": "Me mueven las oportunidades, aprender conceptos nuevos y construir tecnología que resuelva problemas reales.",
-    "character": "Soy escéptico y perfeccionista: me gusta que las cosas se hagan bien.",
+    "character": "Soy escéptico y perfeccionista: me gusta que todo quede bien hecho.",
     "facts": {
       "from": "De",
       "study": "Estudio",
@@ -36,7 +36,7 @@
       "play": "Juego",
       "playValue": "Fútbol, baloncesto y natación",
       "free": "Tiempo libre",
-      "freeValue": "Aprender algo nuevo"
+      "freeValue": "Aprender conceptos nuevos"
     }
   },
   "skills": {
@@ -69,7 +69,7 @@
     "items": {
       "marketplace": {
         "name": "Marketplace agrícola",
-        "description": "Una app para que los campesinos vendan su cosecha directamente. Tres roles: agricultor, comprador y moderador. Disponible en español e inglés."
+        "description": "Un marketplace donde los agricultores venden su cosecha. Tiene tres roles (agricultor, comprador y moderador) y está disponible en español e inglés."
       },
       "future1": {
         "name": "[TODO Próximo proyecto]",
@@ -87,22 +87,23 @@
   },
   "experience": {
     "heading": "Experiencia",
-    "intro": "Aún no he trabajado en tecnología. Estos trabajos me enseñaron lo que ningún curso enseña.",
+    "intro": "Todavía no he trabajado en tecnología, pero estos trabajos me dieron habilidades que llevo a cualquier equipo.",
     "skillsLabel": "Lo que me llevo",
     "skills": {
       "service": "Atención al cliente",
       "teamwork": "Trabajo en equipo",
       "responsibility": "Responsabilidad",
-      "pressure": "Trabajo bajo presión"
+      "pressure": "Trabajo bajo presión",
+      "organization": "Organización"
     },
     "items": {
       "restaurant": {
         "role": "Restaurante",
-        "summary": "Atendía mesas y pedidos en horas pico, coordinándome con cocina para que nada saliera tarde ni mal."
+        "summary": "En el restaurante aprendí a atender bien a cada cliente, a trabajar en equipo y a responder con calma cuando había presión."
       },
       "store": {
         "role": "Tienda",
-        "summary": "Atendía clientes, manejaba caja e inventario y respondía por el cierre del día."
+        "summary": "En la tienda aprendí a atender clientes, a mantener todo en orden y a responder por lo que tenía a cargo."
       }
     }
   },
