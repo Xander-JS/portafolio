@@ -3,40 +3,56 @@
 import { useEffect, useId, useRef, type ReactNode, type SyntheticEvent } from "react";
 import { centroid, contains, inset, livePoints, roundedPath, type CutPattern, type Pt } from "@/lib/shards";
 
+/** How the pieces move. The defaults are the hero's; a card on hover uses a slower, closer set (lib/drum.ts). */
+export type ShardTuning = {
+  /** s each piece takes to move. */
+  fly: number;
+  /** s between pieces. */
+  stagger: number;
+  /** Displacement factor (1 = the hero's). */
+  spread: number;
+  /** Fade the pieces as they fly away. */
+  fade: boolean;
+  /** Tilt toward the pointer (1 = the hero's). */
+  tilt: number;
+  /** Easing of the break (0 → 1) and of the return (0 → 1). */
+  outEase: (p: number) => number;
+  inEase: (p: number) => number;
+};
+
+const easeOutBack = (p: number) => 1 + 2.70158 * (p - 1) ** 3 + 1.70158 * (p - 1) ** 2;
+const HERO: ShardTuning = { fly: 0.72, stagger: 0.03, spread: 1, fade: true, tilt: 1, outEase: (p) => p ** 3, inEase: easeOutBack };
+
 type Props = {
   pattern: CutPattern;
   /** Called twice: once for the real, interactive copy (printed=false) and once per shard (printed=true). */
   render: (printed: boolean) => ReactNode;
   shattered?: boolean;
-  /** Shown over the panel while it is shattered. */
-  after?: ReactNode;
   /** Fly the pieces in on first load. */
   enter?: boolean;
+  tuning?: ShardTuning;
   className?: string;
 };
 
 type Flight = { x: number; y: number; z: number; ang: number; ax: [number, number, number] };
 type Phase = "idle" | "out" | "gone" | "in";
 
-const FLY = 0.72;
-const STAGGER = 0.03;
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
-const easeOutBack = (p: number) => 1 + 2.70158 * (p - 1) ** 3 + 1.70158 * (p - 1) ** 2;
 
-function makeFlights(polys: Pt[][], w: number, h: number, S: number): Flight[] {
+function makeFlights(polys: Pt[][], w: number, h: number, S: number, spread: number): Flight[] {
   return polys.map((poly) => {
     const c = centroid(poly);
     const dx = c.x - w / 2;
     const dy = c.y - h / 2;
     const d = Math.hypot(dx, dy) || 1;
-    const out = w * (0.35 + Math.random() * 0.35);
+    const out = w * (0.35 + Math.random() * 0.35) * spread;
     const a = [Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5];
     const al = Math.hypot(...a) || 1;
     return {
       x: (dx / d) * out,
-      y: (dy / d) * out * 0.5 + h * (0.35 + Math.random() * 0.25), // outward, plus gravity
-      z: (420 + Math.random() * 380) * Math.max(S, 0.4),
-      ang: 2 + Math.random() * 1.6,
+      y: (dy / d) * out * 0.5 + h * (0.35 + Math.random() * 0.25) * spread, // outward, plus gravity
+      z: (420 + Math.random() * 380) * Math.max(S, 0.4) * spread,
+      ang: (2 + Math.random() * 1.6) * spread,
       ax: [a[0] / al, a[1] / al, a[2] / al],
     };
   });
@@ -46,7 +62,7 @@ function makeFlights(polys: Pt[][], w: number, h: number, S: number): Flight[] {
  * A panel cut into thick smoked-glass shards (promt-guide.md). The content is printed on every shard,
  * the slab tilts toward the mouse, the shard under it lifts and tips, and `shattered` flies them away.
  */
-export function ShardPanel({ pattern, render, shattered = false, after, enter = false, className = "" }: Props) {
+export function ShardPanel({ pattern, render, shattered = false, enter = false, tuning = HERO, className = "" }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const shards = useRef<(HTMLDivElement | null)[]>([]);
@@ -108,8 +124,8 @@ export function ShardPanel({ pattern, render, shattered = false, after, enter = 
       // Global tilt, as if the slab were pressed at the pointer.
       const px = pointer ? pointer.x * 2 - 1 : 0;
       const py = pointer ? pointer.y * 2 - 1 : 0;
-      tilt.y += (px * 7 - 1.2 - tilt.y) * k;
-      tilt.x += (-py * 5.5 + 0.8 - tilt.x) * k;
+      tilt.y += ((px * 7 - 1.2) * tuning.tilt - tilt.y) * k;
+      tilt.x += ((-py * 5.5 + 0.8) * tuning.tilt - tilt.x) * k;
       glow += ((pointer ? 1 : 0) - glow) * k;
       stage.current!.style.transform = reduce ? "" : `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`;
 
@@ -121,10 +137,10 @@ export function ShardPanel({ pattern, render, shattered = false, after, enter = 
       const a = anim.current;
       if (a.start < 0) {
         a.start = now;
-        if (a.phase === "out" || !a.flights.length) a.flights = makeFlights(polys, w, h, S);
+        if (a.phase === "out" || !a.flights.length) a.flights = makeFlights(polys, w, h, S, tuning.spread);
       }
       const t = (now - a.start) / 1000;
-      const total = FLY + STAGGER * polys.length;
+      const total = tuning.fly + tuning.stagger * polys.length;
       if (a.phase === "out" && (reduce || t > total)) a.phase = "gone";
       if (a.phase === "in" && (reduce || t > total)) a.phase = "idle";
 
@@ -155,14 +171,14 @@ export function ShardPanel({ pattern, render, shattered = false, after, enter = 
         el.querySelector<SVGUseElement>(".sheen")!.style.opacity = String(clamp01(s.x));
         el.querySelector<SVGUseElement>(".glow")!.style.opacity = String(glow);
 
-        // Flight: 0 = in place, 1 = gone. Ease-in out, ease-out-back (slight overshoot) home.
-        const p = clamp01((t - i * STAGGER) / FLY);
+        // Flight: 0 = in place, 1 = gone; the easings come from `tuning`.
+        const p = clamp01((t - i * tuning.stagger) / tuning.fly);
         let e = 0;
-        if (a.phase === "out") e = p ** 3;
+        if (a.phase === "out") e = tuning.outEase(p);
         else if (a.phase === "gone") e = 1;
-        else if (a.phase === "in") e = 1 - easeOutBack(p);
+        else if (a.phase === "in") e = 1 - tuning.inEase(p);
         const f = a.flights[i];
-        el.style.opacity = String(reduce ? (e > 0.5 ? 0 : 1) : clamp01(1 - e * 1.1));
+        el.style.opacity = String(!tuning.fade ? 1 : reduce ? (e > 0.5 ? 0 : 1) : clamp01(1 - e * 1.1));
         if (reduce) return void (el.style.transform = "");
         el.style.transformOrigin = `${c.x}px ${c.y}px`;
         el.style.transform =
@@ -179,7 +195,7 @@ export function ShardPanel({ pattern, render, shattered = false, after, enter = 
       root.removeEventListener("pointermove", move);
       root.removeEventListener("pointerleave", leave);
     };
-  }, [pattern, id]);
+  }, [pattern, id, tuning]);
 
   // The printed copies mirror hover / focus of real elements marked with data-hit.
   const syncHit = (e: SyntheticEvent) => {
@@ -249,18 +265,6 @@ export function ShardPanel({ pattern, render, shattered = false, after, enter = 
           {render(false)}
         </div>
       </div>
-
-      {after && (
-        // Visible (and focusable) at once, faded in from 0.28 s; on Back it fades out in 0.25 s.
-        <div
-          className={`absolute inset-0 ${shattered ? "" : "pointer-events-none invisible opacity-0"}`}
-          style={{
-            transition: shattered ? "opacity 0.4s 0.28s, visibility 0s" : "opacity 0.25s, visibility 0s 0.25s",
-          }}
-        >
-          {after}
-        </div>
-      )}
     </div>
   );
 }
