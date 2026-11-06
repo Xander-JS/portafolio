@@ -44,12 +44,12 @@ const THEME_PALETTES = {
  */
 function Constellation({
   palette,
+  onSelectModule,
 }: {
   palette: typeof THEME_PALETTES.dark;
+  onSelectModule: (targetModule: (typeof modules)[number]) => void;
 }) {
-  const router = useRouter();
   const activeIndex = useScrollStore((s) => s.index);
-  const setWarping = useScrollStore((s) => s.setWarping);
 
   const { viewport } = useThree();
   const aspect = viewport.aspect || 1.77;
@@ -205,11 +205,7 @@ function Constellation({
                   e.stopPropagation();
                   const targetModule = modules[i - 1];
                   if (targetModule) {
-                    document.body.style.cursor = "auto";
-                    setWarping(true);
-                    setTimeout(() => {
-                      router.push(moduleHref(targetModule));
-                    }, 280);
+                    onSelectModule(targetModule);
                   }
                 }}
               >
@@ -270,8 +266,18 @@ function Constellation({
 
 /** The full-screen fixed 3D background (z-index 0). Mounted client-only (no SSR) by the template. */
 export function Scene() {
+  const router = useRouter();
+  const setWarping = useScrollStore((s) => s.setWarping);
   const { resolvedTheme } = useTheme();
   const palette = resolvedTheme === "light" ? THEME_PALETTES.light : THEME_PALETTES.dark;
+
+  const handleSelectModule = (targetModule: (typeof modules)[number]) => {
+    document.body.style.cursor = "auto";
+    setWarping(true);
+    setTimeout(() => {
+      router.push(moduleHref(targetModule));
+    }, 280);
+  };
 
   return (
     <Canvas
@@ -279,7 +285,7 @@ export function Scene() {
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
     >
-      <Constellation palette={palette} />
+      <Constellation palette={palette} onSelectModule={handleSelectModule} />
     </Canvas>
   );
 }
