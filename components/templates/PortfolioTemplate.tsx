@@ -11,14 +11,20 @@ export async function currentYear() {
 }
 
 /** Page frame: nav bar, the sections in order, footer. Used by the home page and every detail page. */
-export async function PortfolioTemplate({ children }: { children: ReactNode }) {
+export async function PortfolioTemplate({
+  children,
+  showFooterBranding = false,
+}: {
+  children: ReactNode;
+  showFooterBranding?: boolean;
+}) {
   return (
     <div className="overflow-x-clip">
       <Header />
       <main id="main" tabIndex={-1} className="outline-none">
         {children}
       </main>
-      <Footer year={await currentYear()} />
+      <Footer year={await currentYear()} showBranding={showFooterBranding} />
     </div>
   );
 }
