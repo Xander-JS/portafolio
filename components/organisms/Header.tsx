@@ -23,11 +23,11 @@ export function Header() {
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setOpen(false);
     useScrollStore.getState().setWarping(false);
+    useScrollStore.getState().setProgress(0);
 
     if (pathname === "/") {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
-      useScrollStore.getState().setProgress(0);
     }
   };
 

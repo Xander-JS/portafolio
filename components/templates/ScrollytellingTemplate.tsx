@@ -23,9 +23,11 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
   const setWarping = useScrollStore((s) => s.setWarping);
 
   useEffect(() => {
-    // Ensure warping state is clean on home mount
+    // Ensure clean state and scroll when home is mounted
     setWarping(false);
-  }, [setWarping]);
+    setProgress(0);
+    window.scrollTo(0, 0);
+  }, [setWarping, setProgress]);
 
   useEffect(() => {
     // Smooth cinematic inertia scroll via Lenis
