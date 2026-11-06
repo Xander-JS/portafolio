@@ -3,7 +3,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   InstancedMesh,
   MathUtils,
@@ -270,6 +270,19 @@ export function Scene() {
   const setWarping = useScrollStore((s) => s.setWarping);
   const { resolvedTheme } = useTheme();
   const palette = resolvedTheme === "light" ? THEME_PALETTES.light : THEME_PALETTES.dark;
+  const [canvasKey, setCanvasKey] = useState(0);
+  const isFirstMount = useRef(true);
+
+  // Next.js 16 <Activity> keeps this component mounted while running effect cleanups on route leave,
+  // which triggers R3F's unmountComponentAtNode(canvas) and forceContextLoss(). Incrementing the key
+  // when returning to Home mounts a fresh Canvas and WebGL context.
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    setCanvasKey((k) => k + 1);
+  }, []);
 
   const handleSelectModule = (targetModule: (typeof modules)[number]) => {
     document.body.style.cursor = "auto";
@@ -281,6 +294,7 @@ export function Scene() {
 
   return (
     <Canvas
+      key={canvasKey}
       camera={{ position: [0, 0, 10], fov: 50 }}
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
