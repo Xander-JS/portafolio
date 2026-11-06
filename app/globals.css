@@ -269,3 +269,56 @@ html[data-locale-pending] body {
     transform: translateY(14px);
   }
 }
+
+/* Deconstructive & constructive transitions for scrollytelling content */
+@keyframes construct-in {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(16px) scale(0.98);
+  }
+  60% {
+    opacity: 0.85;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes deconstruct-out {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(-14px) scale(0.97);
+  }
+}
+
+.content-construct {
+  animation: construct-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.content-deconstruct {
+  animation: deconstruct-out 0.35s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes cursor-blink {
+  0%, 45% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-cursor {
+  animation: cursor-blink 0.8s infinite;
+}
+}
