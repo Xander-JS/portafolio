@@ -3,14 +3,14 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BASE_MILESTONES, createGraphData } from "./sceneGraph.ts";
 
-test("sceneGraph creates 7 milestones and valid camera paths", () => {
-  assert.equal(BASE_MILESTONES.length, 7, "Must have exactly 7 milestones for 7 steps");
+test("sceneGraph creates 8 milestones and valid camera paths", () => {
+  assert.equal(BASE_MILESTONES.length, 8, "Must have exactly 8 milestones for 8 steps");
 
   const data = createGraphData(1.0);
-  assert.equal(data.milestones.length, 7);
+  assert.equal(data.milestones.length, 8);
   assert.ok(data.ambientNodes.length >= 250, "Should generate abundant ambient nodes");
   assert.ok(data.ambientLines.length > 0, "Should have connecting line segments");
-  assert.equal(data.backboneLines.length, 6 * 6, "6 segments between 7 milestones (each segment 6 floats)");
+  assert.equal(data.backboneLines.length, 7 * 6, "7 segments between 8 milestones (each segment 6 floats)");
 
   // Test camera curve evaluations at 0 (hero) and 1 (contact)
   const startCam = data.camCurve.getPoint(0);

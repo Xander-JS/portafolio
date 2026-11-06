@@ -12,8 +12,8 @@ function seeded(seed: number) {
 }
 
 /**
- * 7 Milestone node positions in 3D world space (one per step in data/steps.ts):
- * 00: Hero, 01: About, 02: Skills, 03: Experience, 04: Projects, 05: Testimonials, 06: Contact.
+ * 8 Milestone node positions in 3D world space (one per step in data/steps.ts):
+ * 00: Hero, 01: About, 02: Skills, 03: Projects, 04: Experience, 05: Testimonials, 06: Reserved, 07: Contact.
  * Arranged along a deep serpentine path (advancing in Z) biased towards the right/center
  * so the left side remains clear and legible for the UI typography.
  */
@@ -21,10 +21,11 @@ export const BASE_MILESTONES: Vector3[] = [
   new Vector3(2.2, 0.4, 0),       // 00: Hero
   new Vector3(2.8, -0.6, -9),     // 01: About
   new Vector3(1.6, 1.4, -18),     // 02: Skills
-  new Vector3(3.2, 0.2, -27),     // 03: Experience
-  new Vector3(1.8, -1.2, -36),    // 04: Projects
+  new Vector3(3.2, 0.2, -27),     // 03: Projects
+  new Vector3(1.8, -1.2, -36),    // 04: Experience
   new Vector3(2.6, 1.0, -45),     // 05: Testimonials
-  new Vector3(2.0, 0.0, -54),     // 06: Contact
+  new Vector3(1.9, -0.7, -54),    // 06: Reserved
+  new Vector3(2.4, 0.3, -63),     // 07: Contact
 ];
 
 /**
@@ -38,7 +39,8 @@ export const BASE_CAMERA_WAYPOINTS: Vector3[] = [
   new Vector3(0.6, 0.3, -21.0),   // C3
   new Vector3(-0.2, -0.5, -30.0), // C4
   new Vector3(0.4, 0.6, -39.0),   // C5
-  new Vector3(0.0, 0.2, -48.0),   // C6
+  new Vector3(-0.1, -0.3, -48.0), // C6
+  new Vector3(0.2, 0.2, -57.0),   // C7
 ];
 
 /**
@@ -51,7 +53,8 @@ export const BASE_TARGET_WAYPOINTS: Vector3[] = [
   new Vector3(2.6, 0.1, -27),
   new Vector3(1.5, -0.9, -36),
   new Vector3(2.2, 0.8, -45),
-  new Vector3(1.7, 0.1, -54),
+  new Vector3(1.6, -0.5, -54),
+  new Vector3(2.0, 0.2, -63),
 ];
 
 export type GraphData = {
@@ -122,9 +125,9 @@ export function createGraphData(horizontalFactor = 1.0): GraphData {
 
   // 2. Enveloping ambient tunnel: radius between 2.8 and 9.5 from center
   // Keeps the central forward line of sight clear and avoids depth clumping
-  // Extends well past the final milestone (-54) to -85 so the constellation never runs out of nodes at the bottom of the page
+  // Extends well past the final milestone (-63) to -95 so the constellation never runs out of nodes at the bottom of the page
   const zMin = 8;
-  const zMax = -85;
+  const zMax = -95;
   const zRange = zMax - zMin;
   const TARGET_AMBIENT = 450;
 
