@@ -11,7 +11,10 @@ type ScrollState = {
   index: number;
   /** Overall scroll progress 0 … 1, for the [xxx] counter and the 3D morph lerp. */
   progress: number;
+  /** True while the camera zooms in when entering a module. */
+  isWarping: boolean;
   setProgress: (progress: number) => void;
+  setWarping: (warping: boolean) => void;
 };
 
 const indexFor = (p: number) => Math.max(0, Math.min(STEP_COUNT - 1, Math.round(p * (STEP_COUNT - 1))));
@@ -19,9 +22,13 @@ const indexFor = (p: number) => Math.max(0, Math.min(STEP_COUNT - 1, Math.round(
 export const useScrollStore = create<ScrollState>((set, get) => ({
   index: 0,
   progress: 0,
+  isWarping: false,
   setProgress: (progress) => {
     const clamped = Math.max(0, Math.min(1, progress));
     const index = indexFor(clamped);
     if (clamped !== get().progress || index !== get().index) set({ progress: clamped, index });
+  },
+  setWarping: (isWarping) => {
+    if (isWarping !== get().isWarping) set({ isWarping });
   },
 }));
