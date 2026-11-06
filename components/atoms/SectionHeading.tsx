@@ -16,7 +16,7 @@ export function SectionHeading({ id, title, intro, level = 2, more }: Props) {
   return (
     <div className="mb-10 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 md:mb-14">
       <div className="max-w-2xl">
-        <H id={id} className="text-4xl font-medium tracking-[-0.035em] text-balance text-ink md:text-6xl">
+        <H id={id} className="text-balance font-display text-4xl tracking-wide text-ink md:text-6xl">
           <span aria-hidden className="mb-5 block h-1.5 w-12 rounded-full bg-primary" />
           {title}
         </H>
