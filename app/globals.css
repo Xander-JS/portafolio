@@ -114,9 +114,27 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
   color-scheme: light;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
 }
 html.dark {
   color-scheme: dark;
+}
+
+/* Minimal sleek scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 body {
