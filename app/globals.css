@@ -120,6 +120,7 @@ html {
 
 html.dark {
   color-scheme: dark;
+  scrollbar-color: white transparent;
 }
 
 /* Minimal sleek scrollbar for webkit browsers */
@@ -132,13 +133,23 @@ html.dark {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--primary) 35%, transparent);
+  background: black;
   border-radius: 9999px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: #333333;
+}
+
+html.dark::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb {
+  background: white;
+}
+
+html.dark::-webkit-scrollbar-thumb:hover,
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #e5e5e5;
 }
 
 body {
