@@ -92,22 +92,40 @@ export const modules: PortfolioModule[] = [
     ],
   },
   {
-    id: "contact",
-    slug: "contact",
-    icon: "mail",
-    label: { es: "Contacto", en: "Contact" },
-    title: { es: "Hablemos", en: "Let's talk" },
+    id: "reserved",
+    slug: "reservada",
+    icon: "layers",
+    label: { es: "Reservada", en: "Reserved" },
+    title: { es: "Espacio reservado", en: "Reserved space" },
     description: {
-      es: "Déjame tu nombre y tu mensaje: se abrirá tu correo con todo listo para enviar.",
-      en: "Leave your name and message: your email app opens with everything ready to send.",
+      es: "Sección reservada para el próximo módulo del portafolio.",
+      en: "Reserved section for the next portfolio module.",
     },
     facts: [
-      { es: profile.email || "Correo y redes", en: profile.email || "Email and socials" },
-      { es: "Facebook · LinkedIn", en: "Facebook · LinkedIn" },
-      { es: "Formulario directo", en: "Direct form" },
+      { es: "Próximamente", en: "Coming soon" },
+      { es: "Nuevo módulo", en: "New module" },
+      { es: "En preparación", en: "In preparation" },
     ],
   },
 ];
 
-export const moduleById = (id: PortfolioModule["id"]) => modules.find((m) => m.id === id)!;
+const contactFallback: PortfolioModule = {
+  id: "contact",
+  slug: "contact",
+  icon: "mail",
+  label: { es: "Contacto", en: "Contact" },
+  title: { es: "Hablemos", en: "Let's talk" },
+  description: {
+    es: "Déjame tu nombre y tu mensaje: se abrirá tu correo con todo listo para enviar.",
+    en: "Leave your name and message: your email app opens with everything ready to send.",
+  },
+  facts: [
+    { es: profile.email || "Correo y redes", en: profile.email || "Email and socials" },
+    { es: "Facebook · LinkedIn", en: "Facebook · LinkedIn" },
+    { es: "Formulario directo", en: "Direct form" },
+  ],
+};
+
+export const moduleById = (id: PortfolioModule["id"]) =>
+  modules.find((m) => m.id === id) ?? contactFallback;
 export const moduleHref = (m: PortfolioModule) => `/${m.slug}`;
