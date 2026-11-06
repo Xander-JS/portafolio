@@ -115,8 +115,9 @@ html {
   scroll-padding-top: 6rem;
   color-scheme: light;
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) transparent;
+  scrollbar-color: black transparent;
 }
+
 html.dark {
   color-scheme: dark;
 }
@@ -125,14 +126,17 @@ html.dark {
 ::-webkit-scrollbar {
   width: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--primary) 35%, transparent);
   border-radius: 9999px;
   transition: background 0.2s ease;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
@@ -161,6 +165,7 @@ html[data-locale-pending] body {
   visibility: hidden;
   animation: locale-reveal 0s 1.2s forwards;
 }
+
 @keyframes locale-reveal {
   to {
     visibility: visible;
@@ -173,6 +178,7 @@ html[data-locale-pending] body {
 .shard-panel:not([data-ready]) .print {
   visibility: hidden;
 }
+
 [data-ready] .ghost,
 [data-ready] .ghost * {
   color: transparent !important;
@@ -181,23 +187,28 @@ html[data-locale-pending] body {
   box-shadow: none !important;
   text-decoration-color: transparent !important;
 }
+
 [data-ready] .ghost ::placeholder {
   color: transparent;
 }
+
 [data-ready] .ghost input,
 [data-ready] .ghost textarea {
   caret-color: var(--ink);
 }
+
 [data-ready] .ghost svg,
 [data-ready] .ghost img {
   opacity: 0;
 }
+
 /* The printed copy mirrors the hover / focus state of the real element with the same data-hit. */
 [data-hit-active="pill"] .print [data-hit="pill"],
 [data-hit-active="primary"] .print [data-hit="primary"] {
   background: var(--primary-hover);
   color: var(--primary-foreground);
 }
+
 [data-hit-active="link"] .print [data-hit="link"] {
   text-decoration-color: currentColor;
 }
@@ -205,19 +216,22 @@ html[data-locale-pending] body {
 /* Sections rise in as they enter; content stays visible where scroll timelines are unsupported. */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .reveal > * {
+    .reveal>* {
       animation: rise linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 35%;
     }
-    .reveal > *:nth-child(2) {
+
+    .reveal>*:nth-child(2) {
       animation-range: entry 5% entry 40%;
     }
-    .reveal > *:nth-child(3) {
+
+    .reveal>*:nth-child(3) {
       animation-range: entry 10% entry 45%;
     }
   }
 }
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -243,17 +257,21 @@ html[data-locale-pending] body {
   animation: module-drift 13s ease-in-out infinite alternate;
   pointer-events: none;
 }
+
 [data-paused] .module-bg {
   animation-play-state: paused;
 }
+
 @keyframes module-drift {
   from {
     transform: translate(-10%, -8%) rotate(-6deg);
   }
+
   to {
     transform: translate(9%, 10%) rotate(10deg);
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .module-bg {
     animation: none;
@@ -264,9 +282,11 @@ html[data-locale-pending] body {
 .module-face {
   transition: filter 0.4s ease-out;
 }
+
 [data-dim] .module-face {
   filter: blur(1.5px);
 }
+
 /* The hero's glass on a card: red pieces with a dark red edge, no studio light. */
 .card-glass {
   --glass-face: var(--red-700);
@@ -275,12 +295,14 @@ html[data-locale-pending] body {
   --glass-studio: transparent;
   --glow: transparent;
 }
+
 /* The drum panel's words slide in when the focused card changes. */
 @media (prefers-reduced-motion: no-preference) {
   .panel-in {
     animation: panel-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 }
+
 @keyframes panel-in {
   from {
     opacity: 0;
@@ -295,10 +317,12 @@ html[data-locale-pending] body {
     filter: blur(8px);
     transform: translateY(16px) scale(0.98);
   }
+
   60% {
     opacity: 0.85;
     filter: blur(2px);
   }
+
   100% {
     opacity: 1;
     filter: blur(0px);
@@ -312,6 +336,7 @@ html[data-locale-pending] body {
     filter: blur(0px);
     transform: translateY(0) scale(1);
   }
+
   100% {
     opacity: 0;
     filter: blur(10px);
@@ -328,10 +353,14 @@ html[data-locale-pending] body {
 }
 
 @keyframes cursor-blink {
-  0%, 45% {
+
+  0%,
+  45% {
     opacity: 1;
   }
-  50%, 100% {
+
+  50%,
+  100% {
     opacity: 0;
   }
 }
