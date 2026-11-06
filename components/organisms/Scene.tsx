@@ -12,8 +12,7 @@ import {
   PointLight,
   Vector3,
 } from "three";
-import { moduleHref, modules } from "@/data/modules";
-import { STEP_COUNT } from "@/data/steps";
+import { STEP_COUNT, steps } from "@/data/steps";
 import { createGraphData } from "@/lib/sceneGraph";
 import { useScrollStore } from "@/lib/useScrollStore";
 
@@ -44,10 +43,10 @@ const THEME_PALETTES = {
  */
 function Constellation({
   palette,
-  onSelectModule,
+  onSelectHref,
 }: {
   palette: typeof THEME_PALETTES.dark;
-  onSelectModule: (targetModule: (typeof modules)[number]) => void;
+  onSelectHref: (href: string) => void;
 }) {
   const activeIndex = useScrollStore((s) => s.index);
 
@@ -174,9 +173,9 @@ function Constellation({
         decay={2}
       />
 
-      {/* 7 Milestone Nodes along the spine with interactive proxy for active node */}
+      {/* Milestone Nodes along the spine with interactive proxy for active navigable module nodes */}
       {graph.milestones.map((pos, i) => {
-        const isModule = i > 0;
+        const href = steps[i]?.href;
         const isActive = i === activeIndex;
 
         return (
@@ -191,7 +190,7 @@ function Constellation({
             </mesh>
 
             {/* Generous raycast hit proxy for the active interactive node */}
-            {isModule && isActive && (
+            {Boolean(href) && isActive && (
               <mesh
                 visible={false}
                 onPointerOver={(e) => {
@@ -203,9 +202,8 @@ function Constellation({
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const targetModule = modules[i - 1];
-                  if (targetModule) {
-                    onSelectModule(targetModule);
+                  if (href) {
+                    onSelectHref(href);
                   }
                 }}
               >
@@ -284,11 +282,11 @@ export function Scene() {
     setCanvasKey((k) => k + 1);
   }, []);
 
-  const handleSelectModule = (targetModule: (typeof modules)[number]) => {
+  const handleSelectHref = (href: string) => {
     document.body.style.cursor = "auto";
     setWarping(true);
     setTimeout(() => {
-      router.push(moduleHref(targetModule));
+      router.push(href);
     }, 280);
   };
 
@@ -299,7 +297,7 @@ export function Scene() {
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
     >
-      <Constellation palette={palette} onSelectModule={handleSelectModule} />
+      <Constellation palette={palette} onSelectHref={handleSelectHref} />
     </Canvas>
   );
 }

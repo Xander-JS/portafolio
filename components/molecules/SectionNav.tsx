@@ -2,7 +2,6 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { moduleHref, modules } from "@/data/modules";
 import { STEP_COUNT, steps } from "@/data/steps";
 import { useLocale } from "@/i18n/Providers";
 import { useScrollStore } from "@/lib/useScrollStore";
@@ -21,14 +20,12 @@ export function SectionNav() {
   const locale = useLocale();
 
   const handleStepClick = (i: number) => {
-    if (i === index && i > 0) {
-      const targetModule = modules[i - 1];
-      if (targetModule) {
-        setWarping(true);
-        setTimeout(() => {
-          router.push(moduleHref(targetModule));
-        }, 280);
-      }
+    const href = steps[i]?.href;
+    if (i === index && href) {
+      setWarping(true);
+      setTimeout(() => {
+        router.push(href);
+      }, 280);
       return;
     }
     scrollToStep(i);
@@ -51,7 +48,7 @@ export function SectionNav() {
               }`}
             >
               <span>{s.label[locale]}</span>
-              {i === index && i > 0 && (
+              {i === index && Boolean(s.href) && (
                 <ArrowUpRight className="size-3.5 opacity-80 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
               )}
             </button>
