@@ -25,7 +25,7 @@ export function LeftContent() {
         {isHero ? (
           <>
             <p className="text-sm font-medium text-primary-text md:text-base">{t("eyebrow")}</p>
-            <h1 className="mt-2 text-balance text-5xl font-semibold tracking-[-0.04em] text-ink md:text-7xl lg:text-8xl">
+            <h1 className="mt-2 text-balance font-display text-5xl tracking-wide text-ink md:text-7xl lg:text-8xl">
               {profile.name}
             </h1>
             <p className="mt-4 max-w-xl text-balance text-lg text-ink-soft md:text-2xl">{t("tagline")}</p>
@@ -36,7 +36,7 @@ export function LeftContent() {
               <Icon name={step.icon} className="size-5" />
               <span className="text-sm font-medium tracking-wide">{step.label[locale]}</span>
             </span>
-            <h2 className="mt-3 text-balance text-4xl font-semibold tracking-[-0.035em] text-ink md:text-6xl">
+            <h2 className="mt-3 text-balance font-display text-4xl tracking-wide text-ink md:text-6xl">
               {step.title[locale]}
             </h2>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft md:text-xl">{step.description[locale]}</p>
