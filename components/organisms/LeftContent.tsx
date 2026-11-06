@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { TypewriterHeading } from "@/components/atoms/TypewriterHeading";
-import { moduleHref, modules } from "@/data/modules";
 import { profile } from "@/data/profile";
 import { steps } from "@/data/steps";
 import { useLocale } from "@/i18n/Providers";
@@ -43,42 +42,46 @@ export function LeftContent() {
   const safeIndex = Math.max(0, Math.min(steps.length - 1, Number.isFinite(displayedIndex) ? displayedIndex : 0));
   const step = steps[safeIndex] || steps[0];
   const isHero = safeIndex === 0;
+  const isContact = safeIndex === steps.length - 1;
+  const hasModule = Boolean(step.href);
   const currentTitle = isHero ? profile.name : step.title[locale];
 
   const navigateToModule = useCallback(() => {
-    if (safeIndex === 0) return;
-    const targetModule = modules[safeIndex - 1];
-    if (!targetModule) return;
-    const href = moduleHref(targetModule);
+    if (!step.href) return;
+    const href = step.href;
     setWarping(true);
     setTimeout(() => {
       router.push(href);
     }, 280);
-  }, [safeIndex, router, setWarping]);
+  }, [step.href, router, setWarping]);
 
-  // Global Enter shortcut when viewing any module section
+  // Global Enter shortcut when viewing any module section with a dedicated window
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key !== "Enter") return;
       const activeTag = document.activeElement?.tagName;
       if (activeTag === "INPUT" || activeTag === "TEXTAREA" || activeTag === "SELECT") return;
-      if (safeIndex > 0) {
+      if (hasModule) {
         e.preventDefault();
         navigateToModule();
       }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [safeIndex, navigateToModule]);
+  }, [hasModule, navigateToModule]);
 
   return (
-    <div className="pointer-events-none fixed inset-x-4 bottom-10 z-10 max-w-2xl md:inset-x-auto md:bottom-[14vh] md:left-[5.5vw]">
+    <div
+      className={`pointer-events-none fixed inset-x-4 z-10 max-w-2xl transition-[bottom,transform] duration-500 ease-out md:inset-x-auto md:left-[5.5vw] ${isContact
+        ? "bottom-[240px] sm:bottom-[220px] md:bottom-[34vh] lg:bottom-[38vh]"
+        : "bottom-10 md:bottom-[14vh]"
+        }`}
+    >
       <div className="[text-shadow:0_2px_28px_rgb(0_0_0/0.22)]">
         {/* Eyebrow & Icon header with construction / deconstruction */}
         <div
-          className={`transition-all duration-300 ${
-            isTransitioning ? "content-deconstruct" : "content-construct"
-          }`}
+          className={`transition-all duration-300 ${isTransitioning ? "content-deconstruct" : "content-construct"
+            }`}
         >
           {isHero ? (
             <p className="text-sm font-medium text-primary-text md:text-base">
@@ -109,9 +112,8 @@ export function LeftContent() {
 
         {/* Descriptive body with construction / deconstruction blur effect */}
         <div
-          className={`mt-4 transition-all duration-300 ${
-            isTransitioning ? "content-deconstruct" : "content-construct"
-          }`}
+          className={`mt-4 transition-all duration-300 ${isTransitioning ? "content-deconstruct" : "content-construct"
+            }`}
         >
           {isHero ? (
             <p className="max-w-xl text-balance text-lg text-ink-soft md:text-2xl">
@@ -125,11 +127,10 @@ export function LeftContent() {
         </div>
 
         {/* Direct CTA button to enter the module */}
-        {!isHero && (
+        {hasModule && (
           <div
-            className={`mt-6 transition-all duration-300 ${
-              isTransitioning ? "content-deconstruct" : "content-construct"
-            }`}
+            className={`mt-6 transition-all duration-300 ${isTransitioning ? "content-deconstruct" : "content-construct"
+              }`}
           >
             <button
               type="button"
