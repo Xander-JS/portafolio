@@ -1,5 +1,8 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { moduleHref, modules } from "@/data/modules";
 import { STEP_COUNT, steps } from "@/data/steps";
 import { useLocale } from "@/i18n/Providers";
 import { useScrollStore } from "@/lib/useScrollStore";
@@ -10,10 +13,26 @@ function scrollToStep(i: number) {
   window.scrollTo({ top: (i / (STEP_COUNT - 1)) * max, behavior: "smooth" });
 }
 
-/** Fixed vertical menu of section NAMES on the right edge; the active one glows Tech Red. No progress counter. */
+/** Fixed vertical menu of section NAMES on the right edge; the active one glows Tech Red with an explore arrow. */
 export function SectionNav() {
+  const router = useRouter();
   const index = useScrollStore((s) => s.index);
+  const setWarping = useScrollStore((s) => s.setWarping);
   const locale = useLocale();
+
+  const handleStepClick = (i: number) => {
+    if (i === index && i > 0) {
+      const targetModule = modules[i - 1];
+      if (targetModule) {
+        setWarping(true);
+        setTimeout(() => {
+          router.push(moduleHref(targetModule));
+        }, 280);
+      }
+      return;
+    }
+    scrollToStep(i);
+  };
 
   return (
     <nav
@@ -25,13 +44,16 @@ export function SectionNav() {
           <li key={i}>
             <button
               type="button"
-              onClick={() => scrollToStep(i)}
+              onClick={() => handleStepClick(i)}
               aria-current={i === index ? "step" : undefined}
-              className={`cursor-pointer text-sm tracking-tight transition-all duration-300 ${
+              className={`group inline-flex cursor-pointer items-center gap-1.5 text-sm tracking-tight transition-all duration-300 ${
                 i === index ? "font-semibold text-primary" : "text-ink-faint hover:text-primary-text"
               }`}
             >
-              {s.label[locale]}
+              <span>{s.label[locale]}</span>
+              {i === index && i > 0 && (
+                <ArrowUpRight className="size-3.5 opacity-80 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+              )}
             </button>
           </li>
         ))}
