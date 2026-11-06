@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
+import Lenis from "lenis";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 import { LeftContent } from "@/components/organisms/LeftContent";
@@ -20,15 +21,33 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
   const setProgress = useScrollStore((s) => s.setProgress);
 
   useEffect(() => {
+    // Smooth cinematic inertia scroll via Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // exponential smooth decay
+      smoothWheel: true,
+      touchMultiplier: 1.5,
+    });
+
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? window.scrollY / max : 0);
     };
+
+    lenis.on("scroll", onScroll);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
     window.addEventListener("resize", onScroll);
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
       window.removeEventListener("resize", onScroll);
     };
   }, [setProgress]);
