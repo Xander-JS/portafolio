@@ -40,20 +40,21 @@ export function LeftContent() {
     }
   }, [isTransitioning, targetIndex]);
 
-  const step = steps[displayedIndex];
-  const isHero = displayedIndex === 0;
+  const safeIndex = Math.max(0, Math.min(steps.length - 1, Number.isFinite(displayedIndex) ? displayedIndex : 0));
+  const step = steps[safeIndex] || steps[0];
+  const isHero = safeIndex === 0;
   const currentTitle = isHero ? profile.name : step.title[locale];
 
   const navigateToModule = useCallback(() => {
-    if (displayedIndex === 0) return;
-    const targetModule = modules[displayedIndex - 1];
+    if (safeIndex === 0) return;
+    const targetModule = modules[safeIndex - 1];
     if (!targetModule) return;
     const href = moduleHref(targetModule);
     setWarping(true);
     setTimeout(() => {
       router.push(href);
     }, 280);
-  }, [displayedIndex, router, setWarping]);
+  }, [safeIndex, router, setWarping]);
 
   // Global Enter shortcut when viewing any module section
   useEffect(() => {
@@ -61,14 +62,14 @@ export function LeftContent() {
       if (e.key !== "Enter") return;
       const activeTag = document.activeElement?.tagName;
       if (activeTag === "INPUT" || activeTag === "TEXTAREA" || activeTag === "SELECT") return;
-      if (displayedIndex > 0) {
+      if (safeIndex > 0) {
         e.preventDefault();
         navigateToModule();
       }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [displayedIndex, navigateToModule]);
+  }, [safeIndex, navigateToModule]);
 
   return (
     <div className="pointer-events-none fixed inset-x-4 bottom-10 z-10 max-w-2xl md:inset-x-auto md:bottom-[14vh] md:left-[5.5vw]">
