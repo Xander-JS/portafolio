@@ -4,7 +4,7 @@ import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 
 // Captured in the static page and refreshed daily, so the footer year rolls over on its own.
-async function currentYear() {
+export async function currentYear() {
   "use cache";
   cacheLife("days");
   return new Date().getFullYear();
