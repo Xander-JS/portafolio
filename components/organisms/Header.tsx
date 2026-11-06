@@ -11,6 +11,7 @@ import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { moduleHref, modules } from "@/data/modules";
 import { profile } from "@/data/profile";
 import { useLocale } from "@/i18n/Providers";
+import { useScrollStore } from "@/lib/useScrollStore";
 
 /** The nav bar that stays with you as you scroll. Each link opens that section's own page. */
 export function Header() {
@@ -19,13 +20,29 @@ export function Header() {
   const locale = useLocale();
   const [open, setOpen] = useState(false);
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setOpen(false);
+    useScrollStore.getState().setWarping(false);
+
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      useScrollStore.getState().setProgress(0);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-ground px-4 pt-3 pb-1 md:px-[5.5vw] md:pt-4">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">
         {t("skip")}
       </a>
       <div className="flex h-14 items-center gap-2 rounded-2xl bg-surface px-3 md:h-16 md:gap-4 md:px-5">
-        <Link href="/" className="flex shrink-0 items-center" aria-label={profile.name}>
+        <Link
+          href="/"
+          onClick={handleLogoClick}
+          className="flex shrink-0 items-center"
+          aria-label={profile.name}
+        >
           <Image
             src="/assets/logo/Logo.png"
             alt={profile.name}
