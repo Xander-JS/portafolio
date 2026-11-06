@@ -10,23 +10,19 @@ type Props = {
 
 /**
  * Renders text with a progressive typing animation and blinking tech cursor ('|').
- * Restarts smoothly when `text` changes across sections.
+ * Keyed by text so each new heading re-mounts and animates cleanly without cascading renders.
  */
 export function TypewriterHeading({ text, speed = 28, className = "" }: Props) {
   const [displayed, setDisplayed] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
+  const isTyping = displayed.length < text.length;
 
   useEffect(() => {
-    setDisplayed("");
-    setIsTyping(true);
-
     let index = 0;
     const interval = setInterval(() => {
       index++;
       if (index <= text.length) {
         setDisplayed(text.slice(0, index));
       } else {
-        setIsTyping(false);
         clearInterval(interval);
       }
     }, speed);

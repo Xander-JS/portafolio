@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { TypewriterHeading } from "@/components/atoms/TypewriterHeading";
 import { profile } from "@/data/profile";
@@ -21,26 +21,17 @@ export function LeftContent() {
   const locale = useLocale();
   const t = useTranslations("hero");
 
-  // Track active displayed index and transition state
   const [displayedIndex, setDisplayedIndex] = useState(targetIndex);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isTransitioning = targetIndex !== displayedIndex;
 
   useEffect(() => {
-    if (targetIndex !== displayedIndex) {
-      setIsTransitioning(true);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-      // Brief deconstruction out-phase before mounting the new content
-      timeoutRef.current = setTimeout(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
         setDisplayedIndex(targetIndex);
-        setIsTransitioning(false);
       }, 220);
+      return () => clearTimeout(timer);
     }
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [targetIndex, displayedIndex]);
+  }, [isTransitioning, targetIndex]);
 
   const step = steps[displayedIndex];
   const isHero = displayedIndex === 0;
@@ -73,11 +64,11 @@ export function LeftContent() {
         <div className="mt-2.5">
           {isHero ? (
             <h1 className="text-balance font-display text-5xl tracking-wide text-ink md:text-7xl lg:text-8xl">
-              <TypewriterHeading text={currentTitle} speed={32} />
+              <TypewriterHeading key={currentTitle} text={currentTitle} speed={32} />
             </h1>
           ) : (
             <h2 className="text-balance font-display text-4xl tracking-wide text-ink md:text-6xl">
-              <TypewriterHeading text={currentTitle} speed={32} />
+              <TypewriterHeading key={currentTitle} text={currentTitle} speed={32} />
             </h2>
           )}
         </div>
