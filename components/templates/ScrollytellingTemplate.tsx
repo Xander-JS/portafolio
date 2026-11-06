@@ -35,7 +35,11 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
 
   return (
     <>
-      <div className="fixed inset-0 z-0 bg-ground">
+      {/* Full background ground behind everything. */}
+      <div className="fixed inset-0 z-0 bg-ground" />
+
+      {/* The 3D scene covers the full viewport, edge to edge with no empty gaps. */}
+      <div className="pointer-events-none fixed inset-0 z-0">
         <Scene />
       </div>
 
