@@ -117,7 +117,7 @@ export type Testimonial = {
  * intro, and the detail page at /<slug> (whose folder in app/ must match the slug).
  */
 export type PortfolioModule = {
-  id: "about" | "skills" | "projects" | "experience" | "testimonials" | "contact";
+  id: "about" | "skills" | "projects" | "experience" | "testimonials" | "reserved" | "contact";
   slug: string;
   icon: IconName;
   /** Section name: nav link, card tag and section heading. */
