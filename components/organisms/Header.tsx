@@ -77,10 +77,10 @@ export function Header() {
                     href={href}
                     onClick={() => setOpen(false)}
                     aria-current={current ? "page" : undefined}
-                    className={`flex h-7 items-center mx-2 text-sm transition-all duration-200 ${
+                    className={`flex h-7 items-center mx-2 text-sm border-b border-transparent transition-all duration-200 ${
                       current
-                        ? "bg-primary-soft font-medium text-primary-soft-ink rounded-md px-2"
-                        : "text-ink-soft border-b border-transparent hover:border-primary-text hover:text-primary-text group-hover:blur-[1.5px] hover:!blur-none"
+                        ? "font-medium text-primary"
+                        : "text-ink-soft hover:border-primary-text hover:text-primary-text group-hover:blur-[1.5px] hover:!blur-none"
                     }`}
                   >
                     {m.label[locale]}
