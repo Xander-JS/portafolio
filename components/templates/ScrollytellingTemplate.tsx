@@ -20,6 +20,12 @@ const Scene = dynamic(() => import("@/components/organisms/Scene").then((m) => m
 export function ScrollytellingTemplate({ year }: { year: number }) {
   const setProgress = useScrollStore((s) => s.setProgress);
   const isWarping = useScrollStore((s) => s.isWarping);
+  const setWarping = useScrollStore((s) => s.setWarping);
+
+  useEffect(() => {
+    // Ensure warping state is clean on home mount
+    setWarping(false);
+  }, [setWarping]);
 
   useEffect(() => {
     // Smooth cinematic inertia scroll via Lenis
@@ -63,12 +69,15 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
         <Scene />
       </div>
 
+      {/* Header stays persistent and accessible at all times */}
+      <Header />
+
+      {/* Scrollytelling UI overlays that fade during 3D immersion transition */}
       <div
         className={`transition-opacity duration-300 ${
           isWarping ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
-        <Header />
         <SectionNav />
         <LeftContent />
       </div>
