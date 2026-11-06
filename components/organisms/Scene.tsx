@@ -1,6 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef } from "react";
 import {
@@ -11,6 +12,7 @@ import {
   PointLight,
   Vector3,
 } from "three";
+import { moduleHref, modules } from "@/data/modules";
 import { STEP_COUNT } from "@/data/steps";
 import { createGraphData } from "@/lib/sceneGraph";
 import { useScrollStore } from "@/lib/useScrollStore";
@@ -45,6 +47,10 @@ function Constellation({
 }: {
   palette: typeof THEME_PALETTES.dark;
 }) {
+  const router = useRouter();
+  const activeIndex = useScrollStore((s) => s.index);
+  const setWarping = useScrollStore((s) => s.setWarping);
+
   const { viewport } = useThree();
   const aspect = viewport.aspect || 1.77;
 
@@ -63,6 +69,13 @@ function Constellation({
   const camPos = useRef(new Vector3().copy(graph.camCurve.getPoint(0)));
   const lookAtPos = useRef(new Vector3().copy(graph.targetCurve.getPoint(0)));
 
+  // Reset pointer cursor when component unmounts
+  useEffect(() => {
+    return () => {
+      document.body.style.cursor = "auto";
+    };
+  }, []);
+
   // Populate instanced ambient nodes once per graph generation
   useEffect(() => {
     if (!instancedRef.current) return;
@@ -78,7 +91,7 @@ function Constellation({
   }, [graph.ambientNodes]);
 
   useFrame((state, delta) => {
-    const { progress } = useScrollStore.getState();
+    const { progress, isWarping } = useScrollStore.getState();
 
     // Smooth scroll inertia with delta damping
     smoothProgress.current = MathUtils.damp(
@@ -99,9 +112,18 @@ function Constellation({
     const idleX = Math.sin(time * 0.7) * 0.1;
     const idleY = Math.cos(time * 0.5) * 0.08;
 
-    // Smoothly damp camera position and gaze target
-    camPos.current.lerp(targetCam, Math.min(1, delta * 5.5));
-    lookAtPos.current.lerp(targetLook, Math.min(1, delta * 5.5));
+    const stepFloat = smoothProgress.current * (STEP_COUNT - 1);
+    const activeIdx = Math.max(0, Math.min(STEP_COUNT - 1, Math.round(stepFloat)));
+    const activePos = graph.milestones[activeIdx];
+
+    if (isWarping && activePos) {
+      // Rapid cinematic acceleration towards the active milestone
+      camPos.current.lerp(activePos, Math.min(1, delta * 11.0));
+      lookAtPos.current.lerp(activePos, Math.min(1, delta * 13.0));
+    } else {
+      camPos.current.lerp(targetCam, Math.min(1, delta * 5.5));
+      lookAtPos.current.lerp(targetLook, Math.min(1, delta * 5.5));
+    }
 
     state.camera.position.set(
       camPos.current.x + idleX,
@@ -111,8 +133,6 @@ function Constellation({
     state.camera.lookAt(lookAtPos.current);
 
     // Milestone focus animation: breathing & flickering of the node itself
-    const stepFloat = smoothProgress.current * (STEP_COUNT - 1);
-
     graph.milestones.forEach((_, i) => {
       const dist = Math.abs(stepFloat - i);
       const activation = Math.max(0, 1 - dist * 1.35);
@@ -134,8 +154,6 @@ function Constellation({
     });
 
     // Soft point light follows active milestone position
-    const activeIdx = Math.max(0, Math.min(STEP_COUNT - 1, Math.round(stepFloat)));
-    const activePos = graph.milestones[activeIdx];
     if (lightRef.current && activePos) {
       lightRef.current.position.lerp(activePos, Math.min(1, delta * 6));
       const activeActivation = Math.max(0, 1 - Math.abs(stepFloat - activeIdx) * 1.35);
@@ -156,19 +174,52 @@ function Constellation({
         decay={2}
       />
 
-      {/* 7 Milestone Nodes along the spine (single node with pure breathing animation) */}
-      {graph.milestones.map((pos, i) => (
-        <mesh
-          key={`milestone-${i}`}
-          ref={(el) => {
-            coreRefs.current[i] = el;
-          }}
-          position={pos}
-        >
-          <sphereGeometry args={[0.14, 24, 24]} />
-          <meshBasicMaterial color={palette.node} />
-        </mesh>
-      ))}
+      {/* 7 Milestone Nodes along the spine with interactive proxy for active node */}
+      {graph.milestones.map((pos, i) => {
+        const isModule = i > 0;
+        const isActive = i === activeIndex;
+
+        return (
+          <group key={`milestone-${i}`} position={pos}>
+            <mesh
+              ref={(el) => {
+                coreRefs.current[i] = el;
+              }}
+            >
+              <sphereGeometry args={[0.14, 24, 24]} />
+              <meshBasicMaterial color={palette.node} />
+            </mesh>
+
+            {/* Generous raycast hit proxy for the active interactive node */}
+            {isModule && isActive && (
+              <mesh
+                visible={false}
+                onPointerOver={(e) => {
+                  e.stopPropagation();
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={() => {
+                  document.body.style.cursor = "auto";
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const targetModule = modules[i - 1];
+                  if (targetModule) {
+                    document.body.style.cursor = "auto";
+                    setWarping(true);
+                    setTimeout(() => {
+                      router.push(moduleHref(targetModule));
+                    }, 280);
+                  }
+                }}
+              >
+                <sphereGeometry args={[0.7, 12, 12]} />
+                <meshBasicMaterial transparent opacity={0} />
+              </mesh>
+            )}
+          </group>
+        );
+      })}
 
       {/* Backbone line connecting milestones */}
       <lineSegments>

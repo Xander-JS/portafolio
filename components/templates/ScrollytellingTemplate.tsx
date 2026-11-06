@@ -19,6 +19,7 @@ const Scene = dynamic(() => import("@/components/organisms/Scene").then((m) => m
  */
 export function ScrollytellingTemplate({ year }: { year: number }) {
   const setProgress = useScrollStore((s) => s.setProgress);
+  const isWarping = useScrollStore((s) => s.isWarping);
 
   useEffect(() => {
     // Smooth cinematic inertia scroll via Lenis
@@ -57,19 +58,27 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
       {/* Full background ground behind everything. */}
       <div className="fixed inset-0 z-0 bg-ground" />
 
-      {/* The 3D scene covers the full viewport, edge to edge with no empty gaps. */}
-      <div className="pointer-events-none fixed inset-0 z-0">
+      {/* The 3D scene covers the full viewport, edge to edge with interactive node raycasting. */}
+      <div className="fixed inset-0 z-0">
         <Scene />
       </div>
 
-      <Header />
-      <SectionNav />
-      <LeftContent />
+      <div
+        className={`transition-opacity duration-300 ${
+          isWarping ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
+      >
+        <Header />
+        <SectionNav />
+        <LeftContent />
+      </div>
 
-      <div className="relative z-10">
-        {/* Invisible scroll range: one viewport per step, so progress spans all seven steps (00–06). */}
+      <div className="relative z-10 pointer-events-none">
+        {/* Invisible scroll range: one viewport per step, passes pointer events to 3D canvas while enabling window scroll */}
         <div aria-hidden style={{ height: `calc(${STEP_COUNT} * 100svh)` }} />
-        <Footer year={year} />
+        <div className="pointer-events-auto">
+          <Footer year={year} />
+        </div>
       </div>
     </>
   );
