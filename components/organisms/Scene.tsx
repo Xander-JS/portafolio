@@ -74,6 +74,7 @@ function Constellation({
       instancedRef.current!.setMatrixAt(i, dummy.matrix);
     });
     instancedRef.current.instanceMatrix.needsUpdate = true;
+    instancedRef.current.computeBoundingSphere();
   }, [graph.ambientNodes]);
 
   useFrame((state, delta) => {
@@ -87,9 +88,11 @@ function Constellation({
       delta
     );
 
+    const clampedProgress = MathUtils.clamp(smoothProgress.current, 0, 1);
+
     // Compute target camera waypoint and look-at point from 3D curves
-    const targetCam = graph.camCurve.getPoint(smoothProgress.current);
-    const targetLook = graph.targetCurve.getPoint(smoothProgress.current);
+    const targetCam = graph.camCurve.getPoint(clampedProgress);
+    const targetLook = graph.targetCurve.getPoint(clampedProgress);
 
     // Idle organic breathing (subtle zero-g float)
     const time = state.clock.getElapsedTime();
@@ -201,6 +204,7 @@ function Constellation({
       <instancedMesh
         ref={instancedRef}
         args={[undefined, undefined, graph.ambientNodes.length]}
+        frustumCulled={false}
       >
         <sphereGeometry args={[1, 12, 12]} />
         <meshBasicMaterial
