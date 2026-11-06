@@ -28,7 +28,9 @@
     "go": "Ir",
     "open": "Abrir {label}: {title}",
     "progress": "Tarjetas",
-    "dot": "Ir a la tarjeta {n} de {total}: {label}"
+    "dot": "Ir a la tarjeta {n} de {total}: {label}",
+    "explore": "Explorar módulo",
+    "pressEnter": "Presiona Enter ↵"
   },
   "about": {
     "lead": "Soy de la ciudad Pasto, Nariño, y estudio quinto semestre de Ingeniería de Software en la universidad Cooperativa de colombia.",

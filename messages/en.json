@@ -28,7 +28,9 @@
     "go": "Go",
     "open": "Open {label}: {title}",
     "progress": "Cards",
-    "dot": "Go to card {n} of {total}: {label}"
+    "dot": "Go to card {n} of {total}: {label}",
+    "explore": "Explore module",
+    "pressEnter": "Press Enter ↵"
   },
   "about": {
     "lead": "I'm from {city}, Nariño, and I'm a 5th-semester Software Engineering student at {university}.",
