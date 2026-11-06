@@ -122,14 +122,15 @@ export function createGraphData(horizontalFactor = 1.0): GraphData {
 
   // 2. Enveloping ambient tunnel: radius between 2.8 and 9.5 from center
   // Keeps the central forward line of sight clear and avoids depth clumping
+  // Extends well past the final milestone (-54) to -85 so the constellation never runs out of nodes at the bottom of the page
   const zMin = 8;
-  const zMax = -62;
+  const zMax = -85;
   const zRange = zMax - zMin;
-  const TARGET_AMBIENT = 300;
+  const TARGET_AMBIENT = 450;
 
   let placedAmbient = 0;
   let attempts = 0;
-  while (placedAmbient < TARGET_AMBIENT && attempts < 1600) {
+  while (placedAmbient < TARGET_AMBIENT && attempts < 2800) {
     attempts++;
     const z = zMin + rand() * zRange;
     const theta = rand() * Math.PI * 2;
