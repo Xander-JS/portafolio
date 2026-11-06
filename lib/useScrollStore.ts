@@ -20,7 +20,8 @@ export const useScrollStore = create<ScrollState>((set, get) => ({
   index: 0,
   progress: 0,
   setProgress: (progress) => {
-    const index = indexFor(progress);
-    if (progress !== get().progress || index !== get().index) set({ progress, index });
+    const clamped = Math.max(0, Math.min(1, progress));
+    const index = indexFor(clamped);
+    if (clamped !== get().progress || index !== get().index) set({ progress: clamped, index });
   },
 }));
