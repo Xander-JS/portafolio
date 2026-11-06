@@ -23,13 +23,11 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
   const setWarping = useScrollStore((s) => s.setWarping);
 
   useEffect(() => {
-    // Ensure clean state and scroll when home is mounted
+    // Ensure clean state and instant top scroll when home is mounted or restored via <Activity>
     setWarping(false);
     setProgress(0);
-    window.scrollTo(0, 0);
-  }, [setWarping, setProgress]);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-  useEffect(() => {
     // Smooth cinematic inertia scroll via Lenis
     const lenis = new Lenis({
       duration: 1.2,
@@ -37,6 +35,7 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
       smoothWheel: true,
       touchMultiplier: 1.5,
     });
+    lenis.scrollTo(0, { immediate: true });
 
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -59,7 +58,7 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
       lenis.destroy();
       window.removeEventListener("resize", onScroll);
     };
-  }, [setProgress]);
+  }, [setWarping, setProgress]);
 
   return (
     <>
