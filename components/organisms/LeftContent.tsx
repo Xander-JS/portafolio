@@ -87,6 +87,27 @@ export function LeftContent() {
             <p className="text-sm font-medium text-primary-text md:text-base">
               {t("eyebrow")}
             </p>
+          ) : isContact ? (
+            <a
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+                profile.email || "alecxandermarlon@gmail.com",
+              )}&su=${encodeURIComponent(
+                locale === "en" ? "Contact from Portfolio" : "Contacto desde Portafolio",
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group pointer-events-auto inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-primary/30 bg-surface/85 px-4 py-1.5 text-sm font-medium tracking-wide text-primary-text backdrop-blur-md shadow-xs transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_18px_rgba(240,67,89,0.35)] active:scale-95"
+            >
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-primary" />
+              </span>
+              <Icon name="mail" className="size-4" />
+              <span>
+                {locale === "en" ? "Send direct message" : "Escribir mensaje directo"}
+              </span>
+              <ArrowUpRight className="size-3.5 opacity-70 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+            </a>
           ) : (
             <span className="inline-flex items-center gap-2 text-primary-text">
               <Icon name={step.icon} className="size-5" />
