@@ -1,7 +1,7 @@
 import { Icon } from "@/components/atoms/Icon";
 import { profile } from "@/data/profile";
 
-const labels = { facebook: "Facebook", linkedin: "LinkedIn" };
+const labels = { github: "GitHub", facebook: "Facebook", linkedin: "LinkedIn" };
 
 export function SocialLinks({ withEmail = false, className = "" }: { withEmail?: boolean; className?: string }) {
   return (

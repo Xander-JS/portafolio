@@ -31,7 +31,7 @@ export function Footer({
             © {year} {profile.name}. {t("rights")}
           </p>
         )}
-        <SocialLinks withEmail className="-mr-3" />
+        <SocialLinks className="-mr-3" />
       </div>
     </footer>
   );
