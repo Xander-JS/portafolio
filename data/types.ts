@@ -35,7 +35,7 @@ export type IconName =
   | "utensils"
   | "mic";
 
-export type Social = { id: "facebook" | "linkedin"; href: string };
+export type Social = { id: "github" | "facebook" | "linkedin"; href: string };
 
 export type Profile = {
   name: string;

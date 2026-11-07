@@ -34,12 +34,8 @@ const contact: Step = {
   label: { es: "Contacto", en: "Contact" },
   title: { es: "Hablemos", en: "Let's talk" },
   description: {
-    es: profile.email
-      ? `Escríbeme a ${profile.email} o encuéntrame en mis redes sociales para conversar sobre proyectos y oportunidades.`
-      : "Escríbeme o encuéntrame en mis redes sociales para conversar sobre proyectos y oportunidades.",
-    en: profile.email
-      ? `Write to me at ${profile.email} or find me on social media to talk about projects and opportunities.`
-      : "Write to me or find me on social media to talk about projects and opportunities.",
+    es: "Escríbeme o encuéntrame en mis redes sociales para conversar sobre proyectos y oportunidades.",
+    en: "Write to me or find me on social media to talk about projects and opportunities.",
   },
 };
 
