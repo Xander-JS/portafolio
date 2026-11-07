@@ -1,13 +1,11 @@
 "use client";
 
-import { RotateCcw } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   type ReactNode,
   useCallback,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import { useLocale } from "@/i18n/Providers";
 
@@ -106,10 +104,8 @@ function seededRandom(seed: number): number {
  */
 export function NodeReconstruction({
   children,
-  replayLabel = "Reconstruir nodos",
 }: {
   children: ReactNode;
-  replayLabel?: string;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -118,9 +114,6 @@ export function NodeReconstruction({
 
   const { resolvedTheme } = useTheme();
   const locale = useLocale();
-
-  const [replayCount, setReplayCount] = useState(0);
-  const [isAssembled, setIsAssembled] = useState(false);
 
   const particlesRef = useRef<Particle[]>([]);
   const colorsRef = useRef<ThemeColors>(readThemeColors());
@@ -771,7 +764,6 @@ export function NodeReconstruction({
   const startAnimationLoop = useCallback((resetStartTime = false) => {
     if (resetStartTime) {
       startTimeRef.current = performance.now();
-      setIsAssembled(false);
       // Reset particle positions to their scattered constellation spawn points
       const pts = particlesRef.current;
       for (let i = 0; i < pts.length; i++) {
@@ -816,10 +808,6 @@ export function NodeReconstruction({
       // Overall DOM solidification progress (starts fading in at 1550ms, complete by 2250ms)
       const domProgress = Math.max(0, Math.min(1, (elapsed - 1550) / 700));
       const smoothDomOpacity = domProgress * domProgress * (3 - 2 * domProgress);
-
-      if (domProgress >= 1) {
-        setIsAssembled((prev) => (prev ? prev : true));
-      }
 
       // Apply DOM opacity & dynamic radial cursor dissolve mask
       contentEl.style.opacity = `${smoothDomOpacity}`;
@@ -1090,7 +1078,7 @@ export function NodeReconstruction({
         rafRef.current = null;
       }
     };
-  }, [locale, replayCount, sampleDOMIntoParticles, startAnimationLoop]);
+  }, [locale, sampleDOMIntoParticles, startAnimationLoop]);
 
   /** Theme change listener: updates particle colors immediately without losing state */
   useEffect(() => {
@@ -1181,23 +1169,6 @@ export function NodeReconstruction({
         onPointerDown={handlePointerDown}
         className="relative z-10 select-text"
       >
-        {/* Replay button to test / re-trigger the node assembly anytime */}
-        <div className="mb-4 flex justify-end">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setReplayCount((c) => c + 1);
-            }}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/30 bg-surface/80 px-3.5 py-1.5 font-mono text-xs text-ink-soft backdrop-blur-xs transition-all duration-300 hover:border-primary hover:text-primary ${isAssembled ? "opacity-100" : "pointer-events-none opacity-0"
-              }`}
-            title={replayLabel}
-          >
-            <RotateCcw className="size-3.5" aria-hidden />
-            <span>{replayLabel}</span>
-          </button>
-        </div>
-
         <div className="relative">
           {/* Real accessible DOM layer (fades in as nodes lock into place) */}
           <div

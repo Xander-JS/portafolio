@@ -5,12 +5,10 @@ import { Section } from "@/components/atoms/Section";
 import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { NodeReconstruction } from "@/components/molecules/NodeReconstruction";
 import { profile } from "@/data/profile";
-import { useLocale } from "@/i18n/Providers";
 
 /** `summary` is the home page version: the lead and the facts, with a link to /about. */
 export function About({ summary = false }: { summary?: boolean }) {
   const t = useTranslations("about");
-  const locale = useLocale();
   const facts = [
     [t("facts.from"), `${profile.city}, Nariño`],
     [t("facts.study"), t("facts.studyValue")],
@@ -20,9 +18,7 @@ export function About({ summary = false }: { summary?: boolean }) {
 
   return (
     <Section id="about" className="[&>*]:!animate-none">
-      <NodeReconstruction
-        replayLabel={locale === "en" ? "Reconstruct nodes" : "Reconstruir nodos"}
-      >
+      <NodeReconstruction>
         <ModuleHeading id="about" summary={summary} intro={false} />
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
           <div className="space-y-6">
