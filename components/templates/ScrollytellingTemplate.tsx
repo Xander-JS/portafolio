@@ -23,6 +23,10 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
   const setWarping = useScrollStore((s) => s.setWarping);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const goToContact =
+      params.get("step") === "contact" || window.location.hash === "#contact";
+
     // Ensure clean state and instant top scroll when home is mounted or restored via <Activity>
     setWarping(false);
     setProgress(0);
@@ -44,6 +48,14 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
 
     lenis.on("scroll", onScroll);
     onScroll();
+
+    if (goToContact) {
+      window.history.replaceState(null, "", "/");
+      requestAnimationFrame(() => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        lenis.scrollTo(max, { duration: 1.6 });
+      });
+    }
 
     let rafId: number;
     function raf(time: number) {
