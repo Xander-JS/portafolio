@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { moduleHref, modules } from "@/data/modules";
 import { useLocale } from "@/i18n/Providers";
+import { useScrollStore } from "@/lib/useScrollStore";
 
 export function ModuleProgressNav() {
   const pathname = usePathname();
@@ -60,6 +61,12 @@ export function ModuleProgressNav() {
 
         <Link
           href={nextHref}
+          scroll={Boolean(nextModule)}
+          onClick={() => {
+            if (!nextModule) {
+              useScrollStore.getState().setPendingContact(true);
+            }
+          }}
           className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold tracking-wide text-primary-text transition-all duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_16px_rgba(240,67,89,0.35)] active:scale-95"
         >
           <span>{nextLabel}</span>
@@ -72,3 +79,4 @@ export function ModuleProgressNav() {
     </div>
   );
 }
+

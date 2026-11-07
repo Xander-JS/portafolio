@@ -25,12 +25,11 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const goToContact =
-      params.get("step") === "contact" || window.location.hash === "#contact";
+      useScrollStore.getState().pendingContact ||
+      params.get("step") === "contact" ||
+      window.location.hash === "#contact";
 
-    // Ensure clean state and instant top scroll when home is mounted or restored via <Activity>
     setWarping(false);
-    setProgress(0);
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
     // Smooth cinematic inertia scroll via Lenis
     const lenis = new Lenis({
@@ -39,7 +38,6 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
       smoothWheel: true,
       touchMultiplier: 1.5,
     });
-    lenis.scrollTo(0, { immediate: true });
 
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -47,14 +45,31 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
     };
 
     lenis.on("scroll", onScroll);
-    onScroll();
+
+    let contactTimer: ReturnType<typeof setTimeout> | null = null;
 
     if (goToContact) {
+      useScrollStore.getState().setPendingContact(false);
       window.history.replaceState(null, "", "/");
-      requestAnimationFrame(() => {
+
+      const jumpToContact = () => {
         const max = document.documentElement.scrollHeight - window.innerHeight;
-        lenis.scrollTo(max, { duration: 1.6 });
-      });
+        if (max > 0) {
+          window.scrollTo({ top: max, left: 0, behavior: "instant" });
+          lenis.scrollTo(max, { immediate: true });
+        }
+        setProgress(1);
+      };
+
+      jumpToContact();
+      requestAnimationFrame(jumpToContact);
+      contactTimer = setTimeout(jumpToContact, 80);
+    } else {
+      // Ensure clean state and instant top scroll when home is mounted normally
+      setProgress(0);
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      lenis.scrollTo(0, { immediate: true });
+      onScroll();
     }
 
     let rafId: number;
@@ -66,6 +81,7 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
 
     window.addEventListener("resize", onScroll);
     return () => {
+      if (contactTimer) clearTimeout(contactTimer);
       cancelAnimationFrame(rafId);
       lenis.destroy();
       window.removeEventListener("resize", onScroll);
