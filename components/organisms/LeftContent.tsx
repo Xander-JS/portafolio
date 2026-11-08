@@ -1,12 +1,13 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { TypewriterHeading } from "@/components/atoms/TypewriterHeading";
 import { profile } from "@/data/profile";
+import { cvUrl } from "@/data/site";
 import { steps } from "@/data/steps";
 import { useLocale } from "@/i18n/Providers";
 import { useScrollStore } from "@/lib/useScrollStore";
@@ -165,6 +166,25 @@ export function LeftContent() {
                 ↵ Enter
               </kbd>
             </button>
+          </div>
+        )}
+
+        {/* Action button on Hero to download CV */}
+        {isHero && cvUrl && (
+          <div
+            className={`mt-6 transition-all duration-300 ${isTransitioning ? "content-deconstruct" : "content-construct"
+              }`}
+          >
+            <a
+              href={cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t("downloadCv")}
+              className="group/cta pointer-events-auto inline-flex cursor-pointer items-center gap-2.5 rounded-xl border border-primary/40 bg-surface/80 px-4 py-2.5 text-sm font-semibold tracking-wide text-ink backdrop-blur-md shadow-md transition-all duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_rgba(240,67,89,0.35)] active:scale-95 md:px-5 md:py-3"
+            >
+              <span>{t("downloadCv")}</span>
+              <Download className="size-4 transition-transform duration-300 group-hover/cta:translate-y-0.5" />
+            </a>
           </div>
         )}
       </div>
