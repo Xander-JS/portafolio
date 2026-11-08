@@ -81,10 +81,15 @@
   },
   "projects": {
     "demo": "Live demo",
+    "visitWeb": "Visit Web",
+    "downloadApk": "Download APK",
     "repo": "Source code",
     "soon": "Links coming soon",
     "imageAlt": "Screenshot of {name}",
     "details": "View project",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
     "back": "← All projects",
     "type": {
       "freelance": "Freelance",
