@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, Download } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/atoms/Badge";
@@ -23,7 +23,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
   return (
     <Section id="project">
-      <Link href="/projects" className="inline-flex h-11 items-center text-sm font-medium text-primary-text underline decoration-transparent underline-offset-4 hover:decoration-current">
+      <Link href="/projects" className="inline-flex h-11 items-center font-sans text-sm font-medium text-primary-text underline decoration-transparent underline-offset-4 hover:decoration-current">
         {t("back")}
       </Link>
 
@@ -31,7 +31,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <Badge tone="solid">{t(`type.${project.type}`)}</Badge>
         <Badge>{t(`status.${project.status}`)}</Badge>
       </div>
-      <h1 id="project-title" className="mt-5 max-w-4xl text-4xl font-medium tracking-[-0.035em] text-balance text-ink md:text-6xl">
+      <h1 id="project-title" className="mt-5 max-w-4xl font-display text-4xl tracking-wide text-balance text-ink md:text-6xl">
         {title}
       </h1>
       <p className="mt-5 max-w-2xl text-xl leading-relaxed text-ink-soft">{project.summary[locale]}</p>
@@ -48,13 +48,13 @@ export function ProjectDetail({ project }: { project: Project }) {
             </p>
           ))}
           <h2 className="pt-6 text-2xl font-medium tracking-[-0.025em] text-ink">{t("features")}</h2>
-          <ul className="space-y-3">
+          <ul className="space-y-3 list-none p-0 m-0">
             {project.features.map((f) => (
               <li key={f.en} className="flex items-start gap-3 text-lg text-ink">
                 <span className="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
                   <Check className="size-3.5" aria-hidden />
                 </span>
-                {f[locale]}
+                <span>{f[locale]}</span>
               </li>
             ))}
           </ul>
@@ -71,7 +71,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             <div>
               <dt className="text-sm text-primary-soft-ink">{t("stack")}</dt>
               <dd className="mt-2">
-                <ul className="flex flex-wrap gap-2">
+                <ul className="flex flex-wrap gap-2 list-none p-0 m-0">
                   {project.stack.map((s) => (
                     <Tag key={s}>{s}</Tag>
                   ))}
@@ -79,11 +79,16 @@ export function ProjectDetail({ project }: { project: Project }) {
               </dd>
             </div>
           </dl>
-          {(project.demoUrl || project.repoUrl) && (
+          {(project.demoUrl || project.repoUrl || project.apkUrl) && (
             <div className="mt-7 flex flex-wrap gap-3">
+              {project.apkUrl && (
+                <ButtonLink variant="primary" href={project.apkUrl} download target="_blank" rel="noopener noreferrer">
+                  <Download className="size-4" aria-hidden /> {locale === "en" ? "Download APK" : "Descargar APK"}
+                </ButtonLink>
+              )}
               {project.demoUrl && (
-                <ButtonLink variant="primary" href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                  {t("demo")} <ArrowUpRight className="size-4" aria-hidden />
+                <ButtonLink variant={project.apkUrl ? "pill" : "primary"} href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                  {locale === "en" ? "Visit Web" : "Ir a la Web"} <ArrowUpRight className="size-4" aria-hidden />
                 </ButtonLink>
               )}
               {project.repoUrl && (
@@ -97,7 +102,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       </div>
 
       <h2 className="mt-20 text-2xl font-medium tracking-[-0.025em] text-ink md:text-3xl">{t("gallery")}</h2>
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
         {project.gallery.map((src, i) => (
           <li key={i} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <ProjectImage src={src} alt={t("galleryAlt", { n: i + 1, name: title })} label={title} note={t("imagePending")} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
