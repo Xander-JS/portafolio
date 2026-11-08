@@ -15,8 +15,8 @@
     "viewMoreAbout": "Ver más sobre {section}"
   },
   "hero": {
-    "eyebrow": "Estudiante de Ingeniería de Software",
-    "tagline": "Construyo tecnología que resuelve problemas reales, y nunca dejo de aprender.",
+    "eyebrow": "Desarrollador Freelance",
+    "tagline": "Aprendo algo nuevo, construyo algo mejor y cada día evoluciono para resolver nuevos desafíos.",
     "viewProjects": "Ver proyectos",
     "contact": "Contáctame →",
     "location": "Pasto, Nariño, Colombia",
@@ -33,18 +33,18 @@
     "pressEnter": "Presiona Enter ↵"
   },
   "about": {
-    "lead": "Soy de la ciudad Pasto, Nariño, y estudio quinto semestre de Ingeniería de Software en la universidad Cooperativa de colombia.",
+    "lead": "Soy de Pasto, Nariño, y actualmente curso quinto semestre de Ingeniería de Software en la Universidad Cooperativa de Colombia.",
     "origin": "Llegué a la tecnología en el colegio, experimentando con distintas herramientas de flujos de trabajo.",
-    "drive": "Me mueven las oportunidades, aprender conceptos nuevos y construir tecnología que resuelva problemas reales.",
-    "character": "Soy escéptico y perfeccionista: me gusta que todo detalle quede bien hecho.",
+    "drive": "Me apasiona descubrir nuevas posibilidades, adquirir conocimientos y construir soluciones que impulsen el futuro.",
+    "character": "Soy escéptico, perfeccionista y fiel a mis valores. Me gusta cuestionar, cuidar cada detalle y rodearme de personas que me inspiren a crecer, superar mis límites y alcanzar nuevas metas.",
     "facts": {
       "from": "De",
       "study": "Estudio",
       "studyValue": "Ingeniería de Software, 5.º semestre",
-      "play": "Juego",
-      "playValue": "Fútbol, baloncesto y natación",
+      "play": "Deportes",
+      "playValue": "Fútbol, Gym y Stunt en motocicleta",
       "free": "Tiempo libre",
-      "freeValue": "Aprender conceptos nuevos"
+      "freeValue": "Aprender nuevos conceptos y mejorar habilidades"
     }
   },
   "skills": {

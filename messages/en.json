@@ -15,8 +15,8 @@
     "viewMoreAbout": "View more about {section}"
   },
   "hero": {
-    "eyebrow": "Software Engineering Student",
-    "tagline": "I build technology that solves real problems, and I never stop learning.",
+    "eyebrow": "Freelance Developer",
+    "tagline": "I learn something new, build something better, and evolve every day to solve new challenges.",
     "viewProjects": "View projects",
     "contact": "Contact me →",
     "location": "{city}, Nariño, Colombia",
@@ -33,18 +33,18 @@
     "pressEnter": "Press Enter ↵"
   },
   "about": {
-    "lead": "I'm from {city}, Nariño, and I'm a 5th-semester Software Engineering student at {university}.",
+    "lead": "I'm from Pasto, Nariño, and I'm currently in my fifth semester of Software Engineering at Universidad Cooperativa de Colombia.",
     "origin": "I got into technology in high school, experimenting with different workflow tools.",
-    "drive": "I'm driven by opportunities, by learning new concepts and by building technology that solves real problems.",
-    "character": "I'm skeptical and a perfectionist: I like every detail done right.",
+    "drive": "I'm passionate about discovering new possibilities, gaining knowledge, and building solutions that drive the future.",
+    "character": "I'm skeptical, a perfectionist, and true to my values. I enjoy questioning things, paying attention to every detail, and surrounding myself with people who inspire me to grow, push my limits, and achieve new goals.",
     "facts": {
       "from": "From",
       "study": "Studying",
       "studyValue": "Software Engineering, 5th semester",
-      "play": "I play",
-      "playValue": "Football, basketball and swimming",
+      "play": "Sports",
+      "playValue": "Football, Gym and Wheelie Riding",
       "free": "Free time",
-      "freeValue": "Learning new concepts"
+      "freeValue": "Learn new concepts and improve skills."
     }
   },
   "skills": {
