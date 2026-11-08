@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 function useMounted() {
   return useSyncExternalStore(
     emptySubscribe,
@@ -143,7 +143,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                     )}
 
                     {/* Phone Mockup Frame / Showcase */}
-                    <div className="relative aspect-[9/18] w-full max-w-[240px] shrink-0 overflow-hidden rounded-[2.5rem] border-[6px] border-ink/20 bg-black shadow-[0_12px_36px_rgba(0,0,0,0.4),0_0_24px_rgba(220,38,38,0.15)] sm:max-w-[260px] md:max-w-[280px] dark:border-white/15">
+                    <div className="relative aspect-[9/18] w-full max-w-[240px] shrink-0 overflow-hidden rounded-[2.5rem] border-[6px] border-ink/20 bg-black shadow-[0_12px_36px_rgba(0,0,0,0.4),0_0_24px_rgba(220,38,38,0.15)] sm:max-w-[260px] md:max-w-[336px] dark:border-white/15">
                       {/* Speaker notch */}
                       <div className="absolute top-2 left-1/2 z-20 h-3.5 w-20 -translate-x-1/2 rounded-full bg-ink/40 dark:bg-white/20" />
 
@@ -154,7 +154,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                           src={gallery[currentSlide]}
                           alt={`${title} screenshot ${currentSlide + 1}`}
                           fill
-                          className="object-cover object-top transition-all duration-300"
+                          className="object-cover object-center transition-all duration-300 scale-101"
                           sizes="(min-width: 1024px) 340px, 80vw"
                           priority
                         />
@@ -183,11 +183,10 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                           type="button"
                           onClick={() => setCurrentSlide(idx)}
                           aria-label={`${t("galleryAlt", { n: idx + 1, name: title })}`}
-                          className={`cursor-pointer rounded-full transition-all duration-300 ${
-                            idx === currentSlide
-                              ? "h-2.5 w-7 bg-primary shadow-[0_0_8px_rgba(220,38,38,0.7)]"
-                              : "size-2.5 bg-ink/20 hover:bg-ink/40 dark:bg-white/20 dark:hover:bg-white/40"
-                          }`}
+                          className={`cursor-pointer rounded-full transition-all duration-300 ${idx === currentSlide
+                            ? "h-2.5 w-7 bg-primary shadow-[0_0_8px_rgba(220,38,38,0.7)]"
+                            : "size-2.5 bg-ink/20 hover:bg-ink/40 dark:bg-white/20 dark:hover:bg-white/40"
+                            }`}
                         />
                       ))}
                     </div>
@@ -204,7 +203,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
             {/* Project Details Section */}
             <div className="flex flex-col lg:col-span-6">
-              <p className="text-base leading-relaxed text-ink-soft sm:text-lg">
+              <p className="mt-6 space-y-3 text-sm leading-relaxed text-ink-soft sm:text-base">
                 {summary}
               </p>
 
@@ -248,7 +247,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
               {/* Key Features */}
               {project.features && project.features.length > 0 && (
                 <div className="mt-6">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-text">
+                  <h3 className="text-lg font-display uppercase tracking-wider text-primary-text">
                     {t("features")}
                   </h3>
                   <ul className="mt-3 space-y-2 list-none p-0 m-0">
