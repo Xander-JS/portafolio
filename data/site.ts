@@ -1,8 +1,10 @@
 // Site-wide settings.
 
-// TODO: the ID of your CV on Google Drive (Spanish). In the share link
-// https://drive.google.com/file/d/<ID>/view it is the <ID> part. Share it as "Anyone with the link".
-// While it is empty the Download CV button is hidden.
-export const CV_DRIVE_FILE_ID = "";
+// Google Docs document ID for CV download (Spanish).
+export const CV_DOC_ID = "1U1clGM_xsGxdTrX5dSyApTsF0qztWDTcwBeRs0l_JX8";
 
-export const cvUrl = CV_DRIVE_FILE_ID ? `https://drive.google.com/uc?export=download&id=${CV_DRIVE_FILE_ID}` : "";
+// Direct PDF download URL from Google Docs
+export const cvUrl = CV_DOC_ID
+  ? `https://docs.google.com/document/d/${CV_DOC_ID}/export?format=pdf`
+  : "";
+
