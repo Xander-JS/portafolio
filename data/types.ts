@@ -75,6 +75,7 @@ export type Project = {
   /** Empty links are hidden. */
   repoUrl: string;
   demoUrl: string;
+  apkUrl?: string;
 };
 
 export type WorkItem = {
