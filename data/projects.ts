@@ -7,34 +7,42 @@ export const projects: Project[] = [
     slug: "marketplace",
     title: { es: "Marketplace agrícola", en: "Agricultural Marketplace" },
     summary: {
-      es: "App móvil donde los agricultores venden su cosecha directamente a compradores, con moderación incluida.",
-      en: "A mobile app where farmers sell their harvest straight to buyers, with moderation built in.",
+      es: "Kus es un ecosistema agrotech móvil de comercio seguro y directo entre agricultores y compradores con identidades verificadas.",
+      en: "Kus is a mobile agrotech ecosystem for secure and direct commerce between farmers and buyers with verified identities.",
     },
     description: [
       {
-        es: "Un marketplace móvil que conecta a agricultores con compradores sin intermediarios. Cada agricultor publica su cosecha, el comprador la encuentra y la pide, y un moderador cuida que las publicaciones sean reales.",
-        en: "A mobile marketplace that connects farmers with buyers without middlemen. Each farmer lists their harvest, buyers find and order it, and a moderator makes sure listings are genuine.",
+        es: "La plataforma elimina barreras en el mercado agrícola mediante herramientas especializadas. Combina catálogos en tiempo real, negociación de precios con conversión de unidades, cálculos de rentabilidad y una capa de moderación para proteger cada transacción.",
+        en: "The platform eliminates barriers in the agricultural market through specialized tools. It combines real-time catalogs, price negotiations with unit conversion, profitability calculations, and a moderation layer to protect every transaction.",
       },
       {
-        es: "Lo construí como freelance en dos meses con Flutter y Supabase, y está disponible en español e inglés.",
-        en: "I built it as a freelancer in two months with Flutter and Supabase, and it is available in Spanish and English.",
+        es: "Implementado como proyecto freelance de principio a fin en un ciclo ágil de cinco semanas.",
+        en: "Implemented as an end-to-end freelance project in an agile five-week cycle.",
       },
     ],
     type: "freelance",
     role: { es: "Desarrollo móvil", en: "Mobile developer" },
-    duration: { es: "2 meses", en: "2 months" },
+    duration: { es: "5 semanas", en: "5 week" },
     status: "completed",
-    stack: ["Flutter", "Supabase", "i18n"],
+    stack: ["Flutter", "Supabase", "i18n", "IA"],
     features: [
       { es: "Rol agricultor: publica y gestiona su cosecha", en: "Farmer role: lists and manages their harvest" },
       { es: "Rol comprador: busca productos y hace pedidos", en: "Buyer role: browses products and places orders" },
-      { es: "Rol moderador: revisa y aprueba publicaciones", en: "Moderator role: reviews and approves listings" },
+      { es: "Rol moderador: revisa y aprueba usuarios nuevos", en: "Moderator role: Review and approve new users" },
+      { es: "Publicación por voz con asistencia IA", en: "Voice publishing with AI assistance" },
       { es: "Interfaz en español e inglés", en: "Interface in Spanish and English" },
     ],
-    cover: "", // TODO: "/projects/marketplace/cover.jpg"
-    gallery: ["", "", ""], // TODO: "/projects/marketplace/1.jpg", …
-    repoUrl: "", // TODO
-    demoUrl: "", // TODO
+    cover: "/assets/img/apps/app_movil/img_movil.webp",
+    gallery: [
+      "/assets/img/apps/app_movil/01.jpeg",
+      "/assets/img/apps/app_movil/02.jpeg",
+      "/assets/img/apps/app_movil/03.jpeg",
+      "/assets/img/apps/app_movil/04.jpeg",
+      "/assets/img/apps/app_movil/00.jpeg",
+    ],
+    repoUrl: "",
+    demoUrl: "https://agriculturalmarketplace.vercel.app/",
+    apkUrl: "https://github.com/Xander-JS/agricultural_marketplace/releases/download/V1.0/app-release.apk",
   },
   {
     slug: "dj-ai-web",
