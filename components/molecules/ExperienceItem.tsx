@@ -36,7 +36,7 @@ export function ExperienceItem({ icon, badge, title, place, period, summary, ski
         <p className="mt-1 text-base text-ink-soft">{place}</p>
         {summary && <p className="mt-4 max-w-[62ch] text-lg leading-relaxed text-ink">{summary}</p>}
         {skills && skills.length > 0 && (
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label={skillsLabel}>
+          <ul className="mt-5 flex flex-wrap gap-2 list-none p-0 m-0" aria-label={skillsLabel}>
             {skills.map((s) => (
               <Tag key={s}>{s}</Tag>
             ))}
