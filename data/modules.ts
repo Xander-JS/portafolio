@@ -50,8 +50,8 @@ export const modules: PortfolioModule[] = [
     label: { es: "Proyectos", en: "Projects" },
     title: { es: "Lo que construyo", en: "What I build" },
     description: {
-      es: "Lo que he construido y lo que viene: apps reales, desde el diseño hasta la entrega al cliente.",
-      en: "What I've built and what's next: real apps, from design to delivery to the client.",
+      es: "Un recorrido por lo que he aprendido, creado y construido.",
+      en: "A journey through what I've learned, created, and built.",
     },
     facts: [
       { es: `${projects.length} proyectos`, en: `${projects.length} projects` },
