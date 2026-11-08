@@ -18,8 +18,8 @@ export const modules: PortfolioModule[] = [
     label: { es: "Sobre mí", en: "About me" },
     title: { es: "Quién soy", en: "Who I am" },
     description: {
-      es: "Soy de Pasto, Nariño, y estudio Ingeniería de Software. Me mueve aprender conceptos nuevos y construir tecnología que resuelva problemas reales.",
-      en: "I'm from Pasto, Nariño, and I study Software Engineering. I'm driven by learning new concepts and building technology that solves real problems.",
+      es: "Hola, soy Marlon Alexander. Un apasionado por la tecnología y muy atento a los detalles. Disfruto aprender, explorar nuevas ideas y convertirlas en productos reales.",
+      en: "Hi, I'm Marlon Alexander. I'm passionate about technology and have a keen eye for detail. I enjoy learning, exploring new ideas, and turning them into real products.",
     },
     facts: [
       { es: "Pasto, Nariño", en: "Pasto, Nariño" },
