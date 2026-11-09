@@ -379,3 +379,41 @@ html[data-locale-pending] body {
 .typewriter-cursor {
   animation: cursor-blink 0.8s infinite;
 }
+
+/* Slim scrollbar with smooth transition for modals and containers */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(220, 38, 38, 0.35) transparent;
+  scroll-behavior: smooth;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(220, 38, 38, 0.35);
+  border-radius: 9999px;
+  transition: background-color 0.25s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(220, 38, 38, 0.75);
+}
+
+.dark .custom-scrollbar {
+  scrollbar-color: rgba(239, 68, 68, 0.4) transparent;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(239, 68, 68, 0.4);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(239, 68, 68, 0.8);
+}
