@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/projects/dj-ai-web",
+        destination: "/projects/dj-ai",
+        permanent: true,
+      },
+    ];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
