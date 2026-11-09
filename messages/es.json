@@ -83,6 +83,8 @@
     "demo": "Ver demo",
     "visitWeb": "Ir a la Web",
     "downloadApk": "Descargar APK",
+    "downloadWindows": "Descargar Windows",
+    "downloadLinux": "Descargar Linux",
     "repo": "Ver código",
     "soon": "Enlaces pronto",
     "imageAlt": "Captura de {name}",

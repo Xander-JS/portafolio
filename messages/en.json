@@ -83,6 +83,8 @@
     "demo": "Live demo",
     "visitWeb": "Visit Web",
     "downloadApk": "Download APK",
+    "downloadWindows": "Download Windows",
+    "downloadLinux": "Download Linux",
     "repo": "Source code",
     "soon": "Links coming soon",
     "imageAlt": "Screenshot of {name}",
