@@ -43,25 +43,67 @@ export const projects: Project[] = [
     repoUrl: "",
     demoUrl: "https://agriculturalmarketplace.vercel.app/",
     apkUrl: "https://github.com/Xander-JS/agricultural_marketplace/releases/download/V1.0/app-release.apk",
+    device: "mobile",
   },
   {
-    slug: "dj-ai-web",
-    title: { es: "DJ AI Web", en: "DJ AI Web" },
+    slug: "dj-ai",
+    title: { es: "DJ AI", en: "DJ AI" },
     summary: {
-      es: "TODO: una frase sobre qué hace y para quién.",
-      en: "TODO: one sentence on what it does and who it is for.",
+      es: "SYSTEM DJ es una estación de mezcla y cabina DJ profesional, la cual cuenta con procesamiento de audio 100% local y recomendaciones armónicas asistidas por IA.",
+      en: "SYSTEM DJ is a professional mixing station and DJ booth featuring 100% local audio processing and AI-assisted harmonic recommendations.",
     },
-    description: [{ es: "TODO: descripción completa del proyecto.", en: "TODO: full project description." }],
-    type: "personal", // TODO: "freelance" | "personal" | "academic"
-    role: { es: "TODO: tu rol", en: "TODO: your role" },
-    duration: { es: "TODO", en: "TODO" },
-    status: "inProgress", // TODO: "completed" | "inProgress" | "planned"
-    stack: ["TODO"],
-    features: [{ es: "TODO: función clave", en: "TODO: key feature" }],
-    cover: "", // TODO: "/projects/dj-ai-web/cover.jpg"
-    gallery: ["", "", ""], // TODO
-    repoUrl: "", // TODO
-    demoUrl: "", // TODO
+    description: [
+      {
+        es: "La plataforma traslada la experiencia de una cabina DJ profesional directamente al navegador y en tu ordenador, garantizando privacidad total al procesar y almacenar el audio íntegramente en el dispositivo del usuario. Combina un motor de Audio de baja latencia con doble deck sincronizado, análisis musical determinista de tempo y tonalidad Camelot, ecualización en tiempo real y un asistente inteligente que sugiere transiciones armónicas con explicaciones en lenguaje natural.",
+        en: "The platform brings the experience of a professional DJ booth directly to the browser and your desktop computer, guaranteeing total privacy by processing and storing audio entirely on the user's device. It combines a low-latency audio engine with synchronized dual decks, deterministic tempo and Camelot key analysis, real-time equalization, and an intelligent assistant that suggests harmonic transitions with natural language explanations.",
+      },
+      {
+        es: "Implementado de principio a fin con una arquitectura modular y reactiva en un ciclo ágil de cinco semanas.",
+        en: "Implemented end-to-end with a modular and reactive architecture in an agile five-week cycle.",
+      },
+    ],
+    type: "personal",
+    role: { es: "Desarrollo web", en: "Web development" },
+    duration: { es: "5 semanas", en: "5 weeks" },
+    status: "completed",
+    device: "desktop",
+    stack: ["React", "Web Audio API", "Supabase", "IA", "i18n"],
+    features: [
+      {
+        es: "Cabina de doble deck: sincronización avanzada (SYNC, ALIGN, BAR SYNC), pitch bend y hot cues",
+        en: "Dual-deck booth: advanced synchronization (SYNC, ALIGN, BAR SYNC), pitch bend, and hot cues",
+      },
+      {
+        es: "Análisis musical en local: detección de BPM, tonalidad Camelot, energía y beatgrid editable",
+        en: "Local musical analysis: BPM detection, Camelot key, energy level, and editable beatgrid",
+      },
+      {
+        es: "Recomendaciones con IA: sugerencias de mezcla armónica con explicaciones técnicas de transición",
+        en: "AI recommendations: harmonic mix suggestions with technical transition explanations",
+      },
+      {
+        es: "Grabación y exportación cliente: captura de sesiones en vivo y codificación local en WAV y MP3",
+        en: "Client-side recording & export: live session capture and local encoding in WAV and MP3",
+      },
+      {
+        es: "Privacidad nativa e i18n: cero transferencia de audio a la nube e interfaz en español e inglés",
+        en: "Native privacy & i18n: zero audio cloud transfers and interface in Spanish and English",
+      },
+    ],
+    cover: "/assets/img/apps/app_escritorio/img-escritorio.webp",
+    gallery: [
+      "/assets/img/apps/app_escritorio/00.png",
+      "/assets/img/apps/app_escritorio/01.png",
+      "/assets/img/apps/app_escritorio/02.png",
+      "/assets/img/apps/app_escritorio/03.png",
+      "/assets/img/apps/app_escritorio/04.png",
+      "/assets/img/apps/app_escritorio/05.png",
+    ],
+    repoUrl: "",
+    // Rutas listas; reemplazar '#' por las rutas de descarga y web definitivas
+    windowsUrl: "#",
+    linuxUrl: "#",
+    demoUrl: "#",
   },
   {
     slug: "smartwatch-app",
