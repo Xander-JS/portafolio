@@ -5,6 +5,7 @@ import { ArrowRight, Download, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ProjectImage } from "@/components/atoms/ProjectImage";
 import { Tag } from "@/components/atoms/Tag";
+import { Icon } from "@/components/atoms/Icon";
 import type { Project } from "@/data/types";
 import { useLocale } from "@/i18n/Providers";
 import { ProjectDetailModal } from "@/components/organisms/ProjectDetailModal";
@@ -59,20 +60,59 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
             ))}
           </ul>
 
-          {/* Action buttons: Download APK & Visit Web */}
-          {(project.apkUrl || project.demoUrl) && (
+          {/* Action buttons: Download APK, Download Windows, Download Linux, Visit Web */}
+          {(project.apkUrl || project.windowsUrl || project.linuxUrl || project.demoUrl) && (
             <div className="mt-6 flex flex-wrap items-center gap-2.5">
+              {project.windowsUrl && (
+                <a
+                  href={project.windowsUrl}
+                  download={project.windowsUrl !== "#" ? true : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (project.windowsUrl === "#") e.preventDefault();
+                  }}
+                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                  title={project.windowsUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
+                >
+                  <Download className="size-3.5" />
+                  <Icon name="windows" className="size-3.5" />
+                  <span>{t("downloadWindows")}</span>
+                </a>
+              )}
+              {project.linuxUrl && (
+                <a
+                  href={project.linuxUrl}
+                  download={project.linuxUrl !== "#" ? true : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (project.linuxUrl === "#") e.preventDefault();
+                  }}
+                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                  title={project.linuxUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
+                >
+                  <Download className="size-3.5" />
+                  <Icon name="linux" className="size-3.5" />
+                  <span>{t("downloadLinux")}</span>
+                </a>
+              )}
               {project.apkUrl && (
                 <a
                   href={project.apkUrl}
-                  download
+                  download={project.apkUrl !== "#" ? true : undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (project.apkUrl === "#") e.preventDefault();
+                  }}
                   className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
                 >
                   <Download className="size-3.5" />
-                  <span>{locale === "en" ? "Download APK" : "Descargar APK"}</span>
+                  <span>{t("downloadApk")}</span>
                 </a>
               )}
               {project.demoUrl && (
@@ -80,11 +120,15 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (project.demoUrl === "#") e.preventDefault();
+                  }}
                   className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-ink/15 bg-surface px-3.5 text-xs font-semibold text-ink transition-all hover:border-primary hover:bg-primary/10 hover:text-primary-text active:scale-[0.98]"
+                  title={project.demoUrl === "#" ? (locale === "en" ? "Web link coming soon" : "Enlace web disponible pronto") : undefined}
                 >
                   <ExternalLink className="size-3.5" />
-                  <span>{locale === "en" ? "Visit Web" : "Ir a la Web"}</span>
+                  <span>{t("visitWeb")}</span>
                 </a>
               )}
             </div>
