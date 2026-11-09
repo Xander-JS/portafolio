@@ -18,6 +18,8 @@ export type IconName =
   | "opencode"
   | "git"
   | "github"
+  | "windows"
+  | "linux"
   | "code"
   | "chat"
   | "team"
@@ -76,6 +78,9 @@ export type Project = {
   repoUrl: string;
   demoUrl: string;
   apkUrl?: string;
+  windowsUrl?: string;
+  linuxUrl?: string;
+  device?: "mobile" | "desktop";
 };
 
 export type WorkItem = {
