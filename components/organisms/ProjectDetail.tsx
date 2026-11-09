@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/atoms/Button";
 import { ProjectImage } from "@/components/atoms/ProjectImage";
 import { Section } from "@/components/atoms/Section";
 import { Tag } from "@/components/atoms/Tag";
+import { Icon } from "@/components/atoms/Icon";
 import type { Project } from "@/data/types";
 import { useLocale } from "@/i18n/Providers";
 
@@ -79,16 +80,68 @@ export function ProjectDetail({ project }: { project: Project }) {
               </dd>
             </div>
           </dl>
-          {(project.demoUrl || project.repoUrl || project.apkUrl) && (
+          {(project.demoUrl || project.repoUrl || project.apkUrl || project.windowsUrl || project.linuxUrl) && (
             <div className="mt-7 flex flex-wrap gap-3">
+              {project.windowsUrl && (
+                <ButtonLink
+                  variant="primary"
+                  href={project.windowsUrl}
+                  download={project.windowsUrl !== "#" ? true : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (project.windowsUrl === "#") e.preventDefault();
+                  }}
+                  title={project.windowsUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
+                >
+                  <Download className="size-4" aria-hidden />
+                  <Icon name="windows" className="size-4" />
+                  {t("downloadWindows")}
+                </ButtonLink>
+              )}
+              {project.linuxUrl && (
+                <ButtonLink
+                  variant="primary"
+                  href={project.linuxUrl}
+                  download={project.linuxUrl !== "#" ? true : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (project.linuxUrl === "#") e.preventDefault();
+                  }}
+                  title={project.linuxUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
+                >
+                  <Download className="size-4" aria-hidden />
+                  <Icon name="linux" className="size-4" />
+                  {t("downloadLinux")}
+                </ButtonLink>
+              )}
               {project.apkUrl && (
-                <ButtonLink variant="primary" href={project.apkUrl} download target="_blank" rel="noopener noreferrer">
-                  <Download className="size-4" aria-hidden /> {locale === "en" ? "Download APK" : "Descargar APK"}
+                <ButtonLink
+                  variant="primary"
+                  href={project.apkUrl}
+                  download={project.apkUrl !== "#" ? true : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (project.apkUrl === "#") e.preventDefault();
+                  }}
+                >
+                  <Download className="size-4" aria-hidden /> {t("downloadApk")}
                 </ButtonLink>
               )}
               {project.demoUrl && (
-                <ButtonLink variant={project.apkUrl ? "pill" : "primary"} href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                  {locale === "en" ? "Visit Web" : "Ir a la Web"} <ArrowUpRight className="size-4" aria-hidden />
+                <ButtonLink
+                  variant={project.apkUrl || project.windowsUrl ? "pill" : "primary"}
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (project.demoUrl === "#") e.preventDefault();
+                  }}
+                  title={project.demoUrl === "#" ? (locale === "en" ? "Web link coming soon" : "Enlace web disponible pronto") : undefined}
+                >
+                  {t("visitWeb")} <ArrowUpRight className="size-4" aria-hidden />
                 </ButtonLink>
               )}
               {project.repoUrl && (
