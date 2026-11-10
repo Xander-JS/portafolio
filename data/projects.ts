@@ -100,10 +100,9 @@ export const projects: Project[] = [
       "/assets/img/apps/app_escritorio/05.png",
     ],
     repoUrl: "",
-    // Rutas listas; reemplazar '#' por las rutas de descarga y web definitivas
-    windowsUrl: "#",
-    linuxUrl: "#",
-    demoUrl: "#",
+    windowsUrl: "https://github.com/Xander-JS/dj_ai_web/releases/download/v1.0.1/SYSTEM.DJ.Setup.1.0.1.exe",
+    linuxUrl: "https://github.com/Xander-JS/dj_ai_web/releases/download/v1.0.1/SYSTEM.DJ-1.0.1.AppImage",
+    demoUrl: "https://dj-ai-web.vercel.app/",
   },
   {
     slug: "smartwatch-app",
