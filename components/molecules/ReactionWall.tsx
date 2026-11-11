@@ -7,8 +7,8 @@ import { supabase } from "@/lib/supabase";
 /**
  * ReactionWall — the interactive heart of the "Reservada" section.
  *
- * Visitors tap an emoji and their reaction joins everyone else's: each tap bumps an optimistic
- * local count, fires a little particle burst, and calls the Supabase `increment_reaction` RPC so
+ * Visitors tap an emoji and their reaction joins everyone else's: each tap fires a little
+ * particle burst and calls the Supabase `increment_reaction` RPC so
  * the total accumulates across all visitors in real time. A `localStorage` guard keeps one tap per
  * reaction per browser (best-effort, not security).
  *
@@ -73,7 +73,6 @@ export function ReactionWall() {
   const t = useTranslations("reactions");
   const mounted = useMounted();
   const reduced = useReducedMotion();
-  const ready = Boolean(supabase);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -81,34 +80,40 @@ export function ReactionWall() {
   const spawnRef = useRef<((x: number, y: number) => void) | null>(null);
 
   const [counts, setCounts] = useState<Record<string, number> | null>(null);
-  const [reacted, setReacted] = useState<Set<string>>(new Set());
+  const [reacted, setReacted] = useState<Set<string> | null>(null);
   const [pending, setPending] = useState<Set<string>>(new Set());
+
+  const [error, setError] = useState<"loadError" | "saveError" | null>(null);
+  const ready = Boolean(supabase) && counts !== null && reacted !== null;
 
   // Load the browser's "already reacted" set + the shared counts from Supabase on mount.
   useEffect(() => {
-    setReacted(loadReacted());
-    if (!supabase) {
-      setCounts({});
-      return;
-    }
     let cancelled = false;
-    supabase
-      .from("reactions")
-      .select("key, count")
-      .then(({ data, error }) => {
+    async function load() {
+      await Promise.resolve();
+      if (cancelled) return;
+      setReacted(loadReacted());
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase.from("reactions").select("key, count");
+        if (error || !data?.length) throw error ?? new Error("No reaction counters available");
         if (cancelled) return;
-        if (error || !data) {
-          setCounts({});
-          return;
-        }
         const map: Record<string, number> = {};
         for (const row of data as { key: string; count: number }[]) map[row.key] = row.count;
         setCounts(map);
-      });
+      } catch {
+        if (!cancelled) setError("loadError");
+      }
+    }
+    void load();
     return () => {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (reacted !== null) saveReacted(reacted);
+  }, [reacted]);
 
   // Particle-burst engine. Skipped entirely under reduced motion; the loop only runs while a burst
   // is alive (started on demand from a tap) and stops when the tab is hidden or the burst fades.
@@ -208,20 +213,12 @@ export function ReactionWall() {
     };
   }, [mounted, reduced]);
 
-  const handleReact = (key: Key, event: React.MouseEvent<HTMLButtonElement>) => {
-    if (!ready || pending.has(key)) return;
+  const handleReact = async (key: Key, event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!ready || !supabase || !reacted || pending.has(key)) return;
 
     // Toggle: tapping an active reaction removes it (count down); tapping a new one adds it (count up).
     const turningOff = reacted.has(key);
-    const delta = turningOff ? -1 : 1;
-
-    // Optimistic count + remember this browser's choice.
-    setCounts((c) => ({ ...(c ?? {}), [key]: Math.max(0, (c?.[key] ?? 0) + delta) }));
-    const nextReacted = new Set(reacted);
-    if (turningOff) nextReacted.delete(key);
-    else nextReacted.add(key);
-    setReacted(nextReacted);
-    saveReacted(nextReacted);
+    setError(null);
 
     // Burst from the button's centre — only when turning a reaction on.
     if (!turningOff) {
@@ -237,16 +234,25 @@ export function ReactionWall() {
     // Persist + reconcile with the authoritative server count.
     setPending((p) => new Set(p).add(key));
     const fn = turningOff ? "decrement_reaction" : "increment_reaction";
-    supabase!.rpc(fn, { reaction_key: key }).then(({ data, error }) => {
+    try {
+      const { data, error } = await supabase.rpc(fn, { reaction_key: key });
+      if (error || typeof data !== "number") throw error ?? new Error("Invalid reaction count");
+      setCounts((c) => ({ ...(c ?? {}), [key]: data }));
+      setReacted((previous) => {
+        const next = new Set(previous);
+        if (turningOff) next.delete(key);
+        else next.add(key);
+        return next;
+      });
+    } catch {
+      setError("saveError");
+    } finally {
       setPending((p) => {
         const n = new Set(p);
         n.delete(key);
         return n;
       });
-      if (!error && typeof data === "number") {
-        setCounts((c) => ({ ...(c ?? {}), [key]: data }));
-      }
-    });
+    }
   };
 
   return (
@@ -264,7 +270,7 @@ export function ReactionWall() {
 
         <ul className="mt-8 flex flex-wrap gap-3 md:gap-4" aria-label={t("eyebrow")}>
           {REACTIONS.map((rx) => {
-            const on = reacted.has(rx.key);
+            const on = reacted?.has(rx.key) ?? false;
             const count = counts?.[rx.key] ?? 0;
             return (
               <li key={rx.key}>
@@ -297,7 +303,7 @@ export function ReactionWall() {
         </ul>
 
         <p className="mt-6 min-h-[1.25rem] font-mono text-[11px] text-ink-faint" aria-live="polite">
-          {!ready ? t("offline") : reacted.size > 0 ? t("thanks") : " "}
+          {!supabase ? t("offline") : error ? t(error) : (reacted?.size ?? 0) > 0 ? t("thanks") : " "}
         </p>
       </div>
     </div>
