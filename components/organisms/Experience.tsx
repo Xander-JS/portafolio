@@ -42,6 +42,8 @@ export function Experience({ summary = false }: { summary?: boolean }) {
       place={a.place[locale]}
       period={a.period[locale]}
       summary={summary ? undefined : a.summary[locale]}
+      skills={summary ? undefined : a.skills?.map((s) => s[locale])}
+      skillsLabel={t("skillsLabel")}
       accent={i === 0}
     />
   ));
@@ -63,17 +65,17 @@ export function Experience({ summary = false }: { summary?: boolean }) {
       {summary ? (
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h3 className="mb-6 text-sm font-medium text-primary-text">{t("work")}</h3>
-            <ol>{workItems}</ol>
+            <h3 className="mb-6 font-display text-base tracking-wide text-primary-text">{t("work")}</h3>
+            <ol className="experience-sequence">{workItems}</ol>
           </div>
           <div>
-            <h3 className="mb-6 text-sm font-medium text-primary-text">{t("academic")}</h3>
-            <ol>{academicItems}</ol>
+            <h3 className="mb-6 font-display text-base tracking-wide text-primary-text">{t("academic")}</h3>
+            <ol className="experience-sequence">{academicItems}</ol>
           </div>
         </div>
       ) : (
         <>
-          <div role="tablist" aria-label={t("tabs")} className="mb-12 inline-flex rounded-xl bg-primary-soft p-1">
+          <div role="tablist" aria-label={t("tabs")} className="experience-tabs mb-12 inline-flex rounded-xl bg-primary-soft p-1">
             {tabs.map((id, i) => (
               <button
                 key={id}
@@ -89,7 +91,7 @@ export function Experience({ summary = false }: { summary?: boolean }) {
                 onClick={() => setTab(id)}
                 onKeyDown={keys}
                 className={`h-11 cursor-pointer rounded-lg px-5 text-sm font-medium transition-colors ${
-                  tab === id ? "bg-primary text-primary-foreground" : "text-primary-soft-ink hover:bg-primary/10"
+                  tab === id ? "bg-primary text-primary-foreground dark:text-white" : "text-primary-soft-ink hover:bg-primary/10"
                 }`}
               >
                 {t(id)}
@@ -98,23 +100,31 @@ export function Experience({ summary = false }: { summary?: boolean }) {
           </div>
 
           <div id="panel-work" role="tabpanel" aria-labelledby="tab-work" hidden={tab !== "work"}>
-            <ol>{workItems}</ol>
+            <div key={tab} className="experience-tab-content content-construct">
+              <ol className="experience-sequence">{workItems}</ol>
+            </div>
           </div>
           <div id="panel-academic" role="tabpanel" aria-labelledby="tab-academic" hidden={tab !== "academic"}>
-            <ol>{academicItems}</ol>
-            <h2 className="mt-16 text-2xl font-medium tracking-[-0.025em] text-ink md:text-3xl">{t("seminars")}</h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {seminars.map((s) => (
-                <li key={s.id} className="flex flex-col gap-3 rounded-2xl bg-surface p-6">
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-primary-text">
-                    <CalendarDays className="size-4" aria-hidden />
-                    {s.date}
-                  </span>
-                  <span className="text-lg font-medium text-ink">{s.name[locale]}</span>
-                  <span className="text-ink-soft">{s.topic[locale]}</span>
-                </li>
-              ))}
-            </ul>
+            <div key={tab} className="experience-tab-content content-construct">
+              <ol className="experience-sequence">{academicItems}</ol>
+              {seminars.length > 0 && (
+                <>
+                  <h2 className="mt-16 font-display text-2xl tracking-wide text-ink md:text-3xl">{t("seminars")}</h2>
+                  <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {seminars.map((s) => (
+                      <li key={s.id} className="flex flex-col gap-3 rounded-2xl bg-surface p-6">
+                        <span className="inline-flex items-center gap-2 text-sm font-medium text-primary-text">
+                          <CalendarDays className="size-4" aria-hidden />
+                          {s.date}
+                        </span>
+                        <span className="text-lg font-medium text-ink">{s.name[locale]}</span>
+                        <span className="text-ink-soft">{s.topic[locale]}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
           </div>
         </>
       )}
