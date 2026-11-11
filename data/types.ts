@@ -85,7 +85,8 @@ export type Project = {
   apkUrl?: string;
   windowsUrl?: string;
   linuxUrl?: string;
-  device?: "mobile" | "desktop";
+  smartwatchUrl?: string;
+  device?: "mobile" | "desktop" | "smartwatch";
 };
 
 export type WorkItem = {
