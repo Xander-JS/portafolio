@@ -95,6 +95,10 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
   const title = project.title[locale] || project.title.es;
   const summary = project.summary[locale] || project.summary.es;
   const isSingleColumn = project.device === "desktop" || project.slug === "dj-ai";
+  const emphasizedFrame = ["marketplace", "dj-ai", "sudo-kill-9", "smartwatch-app"].includes(project.slug);
+  const frameStyle = emphasizedFrame
+    ? "border-transparent shadow-[0_0_20px_rgba(0,0,0,0.14),0_8px_24px_-4px_rgba(0,0,0,0.24)] dark:shadow-[0_0_20px_rgba(255,255,255,0.16),0_8px_24px_-4px_rgba(255,255,255,0.22)]"
+    : "border-primary/25 shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)]";
 
   const actionButtons = (project.windowsUrl || project.linuxUrl || project.apkUrl || project.demoUrl) && (
     <div className="mt-6 flex flex-wrap gap-3">
@@ -179,7 +183,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
       {/* Modal Dialog Card */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="project-modal-card-in isolate relative my-auto flex w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] flex-col overflow-hidden rounded-3xl border border-primary/25 bg-surface/80 text-ink shadow-[0_0_60px_rgba(220,38,38,0.22)] backdrop-blur-2xl dark:bg-surface/80"
+        className={`project-modal-card-in isolate relative my-auto flex w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] flex-col overflow-hidden rounded-3xl border bg-surface/80 text-ink backdrop-blur-2xl dark:bg-surface/80 ${frameStyle}`}
       >
         <AmbientParticles contained />
         {/* Fixed Header with Title and Close Button */}
