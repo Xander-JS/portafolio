@@ -174,6 +174,11 @@ export function SkillNexus() {
     let raf: number | null = null;
     let running = false;
 
+    // Fixed-size scratch buffers survive frames; reset membership when computing slots.
+    const slotX = new Float64Array(pts.length);
+    const slotY = new Float64Array(pts.length);
+    const hasSlot = new Uint8Array(pts.length);
+
     const tick = () => {
       const active = filterRef.current;
 
@@ -181,9 +186,7 @@ export function SkillNexus() {
       // they gather along the threads but keep their distance instead of piling into one clump.
       const cx = w / 2;
       const cy = h * 0.54;
-      const slotX = new Float64Array(pts.length);
-      const slotY = new Float64Array(pts.length);
-      const hasSlot = new Uint8Array(pts.length);
+      hasSlot.fill(0);
       if (active !== "all") {
         const matchIdx: number[] = [];
         for (let i = 0; i < labels.length; i++) if (labels[i].category === active) matchIdx.push(i);
