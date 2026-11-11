@@ -70,7 +70,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
                     e.stopPropagation();
                     if (project.windowsUrl === "#") e.preventDefault();
                   }}
-                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground dark:text-white shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
                   title={project.windowsUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
                 >
                   <Download className="size-3.5" />
@@ -88,7 +88,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
                     e.stopPropagation();
                     if (project.linuxUrl === "#") e.preventDefault();
                   }}
-                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground dark:text-white shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
                   title={project.linuxUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
                 >
                   <Download className="size-3.5" />
@@ -106,7 +106,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
                     e.stopPropagation();
                     if (project.apkUrl === "#") e.preventDefault();
                   }}
-                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
+                  className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground dark:text-white shadow-sm transition-all hover:bg-primary-hover active:scale-[0.98]"
                 >
                   <Download className="size-3.5" />
                   <span>{t("downloadApk")}</span>
