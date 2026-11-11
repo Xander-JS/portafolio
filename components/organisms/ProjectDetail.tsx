@@ -52,7 +52,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           <ul className="space-y-3 list-none p-0 m-0">
             {project.features.map((f) => (
               <li key={f.en} className="flex items-start gap-3 text-lg text-ink">
-                <span className="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+                <span className="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground dark:text-white">
                   <Check className="size-3.5" aria-hidden />
                 </span>
                 <span>{f[locale]}</span>
@@ -85,6 +85,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               {project.windowsUrl && (
                 <ButtonLink
                   variant="primary"
+                  className="dark:text-white"
                   href={project.windowsUrl}
                   download={project.windowsUrl !== "#" ? true : undefined}
                   target="_blank"
@@ -102,6 +103,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               {project.linuxUrl && (
                 <ButtonLink
                   variant="primary"
+                  className="dark:text-white"
                   href={project.linuxUrl}
                   download={project.linuxUrl !== "#" ? true : undefined}
                   target="_blank"
@@ -119,6 +121,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               {project.apkUrl && (
                 <ButtonLink
                   variant="primary"
+                  className="dark:text-white"
                   href={project.apkUrl}
                   download={project.apkUrl !== "#" ? true : undefined}
                   target="_blank"
