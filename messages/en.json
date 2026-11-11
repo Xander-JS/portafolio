@@ -148,6 +148,22 @@
     "sentTitle": "Message ready.",
     "sentBody": "Your email app opened with the message written. Just press send there. If it didn't open, write to me at {email}."
   },
+  "reactions": {
+    "eyebrow": "Reaction wall",
+    "title": "What did you think of my portfolio?",
+    "hint": "Pick the reaction that best fits what you felt. Your tap is saved and adds to everyone else who visits this portfolio.",
+    "teaser": "React to my portfolio and watch your vote add up live with everyone else's.",
+    "thanks": "Thanks for your reaction!",
+    "offline": "Connect Supabase to enable the live counts.",
+    "aria": "{reaction}: {count} reactions",
+    "labels": {
+      "celebrate": "Applause",
+      "fire": "Amazing",
+      "idea": "Inspiring",
+      "love": "Love it",
+      "rocket": "Next level"
+    }
+  },
   "footer": {
     "rights": "All rights reserved."
   }
