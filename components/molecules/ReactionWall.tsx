@@ -241,7 +241,7 @@ export function ReactionWall() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-primary/30 bg-surface/65 p-8 text-ink backdrop-blur-xs md:p-12">
+    <div className="relative overflow-hidden rounded-3xl border border-transparent bg-transparent shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)] p-8 text-ink md:p-12">
       <canvas ref={canvasRef} aria-hidden className="pointer-events-none absolute inset-0 z-0" />
 
       <div className="relative z-10">
