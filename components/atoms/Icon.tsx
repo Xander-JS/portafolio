@@ -4,6 +4,7 @@ import {
   Code2,
   FolderOpen,
   GraduationCap,
+  Heart,
   Languages,
   Layers,
   Mail,
@@ -78,6 +79,7 @@ const generic = {
   store: Store,
   utensils: UtensilsCrossed,
   mic: Mic,
+  heart: Heart,
 };
 
 /** Decorative by default; the label next to it carries the meaning. `colored` paints brand marks in their brand colour. */
