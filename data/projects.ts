@@ -166,21 +166,49 @@ export const projects: Project[] = [
   },
   {
     slug: "smartwatch-app",
-    title: { es: "App para smartwatch", en: "Smartwatch App" },
+    title: { es: "HaptMap", en: "HaptMap" },
     summary: {
-      es: "TODO: una frase sobre qué hace y para quién.",
-      en: "TODO: one sentence on what it does and who it is for.",
+      es: "HaptMap es una aplicación de navegación peatonal para smartwatch y web que utiliza patrones de vibración para guiar al usuario sin necesidad de mirar la pantalla. Integra evaluación inteligente de rutas, exploración de puntos de interés y funcionamiento autónomo.",
+      en: "HaptMap is a pedestrian navigation application for smartwatch and web that uses vibration patterns to guide users without needing to look at the screen. It integrates smart route evaluation, point-of-interest exploration, and autonomous operation.",
     },
-    description: [{ es: "TODO: descripción completa del proyecto.", en: "TODO: full project description." }],
-    type: "personal", // TODO
-    role: { es: "TODO: tu rol", en: "TODO: your role" },
-    duration: { es: "TODO", en: "TODO" },
-    status: "inProgress", // TODO
-    stack: ["TODO"],
-    features: [{ es: "TODO: función clave", en: "TODO: key feature" }],
-    cover: "", // TODO: "/projects/smartwatch-app/cover.jpg"
+    description: [
+      {
+        es: "Desarrollada con una arquitectura modular y reactiva en tres semanas, combina seguimiento GPS en segundo plano, navegación háptica, almacenamiento local de rutas y modos de bajo consumo. Ofrece búsqueda por voz, rutas adaptativas y recomendaciones de puntos de interés.",
+        en: "Built with a modular and reactive architecture in three weeks, it combines background GPS tracking, haptic navigation, local route storage, and low-power modes. It offers voice search, adaptive routing, and point-of-interest recommendations.",
+      },
+    ],
+    type: "personal",
+    role: { es: "Desarrollo Wear OS y web", en: "Wear OS & web development" },
+    duration: { es: "3 semanas", en: "3 weeks" },
+    status: "completed",
+    device: "smartwatch",
+    stack: ["Kotlin", "Wear OS", "Jetpack Compose", "Google Maps", "i18n"],
+    features: [
+      {
+        es: "Guiado háptico: vibraciones diferenciadas para giros, desvíos, proximidad y llegada",
+        en: "Haptic guidance: distinct vibration patterns for turns, detours, proximity, and arrival",
+      },
+      {
+        es: "Modos Focus y Tour: rutas directas o exploración con evaluación de complejidad y sugerencias de puntos de interés",
+        en: "Focus and Tour modes: direct routes or exploration with complexity evaluation and point-of-interest suggestions",
+      },
+      {
+        es: "Búsqueda adaptativa: navegación por voz, categorías, mapa continuo y modos Eco/AOD",
+        en: "Adaptive search: voice navigation, categories, continuous map, and Eco/AOD modes",
+      },
+      {
+        es: "Autonomía: seguimiento GPS, persistencia local y recálculo automático de rutas",
+        en: "Autonomy: GPS tracking, local persistence, and automatic route recalculation",
+      },
+      {
+        es: "Personalización: tutorial háptico, configuración de alertas e interfaz en español e inglés",
+        en: "Customization: haptic tutorial, alert settings, and interface in Spanish and English",
+      },
+    ],
+    cover: "/assets/img/apps/app_reloj/img_reloj.webp",
     gallery: ["", "", ""], // TODO
-    repoUrl: "", // TODO
-    demoUrl: "", // TODO
+    repoUrl: "",
+    smartwatchUrl: "#", // TODO: enlace de descarga smartwatch
+    demoUrl: "#", // TODO: enlace web
   },
 ];
