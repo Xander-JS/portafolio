@@ -9,7 +9,18 @@ npm run build   # production build (what Vercel runs)
 node --test lib/shards.test.ts   # self-check for the shard geometry
 ```
 
-Deploy: push to GitHub and import the repo in Vercel. No environment variables are needed.
+Deploy: push to GitHub and import the repo in Vercel. The reaction wall requires
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from the same Supabase
+project used locally. Add both in Vercel → Project Settings → Environment Variables
+for Production (and Preview if used), then create a new deployment. Next.js embeds
+these values at build time; changing them without redeploying does not update the browser.
+`.env.local` is ignored by Git and is not uploaded to Vercel. Use the public anon key,
+never a service-role key. Vercel builds fail with an explicit error if either variable is missing.
+
+If reactions still fail, check the browser Network panel: anonymous visitors need
+SELECT access to `public.reactions` (including its RLS policy) and permission to call
+`increment_reaction` / `decrement_reaction` with `reaction_key`. Both functions must
+return the updated numeric count. Do not disable RLS to work around permission errors.
 
 ## Fill in your content
 
