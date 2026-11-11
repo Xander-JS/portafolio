@@ -94,17 +94,17 @@ export const modules: PortfolioModule[] = [
   {
     id: "reserved",
     slug: "reservada",
-    icon: "layers",
-    label: { es: "Reservada", en: "Reserved" },
-    title: { es: "Espacio reservado", en: "Reserved space" },
+    icon: "heart",
+    label: { es: "Reacciones", en: "Reactions" },
+    title: { es: "Deja tu huella", en: "Leave your mark" },
     description: {
-      es: "Sección reservada para el próximo módulo del portafolio.",
-      en: "Reserved section for the next portfolio module.",
+      es: "Reacciona a mi portafolio: tu toque se suma en tiempo real al de todos los que han pasado por aquí.",
+      en: "React to my portfolio: your tap joins everyone else's who has stopped by, in real time.",
     },
     facts: [
-      { es: "Próximamente", en: "Coming soon" },
-      { es: "Nuevo módulo", en: "New module" },
-      { es: "En preparación", en: "In preparation" },
+      { es: "En vivo", en: "Live" },
+      { es: "Reacciones compartidas", en: "Shared reactions" },
+      { es: "Supabase", en: "Supabase" },
     ],
   },
 ];
