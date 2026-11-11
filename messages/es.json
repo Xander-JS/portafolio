@@ -91,6 +91,7 @@
     "downloadApk": "Descargar APK",
     "downloadWindows": "Descargar Windows",
     "downloadLinux": "Descargar Linux",
+    "downloadSmartwatch": "Descargar Smartwatch",
     "repo": "Ver código",
     "soon": "Enlaces pronto",
     "imageAlt": "Captura de {name}",
@@ -154,7 +155,9 @@
     "hint": "Elige la reacción que mejor describa lo que sentiste. Tu toque se guarda y se suma al de cada persona que visita este portafolio.",
     "teaser": "Reacciona a mi portafolio y mira cómo tu voto se suma en vivo al de todos.",
     "thanks": "¡Gracias por tu reacción!",
-    "offline": "Conecta Supabase para activar los conteos en vivo.",
+    "offline": "Las reacciones no están disponibles en este momento.",
+    "loadError": "No pudimos cargar las reacciones. Recarga la página para intentarlo de nuevo.",
+    "saveError": "No pudimos guardar tu reacción. Inténtalo de nuevo.",
     "aria": "{reaction}: {count} reacciones",
     "labels": {
       "celebrate": "Aplausos",
