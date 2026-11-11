@@ -209,26 +209,35 @@ export function ReactionWall() {
   }, [mounted, reduced]);
 
   const handleReact = (key: Key, event: React.MouseEvent<HTMLButtonElement>) => {
-    if (!ready || reacted.has(key) || pending.has(key)) return;
+    if (!ready || pending.has(key)) return;
 
-    // Optimistic bump + remember this browser already reacted.
-    setCounts((c) => ({ ...(c ?? {}), [key]: (c?.[key] ?? 0) + 1 }));
-    const nextReacted = new Set(reacted).add(key);
+    // Toggle: tapping an active reaction removes it (count down); tapping a new one adds it (count up).
+    const turningOff = reacted.has(key);
+    const delta = turningOff ? -1 : 1;
+
+    // Optimistic count + remember this browser's choice.
+    setCounts((c) => ({ ...(c ?? {}), [key]: Math.max(0, (c?.[key] ?? 0) + delta) }));
+    const nextReacted = new Set(reacted);
+    if (turningOff) nextReacted.delete(key);
+    else nextReacted.add(key);
     setReacted(nextReacted);
     saveReacted(nextReacted);
 
-    // Burst from the button's centre.
-    const canvas = canvasRef.current;
-    const spawn = spawnRef.current;
-    if (canvas && spawn) {
-      const cr = canvas.getBoundingClientRect();
-      const br = event.currentTarget.getBoundingClientRect();
-      spawn(br.left + br.width / 2 - cr.left, br.top + br.height / 2 - cr.top);
+    // Burst from the button's centre — only when turning a reaction on.
+    if (!turningOff) {
+      const canvas = canvasRef.current;
+      const spawn = spawnRef.current;
+      if (canvas && spawn) {
+        const cr = canvas.getBoundingClientRect();
+        const br = event.currentTarget.getBoundingClientRect();
+        spawn(br.left + br.width / 2 - cr.left, br.top + br.height / 2 - cr.top);
+      }
     }
 
     // Persist + reconcile with the authoritative server count.
     setPending((p) => new Set(p).add(key));
-    supabase!.rpc("increment_reaction", { reaction_key: key }).then(({ data, error }) => {
+    const fn = turningOff ? "decrement_reaction" : "increment_reaction";
+    supabase!.rpc(fn, { reaction_key: key }).then(({ data, error }) => {
       setPending((p) => {
         const n = new Set(p);
         n.delete(key);
