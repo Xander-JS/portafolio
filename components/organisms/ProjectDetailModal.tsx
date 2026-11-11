@@ -21,6 +21,7 @@ import {
   Check,
   Calendar,
   User,
+  Watch,
 } from "lucide-react";
 import { Tag } from "@/components/atoms/Tag";
 import { Icon } from "@/components/atoms/Icon";
@@ -95,12 +96,13 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
   const title = project.title[locale] || project.title.es;
   const summary = project.summary[locale] || project.summary.es;
   const isSingleColumn = project.device === "desktop" || project.slug === "dj-ai";
+  const isWatch = project.device === "smartwatch" || project.slug === "smartwatch-app";
   const emphasizedFrame = ["marketplace", "dj-ai", "sudo-kill-9", "smartwatch-app"].includes(project.slug);
   const frameStyle = emphasizedFrame
     ? "border-transparent shadow-[0_0_20px_rgba(0,0,0,0.14),0_8px_24px_-4px_rgba(0,0,0,0.24)] dark:shadow-[0_0_20px_rgba(255,255,255,0.16),0_8px_24px_-4px_rgba(255,255,255,0.22)]"
     : "border-primary/25 shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)]";
 
-  const actionButtons = (project.windowsUrl || project.linuxUrl || project.apkUrl || project.demoUrl) && (
+  const actionButtons = (project.windowsUrl || project.linuxUrl || project.apkUrl || project.smartwatchUrl || project.demoUrl) && (
     <div className="mt-6 flex flex-wrap gap-3">
       {project.windowsUrl && (
         <a
@@ -151,6 +153,24 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
         >
           <Download className="size-4" />
           <span>{t("downloadApk")}</span>
+        </a>
+      )}
+
+      {project.smartwatchUrl && (
+        <a
+          href={project.smartwatchUrl}
+          download={project.smartwatchUrl !== "#" ? true : undefined}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => {
+            if (project.smartwatchUrl === "#") e.preventDefault();
+          }}
+          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground dark:text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
+          title={project.smartwatchUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
+        >
+          <Download className="size-4" />
+          <Watch className="size-4" />
+          <span>{t("downloadSmartwatch")}</span>
         </a>
       )}
 
@@ -354,15 +374,15 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
               </div>
             </div>
           ) : (
-            /* Two Column Grid Layout (e.g. Mobile Apps) */
+            /* Two Column Grid Layout (e.g. Mobile & Smartwatch Apps) */
             <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
               {/* Gallery / Screenshot Carousel Section */}
-              <div className="flex flex-col items-center lg:col-span-6">
-                {gallery.length > 0 ? (
+              <div className="flex flex-col items-center lg:col-span-6 lg:justify-center">
+                {isWatch || gallery.length > 0 ? (
                   <div className="relative flex w-full flex-col items-center">
-                    {/* Phone Mockup with Arrows positioned outside */}
+                    {/* Device Mockup with Arrows positioned outside */}
                     <div className="relative flex w-full items-center justify-center gap-3 sm:gap-4 md:gap-6">
-                      {/* Left arrow (outside phone) */}
+                      {/* Left arrow (outside device) */}
                       {gallery.length > 1 && (
                         <button
                           type="button"
@@ -374,26 +394,90 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                         </button>
                       )}
 
-                      {/* Phone Mockup Frame / Showcase */}
-                      <div className="relative aspect-[9/18] w-full max-w-[240px] shrink-0 overflow-hidden rounded-[2.5rem] border-[6px] border-ink/20 bg-black shadow-[0_12px_36px_rgba(0,0,0,0.4),0_0_24px_rgba(220,38,38,0.15)] sm:max-w-[260px] md:max-w-[336px] dark:border-white/15">
-                        {/* Speaker notch */}
-                        <div className="absolute top-2 left-1/2 z-20 h-3.5 w-20 -translate-x-1/2 rounded-full bg-ink/40 dark:bg-white/20" />
+                      {isWatch ? (
+                        /* Smartwatch Mockup Frame / Showcase */
+                        <div className="relative flex shrink-0 flex-col items-center py-1 select-none">
+                          {/* Top Strap */}
+                          <div className="relative -mb-3 flex h-11 w-24 flex-col items-center justify-start gap-1.5 rounded-t-2xl border-x border-t border-ink/20 bg-gradient-to-b from-neutral-700 via-neutral-800 to-neutral-950 pt-2.5 shadow-inner sm:h-12 sm:w-28 dark:border-white/15">
+                            <span className="h-0.5 w-14 rounded-full bg-white/10" />
+                            <span className="h-0.5 w-14 rounded-full bg-white/10" />
+                          </div>
 
-                        {/* Screenshot image */}
-                        <div className="relative size-full overflow-hidden bg-black">
-                          <Image
-                            key={gallery[currentSlide]}
-                            src={gallery[currentSlide]}
-                            alt={`${title} screenshot ${currentSlide + 1}`}
-                            fill
-                            className={`project-gallery-in project-gallery-in-${slideDirection} object-cover object-center`}
-                            sizes="(min-width: 1024px) 340px, 80vw"
-                            priority
-                          />
+                          {/* Watch Case + Side Crown & Button */}
+                          <div className="relative z-10 flex items-center justify-center">
+                            {/* Digital Crown */}
+                            <div className="absolute -right-2.5 top-[31%] z-0 flex h-8 w-3 flex-col items-center justify-center rounded-r-md border border-white/15 bg-gradient-to-b from-neutral-500 via-neutral-700 to-neutral-900 shadow-md">
+                              <span className="h-3.5 w-0.5 rounded-full bg-primary/90" />
+                            </div>
+                            {/* Secondary Side Button */}
+                            <div className="absolute -right-2 top-[57%] z-0 h-5 w-2 rounded-r-sm border border-white/15 bg-gradient-to-b from-neutral-600 to-neutral-900 shadow-sm" />
+
+                            {/* Metallic Outer Bezel */}
+                            <div className="relative rounded-full bg-gradient-to-br from-neutral-600 via-neutral-900 to-neutral-950 p-2.5 ring-2 ring-ink/25 shadow-[0_18px_45px_rgba(0,0,0,0.55),0_0_28px_rgba(220,38,38,0.18)] sm:p-3.5 dark:ring-white/20">
+                              {/* Inner Chamfer Ring */}
+                              <div className="rounded-full border border-white/10 bg-neutral-950 p-1">
+                                {/* Circular OLED Screen */}
+                                <div className="relative aspect-square w-[210px] overflow-hidden rounded-full border-2 border-neutral-800 bg-black shadow-[inset_0_0_20px_rgba(0,0,0,0.9)] sm:w-[240px] md:w-[268px]">
+                                  {/* Subtle Glass Reflection */}
+                                  <div className="pointer-events-none absolute inset-0 z-20 rounded-full bg-gradient-to-br from-white/12 via-transparent to-transparent" />
+
+                                  {gallery.length > 0 ? (
+                                    <Image
+                                      key={gallery[currentSlide]}
+                                      src={gallery[currentSlide]}
+                                      alt={`${title} screenshot ${currentSlide + 1}`}
+                                      fill
+                                      className={`project-gallery-in project-gallery-in-${slideDirection} object-cover object-center`}
+                                      sizes="(min-width: 1024px) 270px, 70vw"
+                                      priority
+                                    />
+                                  ) : (
+                                    /* Standby Wear OS Placeholder before carousel images are added */
+                                    <div className="relative flex size-full flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.16)_0%,rgba(0,0,0,1)_72%)] px-6 text-center">
+                                      <div className="pointer-events-none absolute size-[78%] rounded-full border border-primary/20" />
+                                      <div className="pointer-events-none absolute size-[54%] rounded-full border border-dashed border-primary/30" />
+                                      <Watch className="mb-2 size-8 text-primary drop-shadow-[0_0_10px_rgba(220,38,38,0.5)]" />
+                                      <span className="font-display text-base tracking-wider text-white">
+                                        {title}
+                                      </span>
+                                      <span className="mt-1 rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-white/70">
+                                        {t("imagePending")}
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Bottom Strap */}
+                          <div className="relative -mt-3 flex h-11 w-24 flex-col items-center justify-end gap-1.5 rounded-b-2xl border-x border-b border-ink/20 bg-gradient-to-t from-neutral-700 via-neutral-800 to-neutral-950 pb-2.5 shadow-inner sm:h-12 sm:w-28 dark:border-white/15">
+                            <span className="size-1.5 rounded-full bg-black/70 ring-1 ring-white/10" />
+                            <span className="size-1.5 rounded-full bg-black/70 ring-1 ring-white/10" />
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        /* Phone Mockup Frame / Showcase */
+                        <div className="relative aspect-[9/18] w-full max-w-[240px] shrink-0 overflow-hidden rounded-[2.5rem] border-[6px] border-ink/20 bg-black shadow-[0_12px_36px_rgba(0,0,0,0.4),0_0_24px_rgba(220,38,38,0.15)] sm:max-w-[260px] md:max-w-[336px] dark:border-white/15">
+                          {/* Speaker notch */}
+                          <div className="absolute top-2 left-1/2 z-20 h-3.5 w-20 -translate-x-1/2 rounded-full bg-ink/40 dark:bg-white/20" />
 
-                      {/* Right arrow (outside phone) */}
+                          {/* Screenshot image */}
+                          <div className="relative size-full overflow-hidden bg-black">
+                            <Image
+                              key={gallery[currentSlide]}
+                              src={gallery[currentSlide]}
+                              alt={`${title} screenshot ${currentSlide + 1}`}
+                              fill
+                              className={`project-gallery-in project-gallery-in-${slideDirection} object-cover object-center`}
+                              sizes="(min-width: 1024px) 340px, 80vw"
+                              priority
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Right arrow (outside device) */}
                       {gallery.length > 1 && (
                         <button
                           type="button"
@@ -406,7 +490,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                       )}
                     </div>
 
-                    {/* Indicators (5 pagination dots) */}
+                    {/* Indicators */}
                     {gallery.length > 1 && (
                       <div className="mt-4 flex items-center justify-center gap-2">
                         {gallery.map((img, idx) => (
