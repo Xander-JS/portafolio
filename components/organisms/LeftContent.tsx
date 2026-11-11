@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight, Download } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
@@ -71,7 +72,27 @@ export function LeftContent() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [hasModule, navigateToModule]);
 
+  const showPhoto = isHero && !isTransitioning;
+
   return (
+    <>
+      {profile.photo && (
+        // The photo sits right, vertically centred, on wide screens and only on the hero step.
+        <div className="pointer-events-none fixed top-1/2 right-[9vw] z-10 hidden w-[clamp(240px,24vw,380px)] -translate-y-1/2 lg:block">
+          <div className="hero-photo relative aspect-[4/5]" data-hidden={showPhoto ? undefined : ""} aria-hidden={!showPhoto}>
+            <div className="hero-photo-float hero-photo-frame relative size-full overflow-hidden rounded-[24px]">
+              <Image
+                src={profile.photo}
+                alt={t("photoAlt", { name: profile.name })}
+                fill
+                priority
+                sizes="(min-width: 1024px) 24vw, 1px"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     <div
       className={`pointer-events-none fixed inset-x-4 z-10 max-w-2xl transition-[bottom,transform] duration-500 ease-out md:inset-x-auto md:left-[5.5vw] ${isContact
         ? "bottom-[240px] sm:bottom-[220px] md:bottom-[34vh] lg:bottom-[38vh]"
@@ -189,5 +210,6 @@ export function LeftContent() {
         )}
       </div>
     </div>
+    </>
   );
 }
