@@ -15,7 +15,7 @@ export function Reserved({ summary = false }: { summary?: boolean }) {
       <Section id="reserved">
         <ModuleHeading id="reserved" summary={summary} />
         {summary ? (
-          <div className="rounded-3xl border border-primary/30 bg-surface/65 p-8 text-ink backdrop-blur-xs md:p-10">
+          <div className="rounded-3xl border border-transparent bg-transparent shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)] p-8 text-ink md:p-10">
             <p className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-text">
               {t("eyebrow")}
             </p>
