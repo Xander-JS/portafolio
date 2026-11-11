@@ -16,7 +16,7 @@ export function TestimonialCard({ item }: { item: Testimonial }) {
   const video = item.type === "video" && item.videoUrl;
 
   return (
-    <figure className="flex flex-col gap-8 rounded-2xl border border-black/15 bg-transparent p-7 shadow-[0_0_24px_rgba(0,0,0,0.16),0_12px_30px_-6px_rgba(0,0,0,0.28)] backdrop-blur-xs transition-all duration-300 hover:border-black/25 hover:shadow-[0_0_32px_rgba(0,0,0,0.24),0_16px_38px_-6px_rgba(0,0,0,0.36)] dark:border-white/15 dark:shadow-[0_0_28px_rgba(0,0,0,0.8),0_14px_34px_-6px_rgba(0,0,0,0.92)] dark:hover:border-white/25 dark:hover:shadow-[0_0_36px_rgba(0,0,0,0.9),0_18px_42px_-6px_rgba(0,0,0,1)] md:p-9">
+    <figure className="flex flex-col gap-8 rounded-2xl border border-black/15 bg-transparent p-7 shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] backdrop-blur-xs transition-all duration-300 hover:border-black/25 hover:shadow-[0_0_16px_rgba(0,0,0,0.12),0_6px_18px_-2px_rgba(0,0,0,0.22)] dark:border-white/15 dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)] dark:hover:border-white/25 dark:hover:shadow-[0_0_16px_rgba(255,255,255,0.12),0_6px_18px_-2px_rgba(255,255,255,0.18)] md:p-9">
       {video ? (
         <div className="relative aspect-video overflow-hidden rounded-xl bg-primary-950">
           {isEmbed(item.videoUrl) ? (
