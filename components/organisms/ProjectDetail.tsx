@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check, Download } from "lucide-react";
+import { ArrowUpRight, Check, Download, Watch } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/atoms/Badge";
@@ -80,7 +80,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               </dd>
             </div>
           </dl>
-          {(project.demoUrl || project.repoUrl || project.apkUrl || project.windowsUrl || project.linuxUrl) && (
+          {(project.demoUrl || project.repoUrl || project.apkUrl || project.windowsUrl || project.linuxUrl || project.smartwatchUrl) && (
             <div className="mt-7 flex flex-wrap gap-3">
               {project.windowsUrl && (
                 <ButtonLink
@@ -133,9 +133,27 @@ export function ProjectDetail({ project }: { project: Project }) {
                   <Download className="size-4" aria-hidden /> {t("downloadApk")}
                 </ButtonLink>
               )}
+              {project.smartwatchUrl && (
+                <ButtonLink
+                  variant="primary"
+                  className="dark:text-white"
+                  href={project.smartwatchUrl}
+                  download={project.smartwatchUrl !== "#" ? true : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (project.smartwatchUrl === "#") e.preventDefault();
+                  }}
+                  title={project.smartwatchUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
+                >
+                  <Download className="size-4" aria-hidden />
+                  <Watch className="size-4" aria-hidden />
+                  {t("downloadSmartwatch")}
+                </ButtonLink>
+              )}
               {project.demoUrl && (
                 <ButtonLink
-                  variant={project.apkUrl || project.windowsUrl ? "pill" : "primary"}
+                  variant={project.apkUrl || project.windowsUrl || project.linuxUrl || project.smartwatchUrl ? "pill" : "primary"}
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
