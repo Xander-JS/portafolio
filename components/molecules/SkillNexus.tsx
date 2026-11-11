@@ -339,8 +339,8 @@ export function SkillNexus() {
         type="button"
         onClick={() => setFilter(key)}
         aria-pressed={on}
-        className={`pointer-events-auto rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${on
-          ? "bg-primary text-primary-foreground shadow-[0_6px_18px_-8px_var(--primary)]"
+        className={`pointer-events-auto rounded-full px-3.5 py-1.5 text-xs font-bold transition-colors ${on
+          ? "bg-primary text-primary-foreground dark:text-white shadow-[0_6px_18px_-8px_var(--primary)]"
           : "text-ink-soft hover:bg-primary-soft hover:text-primary-soft-ink"
           }`}
       >
