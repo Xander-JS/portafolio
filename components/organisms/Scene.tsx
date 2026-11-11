@@ -72,6 +72,9 @@ function Constellation({
   const camPos = useRef(new Vector3().copy(graph.camCurve.getPoint(0)));
   const lookAtPos = useRef(new Vector3().copy(graph.targetCurve.getPoint(0)));
 
+  // Reuse curve output vectors instead of allocating two objects every frame.
+  const [curveTargets] = useState(() => ({ camera: new Vector3(), look: new Vector3() }));
+
   // Reset pointer cursor when component unmounts
   useEffect(() => {
     return () => {
@@ -124,8 +127,8 @@ function Constellation({
     const clampedProgress = MathUtils.clamp(smoothProgress.current, 0, 1);
 
     // Compute target camera waypoint and look-at point from 3D curves
-    const targetCam = graph.camCurve.getPoint(clampedProgress);
-    const targetLook = graph.targetCurve.getPoint(clampedProgress);
+    const targetCam = graph.camCurve.getPoint(clampedProgress, curveTargets.camera);
+    const targetLook = graph.targetCurve.getPoint(clampedProgress, curveTargets.look);
 
     // Idle organic breathing (subtle zero-g float)
     const time = state.clock.getElapsedTime();
