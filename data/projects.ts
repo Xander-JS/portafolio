@@ -5,7 +5,7 @@ import type { Project } from "./types";
 export const projects: Project[] = [
   {
     slug: "marketplace",
-    title: { es: "Marketplace agrícola", en: "Agricultural Marketplace" },
+    title: { es: "Kumpa Sumaq", en: "Kumpa Sumaq" },
     summary: {
       es: "Kus es un ecosistema agrotech móvil de comercio seguro y directo entre agricultores y compradores con identidades verificadas.",
       en: "Kus is a mobile agrotech ecosystem for secure and direct commerce between farmers and buyers with verified identities.",

@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Tag } from "@/components/atoms/Tag";
 import { Icon } from "@/components/atoms/Icon";
+import { AmbientParticles } from "@/components/molecules/AmbientParticles";
 import type { Project } from "@/data/types";
 import { useLocale } from "@/i18n/Providers";
 import { useTranslations } from "next-intl";
@@ -38,6 +39,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
   const t = useTranslations("projects");
   const locale = useLocale();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">("right");
   const mounted = useMounted();
 
   useEffect(() => {
@@ -54,11 +56,13 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
   const handlePrev = useCallback(() => {
     if (gallery.length === 0) return;
+    setSlideDirection("left");
     setCurrentSlide((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
   }, [gallery.length]);
 
   const handleNext = useCallback(() => {
     if (gallery.length === 0) return;
+    setSlideDirection("right");
     setCurrentSlide((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
   }, [gallery.length]);
 
@@ -170,15 +174,16 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
       aria-modal="true"
       aria-labelledby="modal-project-title"
       onClick={handleBackdropClick}
-      className="fixed inset-0 z-[9999] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/80 p-4 backdrop-blur-sm sm:p-6 md:p-8 scroll-smooth custom-scrollbar"
+      className="project-modal-backdrop-in fixed inset-0 z-[9999] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/80 p-4 backdrop-blur-sm sm:p-6 md:p-8 scroll-smooth custom-scrollbar"
     >
       {/* Modal Dialog Card */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative my-auto flex w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] flex-col overflow-hidden rounded-3xl border border-primary/25 bg-surface text-ink shadow-[0_0_60px_rgba(220,38,38,0.22)] backdrop-blur-2xl dark:bg-surface/95"
+        className="project-modal-card-in isolate relative my-auto flex w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] flex-col overflow-hidden rounded-3xl border border-primary/25 bg-surface/80 text-ink shadow-[0_0_60px_rgba(220,38,38,0.22)] backdrop-blur-2xl dark:bg-surface/80"
       >
+        <AmbientParticles contained />
         {/* Fixed Header with Title and Close Button */}
-        <div className="flex shrink-0 items-center justify-between border-b border-ink/10 px-6 py-4 dark:border-white/10">
+        <div className="relative z-10 flex shrink-0 items-center justify-between border-b border-ink/10 px-6 py-4 dark:border-white/10">
           <h2
             id="modal-project-title"
             className="font-display text-xl tracking-wide text-ink sm:text-2xl md:text-3xl"
@@ -196,7 +201,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
         </div>
 
         {/* Scrollable Body Content with Slim Scrollbar & Smooth Scrolling */}
-        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-6 py-6 md:px-8 md:py-8 scroll-smooth custom-scrollbar">
+        <div className="relative z-10 flex-1 min-h-0 overflow-y-auto overscroll-contain px-6 py-6 md:px-8 md:py-8 scroll-smooth custom-scrollbar">
           {isSingleColumn ? (
             /* Single Column Layout (DJ AI): Wide carousel on TOP, Full-width info on BOTTOM */
             <div className="flex flex-col gap-8 sm:gap-10">
@@ -232,7 +237,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                               src={gallery[currentSlide]}
                               alt={`${title} screenshot ${currentSlide + 1}`}
                               fill
-                              className="object-cover object-top transition-all duration-300 scale-101"
+                              className={`project-gallery-in project-gallery-in-${slideDirection} object-cover object-top`}
                               sizes="(min-width: 1024px) 820px, 95vw"
                               priority
                             />
@@ -268,7 +273,10 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                           <button
                             key={img}
                             type="button"
-                            onClick={() => setCurrentSlide(idx)}
+                            onClick={() => {
+                              setSlideDirection(idx > currentSlide ? "right" : "left");
+                              setCurrentSlide(idx);
+                            }}
                             aria-label={`${t("galleryAlt", { n: idx + 1, name: title })}`}
                             className={`cursor-pointer rounded-full transition-all duration-300 ${idx === currentSlide
                               ? "h-2.5 w-7 bg-primary shadow-[0_0_8px_rgba(220,38,38,0.7)]"
@@ -374,7 +382,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                             src={gallery[currentSlide]}
                             alt={`${title} screenshot ${currentSlide + 1}`}
                             fill
-                            className="object-cover object-center transition-all duration-300 scale-101"
+                            className={`project-gallery-in project-gallery-in-${slideDirection} object-cover object-center`}
                             sizes="(min-width: 1024px) 340px, 80vw"
                             priority
                           />
@@ -401,7 +409,10 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                           <button
                             key={img}
                             type="button"
-                            onClick={() => setCurrentSlide(idx)}
+                            onClick={() => {
+                              setSlideDirection(idx > currentSlide ? "right" : "left");
+                              setCurrentSlide(idx);
+                            }}
                             aria-label={`${t("galleryAlt", { n: idx + 1, name: title })}`}
                             className={`cursor-pointer rounded-full transition-all duration-300 ${idx === currentSlide
                               ? "h-2.5 w-7 bg-primary shadow-[0_0_8px_rgba(220,38,38,0.7)]"

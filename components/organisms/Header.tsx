@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { LanguageToggle } from "@/components/molecules/LanguageToggle";
@@ -11,14 +11,37 @@ import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { moduleHref, modules } from "@/data/modules";
 import { profile } from "@/data/profile";
 import { useLocale } from "@/i18n/Providers";
+import { isPlainClick, runModuleTransition } from "@/lib/moduleTransition";
 import { useScrollStore } from "@/lib/useScrollStore";
 
 /** The nav bar that stays with you as you scroll. Each link opens that section's own page. */
 export function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
+  const router = useRouter();
   const locale = useLocale();
   const [open, setOpen] = useState(false);
+
+  // Where we are in the course order, so a header jump can tell forward (dive) from back (pullback).
+  const currentModuleIndex = modules.findIndex((m) => {
+    const href = moduleHref(m);
+    return pathname === href || pathname.startsWith(`${href}/`);
+  });
+
+  const handleModuleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetIndex: number,
+    href: string,
+    isCurrent: boolean,
+  ) => {
+    setOpen(false);
+    if (isCurrent || !isPlainClick(e)) return;
+
+    // Jumping to a later module dives forward; to an earlier one the camera pulls back.
+    const mode = targetIndex > currentModuleIndex ? "forward" : "pullback";
+    const handled = runModuleTransition(mode, () => router.push(href));
+    if (handled) e.preventDefault();
+  };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setOpen(false);
@@ -68,14 +91,14 @@ export function Header() {
             id="nav-links"
             className={`group ${open ? "flex" : "hidden"} absolute inset-x-4 top-[4.75rem] flex-col rounded-2xl bg-surface p-2 shadow-[0_12px_32px_rgb(0_0_0/0.14)] md:inset-x-[5.5vw] xl:static xl:flex xl:flex-row xl:bg-transparent xl:p-0 xl:shadow-none`}
           >
-            {modules.map((m) => {
+            {modules.map((m, idx) => {
               const href = moduleHref(m);
               const current = pathname === href || pathname.startsWith(`${href}/`);
               return (
                 <li key={m.id}>
                   <Link
                     href={href}
-                    onClick={() => setOpen(false)}
+                    onClick={(e) => handleModuleClick(e, idx, href, current)}
                     aria-current={current ? "page" : undefined}
                     className={`flex h-7 items-center mx-2 text-sm border-b border-transparent transition-all duration-200 ${
                       current

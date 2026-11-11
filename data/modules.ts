@@ -82,8 +82,8 @@ export const modules: PortfolioModule[] = [
     label: { es: "Testimonios", en: "Testimonials" },
     title: { es: "Lo que dicen", en: "What people say" },
     description: {
-      es: "Lo que dicen quienes han trabajado conmigo: profesores, compañeros y clientes, en texto y en video.",
-      en: "What people I've worked with say: professors, teammates and clients, as text and video.",
+      es: "Experiencias y opiniones de personas que han compartido proyectos, aprendizajes y desafíos conmigo.",
+      en: "Experiences and opinions from people who have shared projects, learnings, and challenges with me.",
     },
     facts: [
       given ? { es: `${given} testimonios`, en: `${given} testimonials` } : { es: "Llegan pronto", en: "Coming soon" },

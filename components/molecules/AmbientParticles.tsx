@@ -57,7 +57,7 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-export function AmbientParticles() {
+export function AmbientParticles({ contained = false }: { contained?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
   const colorsRef = useRef<ThemeColors>(readThemeColors());
@@ -90,8 +90,9 @@ export function AmbientParticles() {
     const particles: AmbientParticle[] = [];
 
     const setup = () => {
-      vw = window.innerWidth;
-      vh = window.innerHeight;
+      const bounds = contained ? canvas.parentElement?.getBoundingClientRect() : undefined;
+      vw = bounds?.width || window.innerWidth;
+      vh = bounds?.height || window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, dprCap);
       canvas.width = Math.round(vw * dpr);
       canvas.height = Math.round(vh * dpr);
@@ -135,8 +136,9 @@ export function AmbientParticles() {
     setup();
 
     const onPointerMove = (e: PointerEvent) => {
-      pointerRef.current.x = e.clientX;
-      pointerRef.current.y = e.clientY;
+      const bounds = contained ? canvas.getBoundingClientRect() : undefined;
+      pointerRef.current.x = e.clientX - (bounds?.left ?? 0);
+      pointerRef.current.y = e.clientY - (bounds?.top ?? 0);
       pointerRef.current.active = true;
     };
     const onPointerLeave = () => {
@@ -148,7 +150,13 @@ export function AmbientParticles() {
       window.addEventListener("pointermove", onPointerMove, { passive: true });
       window.addEventListener("pointerleave", onPointerLeave);
     }
-    window.addEventListener("resize", onResize);
+    let resizeObserver: ResizeObserver | undefined;
+    if (contained && canvas.parentElement) {
+      resizeObserver = new ResizeObserver(onResize);
+      resizeObserver.observe(canvas.parentElement);
+    } else {
+      window.addEventListener("resize", onResize);
+    }
 
     const maxConnectDistSq = 105 * 105;
     const repelRadius = 135;
@@ -281,7 +289,8 @@ export function AmbientParticles() {
     return () => {
       if (raf !== null) cancelAnimationFrame(raf);
       document.removeEventListener("visibilitychange", onVisibility);
-      window.removeEventListener("resize", onResize);
+      resizeObserver?.disconnect();
+      if (!contained) window.removeEventListener("resize", onResize);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerleave", onPointerLeave);
     };
@@ -291,7 +300,7 @@ export function AmbientParticles() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10"
+      className={contained ? "pointer-events-none absolute inset-0 z-0" : "pointer-events-none fixed inset-0 -z-10"}
     />
   );
 }

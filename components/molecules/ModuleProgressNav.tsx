@@ -5,11 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { moduleHref, modules } from "@/data/modules";
 import { useLocale } from "@/i18n/Providers";
+import { isPlainClick, runModuleTransition } from "@/lib/moduleTransition";
 import { useScrollStore } from "@/lib/useScrollStore";
-
-/** How long the camera animation runs before the route actually changes (keep in sync with globals.css). */
-const DIVE_MS = 400;
-const PULLBACK_MS = 520;
 
 export function ModuleProgressNav() {
   const pathname = usePathname();
@@ -44,29 +41,17 @@ export function ModuleProgressNav() {
    * Falls back to an instant navigation when motion is reduced or <main> isn't found.
    */
   const handleNext = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Let modified clicks (new tab, etc.) behave normally.
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    if (!isPlainClick(e)) return; // let new-tab / modified clicks behave normally
 
+    // The last step returns to the home page's Contact section.
     if (!nextModule) {
       useScrollStore.getState().setPendingContact(true);
     }
 
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const main = document.getElementById("main");
-    if (prefersReducedMotion || !main) return; // default <Link> navigation
-
-    e.preventDefault();
-    const isPullback = !nextModule;
-    main.classList.add(
-      isPullback ? "module-leaving-pullback" : "module-leaving-forward",
+    const handled = runModuleTransition(nextModule ? "forward" : "pullback", () =>
+      router.push(nextHref),
     );
-    window.setTimeout(
-      () => router.push(nextHref),
-      isPullback ? PULLBACK_MS : DIVE_MS,
-    );
+    if (handled) e.preventDefault();
   };
 
   return (
