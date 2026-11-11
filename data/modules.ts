@@ -66,13 +66,13 @@ export const modules: PortfolioModule[] = [
     label: { es: "Experiencia", en: "Experience" },
     title: { es: "Dónde he trabajado", en: "Where I've worked" },
     description: {
-      es: "Empecé en tecnología como freelance; antes, un restaurante y una tienda me enseñaron a trabajar con personas.",
-      en: "I started in tech as a freelancer; before that, a restaurant and a store taught me to work with people.",
+      es: "Cada experiencia ha contribuido a mi crecimiento personal y profesional, aportando nuevos conocimientos, habilidades y perspectivas.",
+      en: "Every experience has contributed to my personal and professional growth, bringing new knowledge, skills, and perspectives.",
     },
     facts: [
       { es: `${work.length} trabajos`, en: `${work.length} jobs` },
       { es: `${academic.length + seminars.length} entradas académicas`, en: `${academic.length + seminars.length} academic entries` },
-      { es: "Freelance móvil · 2 meses", en: "Freelance mobile · 2 months" },
+      { es: "Laboral y académico", en: "Work & academic" },
     ],
   },
   {
