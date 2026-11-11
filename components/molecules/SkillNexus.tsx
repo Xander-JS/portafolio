@@ -345,7 +345,7 @@ export function SkillNexus() {
   return (
     <div
       ref={fieldRef}
-      className="relative h-[clamp(520px,72vh,760px)] w-full overflow-hidden rounded-3xl shadow-[0_8px_28px_rgb(0_0_0/0.12)] [--orb:clamp(68px,9vw,92px)]"
+      className="relative h-[clamp(520px,72vh,760px)] w-full overflow-hidden rounded-3xl shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)] [--orb:clamp(68px,9vw,92px)]"
       style={{
         background:
           "radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--primary) 7%, transparent), transparent 60%)",
