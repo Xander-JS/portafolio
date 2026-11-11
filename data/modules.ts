@@ -34,8 +34,8 @@ export const modules: PortfolioModule[] = [
     label: { es: "Habilidades", en: "Skills" },
     title: { es: "Con qué trabajo", en: "What I work with" },
     description: {
-      es: "Entiendo la arquitectura de los lenguajes de programación, así que me adapto rápido a uno nuevo. Aquí están mi stack, mis herramientas de IA y mis editores.",
-      en: "I understand how programming languages are built, so I pick up new ones quickly. Here are my stack, AI tools and editors.",
+      es: "Mi fortaleza está en comprender la lógica detrás del código y adaptarme a cualquier tecnología.",
+      en: "My strength is understanding the logic behind the code and adapting to any technology.",
     },
     facts: [
       { es: `${toolCount} herramientas`, en: `${toolCount} tools` },

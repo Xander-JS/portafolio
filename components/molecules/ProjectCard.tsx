@@ -21,16 +21,14 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
   return (
     <>
       <article
-        className={`group relative flex flex-col overflow-hidden rounded-2xl bg-surface transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 ${
-          featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""
-        }`}
+        className={`group relative flex flex-col overflow-hidden rounded-2xl bg-surface/25 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 ${featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""
+          }`}
       >
         {/* Clickable cover to open detail modal */}
         <div
           onClick={() => setIsModalOpen(true)}
-          className={`relative m-2 cursor-pointer overflow-hidden rounded-xl ${
-            featured ? "aspect-[16/10] md:aspect-auto md:min-h-80" : "aspect-[16/10]"
-          }`}
+          className={`relative m-2 cursor-pointer overflow-hidden rounded-xl ${featured ? "aspect-[16/10] md:aspect-auto md:min-h-80" : "aspect-[16/10]"
+            }`}
         >
           <ProjectImage
             src={project.cover}
@@ -45,9 +43,8 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
         <div className="flex flex-1 flex-col p-6 md:p-8">
           <h3
             onClick={() => setIsModalOpen(true)}
-            className={`cursor-pointer font-display tracking-wide text-ink transition-colors hover:text-primary-text ${
-              featured ? "text-3xl md:text-4xl" : "text-2xl"
-            }`}
+            className={`cursor-pointer font-display tracking-wide text-ink transition-colors hover:text-primary-text ${featured ? "text-3xl md:text-4xl" : "text-2xl"
+              }`}
           >
             {title}
           </h3>

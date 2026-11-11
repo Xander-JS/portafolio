@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura de Habilidades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712; /* Tailwind gray-950 */
+            color: #f9fafb;
+            overflow: hidden; /* Evitar scroll, es una experiencia inmersiva */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Contenedor principal de física */
+        #physics-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        /* Estilo base para cada burbuja/nodo de habilidad */
+        .skill-node {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+            transition: opacity 0.5s ease, transform 0.2s ease-out, box-shadow 0.3s ease;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* Sombra interna y externa para efecto de orbe 3D */
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.3), 0 0 15px currentColor;
+        }
+
+        .skill-node:hover {
+            transform: scale(1.15) !important;
+            z-index: 100;
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Glassmorphism para paneles de UI */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .category-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Efecto de fondo estrellado / partículas estáticas */
+        .bg-grid {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="relative w-full h-screen">
+
+    <!-- Fondo -->
+    <div class="bg-grid"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-slate-950 to-purple-900/20 z-0 pointer-events-none"></div>
+
+    <!-- Panel Superior: Introducción -->
+    <header class="glass-panel absolute top-4 left-4 right-4 md:top-8 md:left-1/2 md:-translate-x-1/2 md:w-3/4 max-w-4xl p-6 rounded-2xl z-50 text-center shadow-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+            Arquitectura de Lenguajes
+        </h1>
+        <p class="text-gray-300 text-sm md:text-base font-light italic max-w-2xl mx-auto">
+            "Entiendo la arquitectura de los lenguajes de programación, así que me adapto rápido a uno nuevo. Aquí está mi ecosistema tecnológico."
+        </p>
+    </header>
+
+    <!-- Contenedor donde flotarán las habilidades -->
+    <div id="physics-canvas"></div>
+
+    <!-- Panel Inferior: Filtros de Categorías -->
+    <footer class="absolute bottom-4 left-4 right-4 md:bottom-8 z-50 flex justify-center pointer-events-none">
+        <div class="glass-panel p-2 md:p-3 rounded-full flex flex-wrap justify-center gap-2 pointer-events-auto max-w-full">
+            <button class="category-btn active px-4 py-2 rounded-full text-xs md:text-sm font-medium text-white border border-transparent" data-filter="all">
+                ✨ Todo el Ecosistema
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-cyan-300 border border-transparent" data-filter="Técnicas">
+                ⚙️ Técnicas
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-purple-400 border border-transparent" data-filter="IA">
+                🤖 IA
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-orange-400 border border-transparent" data-filter="Editores">
+                💻 Editores e IDEs
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-red-400 border border-transparent" data-filter="Agentes">
+                ⚡ Agentes
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-green-400 border border-transparent" data-filter="Versiones">
+                🗂️ Versiones
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-teal-300 border border-transparent" data-filter="Blandas">
+                🤝 Blandas
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full text-xs md:text-sm font-medium text-indigo-300 border border-transparent" data-filter="Idiomas">
+                🌍 Idiomas
+            </button>
+        </div>
+    </footer>
+
+    <!-- Lógica de Animación y Física -->
+    <script>
+        // Datos de las habilidades
+        const skillsData = [
+            // Técnicas
+            { name: "Flutter", category: "Técnicas", color: "rgba(6, 182, 212, 0.7)", size: 90 }, // Cyan
+            { name: "Supabase", category: "Técnicas", color: "rgba(16, 185, 129, 0.7)", size: 95 }, // Emerald
+            { name: "Next.js", category: "Técnicas", color: "rgba(255, 255, 255, 0.2)", size: 85 }, // White/Gray
+            { name: "PostgreSQL", category: "Técnicas", color: "rgba(59, 130, 246, 0.7)", size: 90 }, // Blue
+            { name: "MongoDB", category: "Técnicas", color: "rgba(34, 197, 94, 0.7)", size: 85 }, // Green
+            { name: "Figma", category: "Técnicas", color: "rgba(236, 72, 153, 0.7)", size: 80 }, // Pink
+            { name: "Arquitectura", category: "Técnicas", color: "rgba(139, 92, 246, 0.8)", size: 105 }, // Violet (Especial)
+            
+            // IA
+            { name: "Claude", category: "IA", color: "rgba(217, 119, 87, 0.7)", size: 85 }, // Coral
+            { name: "Gemini", category: "IA", color: "rgba(99, 102, 241, 0.7)", size: 85 }, // Indigo
+            { name: "ChatGPT", category: "IA", color: "rgba(16, 163, 127, 0.7)", size: 90 }, // OpenAI Green
+            { name: "DeepSeek", category: "IA", color: "rgba(56, 189, 248, 0.7)", size: 80 }, // Light Blue
+            
+            // Editores
+            { name: "VS Code", category: "Editores", color: "rgba(37, 99, 235, 0.7)", size: 90 }, // Blue
+            { name: "Cursor", category: "Editores", color: "rgba(244, 63, 94, 0.7)", size: 95 }, // Rose
+            { name: "Antigravity", category: "Editores", color: "rgba(250, 204, 21, 0.7)", size: 80 }, // Yellow
+            
+            // Agentes
+            { name: "Claude Code", category: "Agentes", color: "rgba(249, 115, 22, 0.7)", size: 85 }, // Orange
+            { name: "OpenCode", category: "Agentes", color: "rgba(168, 85, 247, 0.7)", size: 80 }, // Purple
+            { name: "Codex", category: "Agentes", color: "rgba(52, 211, 153, 0.7)", size: 80 }, // Emerald
+            
+            // Versiones
+            { name: "Git", category: "Versiones", color: "rgba(239, 68, 68, 0.7)", size: 80 }, // Red
+            { name: "GitHub", category: "Versiones", color: "rgba(31, 41, 55, 0.9)", size: 90 }, // Dark Gray
+            
+            // Blandas
+            { name: "Comunicación", category: "Blandas", color: "rgba(20, 184, 166, 0.7)", size: 95 }, // Teal
+            { name: "Trabajo en Equipo", category: "Blandas", color: "rgba(14, 165, 233, 0.7)", size: 100 }, // Sky
+            
+            // Idiomas
+            { name: "Español (Nativo)", category: "Idiomas", color: "rgba(139, 92, 246, 0.7)", size: 90 }, // Violet
+            { name: "Inglés (Básico)", category: "Idiomas", color: "rgba(79, 70, 229, 0.7)", size: 85 }, // Indigo
+        ];
+
+        const canvas = document.getElementById('physics-canvas');
+        let nodes = [];
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let currentFilter = 'all';
+
+        // Ajustar el tamaño por defecto en pantallas móviles
+        const isMobile = window.innerWidth < 768;
+        const sizeMultiplier = isMobile ? 0.7 : 1;
+
+        // Clase para manejar la física de cada nodo
+        class Node {
+            constructor(data) {
+                this.data = data;
+                this.radius = (data.size / 2) * sizeMultiplier;
+                
+                // Posición inicial aleatoria dentro de la pantalla
+                this.x = Math.random() * (window.innerWidth - this.radius * 2) + this.radius;
+                this.y = Math.random() * (window.innerHeight - this.radius * 2) + this.radius;
+                
+                // Velocidad inicial
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                
+                // Punto objetivo (se usa cuando se filtra)
+                this.targetX = this.x;
+                this.targetY = this.y;
+
+                // Crear elemento DOM
+                this.el = document.createElement('div');
+                this.el.className = 'skill-node text-xs md:text-sm';
+                this.el.style.width = `${this.radius * 2}px`;
+                this.el.style.height = `${this.radius * 2}px`;
+                this.el.style.backgroundColor = data.color;
+                // Usar color base para el box-shadow
+                const baseColor = data.color.replace(/[\d.]+\)$/g, '1)'); // Forzar opacidad 1 para la sombra
+                this.el.style.color = baseColor; 
+                this.el.innerHTML = `<span class="text-white drop-shadow-md pointer-events-none">${data.name}</span>`;
+                
+                canvas.appendChild(this.el);
+            }
+
+            update() {
+                // Lógica de movimiento según el estado de filtrado
+                if (currentFilter === 'all') {
+                    // MODO LIBRE: Flotar por la pantalla
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Rebotar en los bordes
+                    if (this.x - this.radius < 0) { this.x = this.radius; this.vx *= -1; }
+                    if (this.x + this.radius > window.innerWidth) { this.x = window.innerWidth - this.radius; this.vx *= -1; }
+                    if (this.y - this.radius < 0) { this.y = this.radius; this.vy *= -1; }
+                    if (this.y + this.radius > window.innerHeight) { this.y = window.innerHeight - this.radius; this.vy *= -1; }
+                    
+                    // Asegurar que no se queden atascados
+                    if (Math.abs(this.vx) < 0.2) this.vx += (Math.random() - 0.5) * 0.5;
+                    if (Math.abs(this.vy) < 0.2) this.vy += (Math.random() - 0.5) * 0.5;
+
+                    this.el.style.opacity = '1';
+
+                } else {
+                    // MODO FILTRO: Agruparse en el centro o desaparecer
+                    if (this.data.category === currentFilter) {
+                        this.el.style.opacity = '1';
+                        // Atraer suavemente al centro
+                        const centerX = window.innerWidth / 2;
+                        const centerY = window.innerHeight / 2 + 50; // Un poco más abajo por el header
+                        
+                        // Movimiento elástico hacia el centro
+                        const dx = centerX - this.x;
+                        const dy = centerY - this.y;
+                        
+                        this.vx = (this.vx + dx * 0.005) * 0.95; // Fricción
+                        this.vy = (this.vy + dy * 0.005) * 0.95;
+                        
+                        this.x += this.vx;
+                        this.y += this.vy;
+                    } else {
+                        // Desvanecer las no seleccionadas y dejarlas quietas
+                        this.el.style.opacity = '0.05';
+                        this.vx *= 0.9;
+                        this.vy *= 0.9;
+                        this.x += this.vx;
+                        this.y += this.vy;
+                    }
+                }
+
+                // REPULSIÓN DEL RATÓN (Efecto Magnético Inverso)
+                const dxMouse = this.x - mouseX;
+                const dyMouse = this.y - mouseY;
+                const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                const repelRadius = 150;
+
+                if (distMouse < repelRadius) {
+                    const force = (repelRadius - distMouse) / repelRadius;
+                    this.vx += (dxMouse / distMouse) * force * 0.5;
+                    this.vy += (dyMouse / distMouse) * force * 0.5;
+                }
+
+                // REPULSIÓN ENTRE NODOS (Evitar superposición fuerte)
+                for (let i = 0; i < nodes.length; i++) {
+                    const other = nodes[i];
+                    if (other === this) continue;
+                    
+                    // Si están en modo filtro, solo colisionar entre los visibles
+                    if (currentFilter !== 'all' && (this.data.category !== currentFilter || other.data.category !== currentFilter)) continue;
+
+                    const dx = this.x - other.x;
+                    const dy = this.y - other.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const minDist = this.radius + other.radius + 10; // 10px de padding
+
+                    if (dist < minDist) {
+                        const overlap = minDist - dist;
+                        const force = overlap * 0.05; // Suavidad de colisión
+                        
+                        // Distribuir fuerza
+                        const nx = dx / dist;
+                        const ny = dy / dist;
+
+                        this.vx += nx * force;
+                        this.vy += ny * force;
+                    }
+                }
+
+                // Aplicar fricción general (límite de velocidad máxima)
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (speed > 3) {
+                    this.vx = (this.vx / speed) * 3;
+                    this.vy = (this.vy / speed) * 3;
+                }
+
+                // Actualizar posición en DOM
+                this.el.style.transform = `translate(${this.x - this.radius}px, ${this.y - this.radius}px)`;
+            }
+        }
+
+        // Inicializar
+        function init() {
+            nodes = skillsData.map(data => new Node(data));
+            animate();
+        }
+
+        // Bucle de animación
+        function animate() {
+            nodes.forEach(node => node.update());
+            requestAnimationFrame(animate);
+        }
+
+        // Interacción del ratón
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Tocar en móviles aleja un poco el centro de gravedad
+        window.addEventListener('touchmove', (e) => {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        });
+
+        // Redimensionar ventana
+        window.addEventListener('resize', () => {
+            // Empujar nodos que queden fuera de la pantalla de vuelta adentro
+            nodes.forEach(node => {
+                if (node.x > window.innerWidth) node.x = window.innerWidth - node.radius;
+                if (node.y > window.innerHeight) node.y = window.innerHeight - node.radius;
+            });
+        });
+
+        // Filtrado por categorías
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Actualizar estilos de botones
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+
+                // Cambiar estado global
+                currentFilter = e.target.getAttribute('data-filter');
+                
+                // Darle un empujón aleatorio a los nodos para que reagruparlos se vea bien
+                nodes.forEach(node => {
+                    if (currentFilter !== 'all' && node.data.category === currentFilter) {
+                        node.vx += (Math.random() - 0.5) * 10;
+                        node.vy += (Math.random() - 0.5) * 10;
+                    }
+                });
+            });
+        });
+
+        // Lanzar cuando la ventana cargue
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -21,6 +21,7 @@ import {
   siClaude,
   siClaudecode,
   siCursor,
+  siDeepseek,
   siFacebook,
   siFigma,
   siFlutter,
@@ -29,8 +30,10 @@ import {
   siGooglegemini,
   siLinux,
   siNextdotjs,
+  siMongodb,
   siOpencode,
   siSupabase,
+  siPostgresql,
 } from "simple-icons";
 import type { IconName } from "@/data/types";
 
@@ -38,10 +41,13 @@ const brands = {
   flutter: siFlutter,
   supabase: siSupabase,
   nextjs: siNextdotjs,
+  postgresql: siPostgresql,
+  mongodb: siMongodb,
   figma: siFigma,
   facebook: siFacebook,
   claude: siClaude,
   gemini: siGooglegemini,
+  deepseek: siDeepseek,
   cursor: siCursor,
   claudecode: siClaudecode,
   opencode: siOpencode,
@@ -53,6 +59,7 @@ const brands = {
 // TODO: paste the official SVG <path d> of ChatGPT, VS Code and Antigravity here if you want the real logos.
 const standIns = {
   chatgpt: { Glyph: Bot, hex: "10A37F" },
+  codex: { Glyph: Bot, hex: "10A37F" },
   vscode: { Glyph: SquareCode, hex: "007ACC" },
   antigravity: { Glyph: Orbit, hex: "4285F4" },
 };

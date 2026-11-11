@@ -57,10 +57,14 @@
       "agents": "Agentes de terminal",
       "vcs": "Control de versiones"
     },
+    "filterAll": "Todo el ecosistema",
+    "nexusHint": "Mueve el cursor para dispersar los nodos · filtra por categoría",
     "items": {
       "flutter": "Flutter",
       "supabase": "Supabase",
       "nextjs": "Next.js",
+      "postgresql": "PostgreSQL",
+      "mongodb": "MongoDB",
       "figma": "Figma",
       "languagesArch": "Arquitectura de lenguajes",
       "communication": "Comunicación",
@@ -70,11 +74,13 @@
       "claude": "Claude",
       "gemini": "Gemini",
       "chatgpt": "ChatGPT",
+      "deepseek": "DeepSeek",
       "vscode": "Visual Studio Code",
       "cursor": "Cursor",
       "antigravity": "Antigravity",
       "claudecode": "Claude Code",
       "opencode": "OpenCode",
+      "codex": "Codex",
       "git": "Git",
       "github": "GitHub"
     }

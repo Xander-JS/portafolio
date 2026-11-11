@@ -162,7 +162,7 @@ export const projects: Project[] = [
     repoUrl: "",
     windowsUrl: "https://github.com/Xander-JS/sudo-kill-9/releases/download/Win-V1.0/Run_Windows.zip",
     linuxUrl: "https://github.com/Xander-JS/sudo-kill-9/releases/download/LIN-V1.0/linux.zip",
-    demoUrl: "https://xander-js.github.io/sudo-kill-9/",
+    demoUrl: "https://stunning-moonbeam-47eb8e.netlify.app/",
   },
   {
     slug: "smartwatch-app",

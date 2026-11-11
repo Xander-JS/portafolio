@@ -7,6 +7,8 @@ export const skillGroups: SkillGroup[] = [
       { id: "flutter", icon: "flutter" },
       { id: "supabase", icon: "supabase" },
       { id: "nextjs", icon: "nextjs" },
+      { id: "postgresql", icon: "postgresql" },
+      { id: "mongodb", icon: "mongodb" },
       { id: "figma", icon: "figma" },
       { id: "languagesArch", icon: "code" },
     ],
@@ -17,6 +19,7 @@ export const skillGroups: SkillGroup[] = [
       { id: "claude", icon: "claude" },
       { id: "gemini", icon: "gemini" },
       { id: "chatgpt", icon: "chatgpt" },
+      { id: "deepseek", icon: "deepseek" },
     ],
   },
   {
@@ -32,6 +35,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { id: "claudecode", icon: "claudecode" },
       { id: "opencode", icon: "opencode" },
+      { id: "codex", icon: "codex" },
     ],
   },
   {
