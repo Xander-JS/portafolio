@@ -91,6 +91,7 @@
     "downloadApk": "Download APK",
     "downloadWindows": "Download Windows",
     "downloadLinux": "Download Linux",
+    "downloadSmartwatch": "Download Smartwatch",
     "repo": "Source code",
     "soon": "Links coming soon",
     "imageAlt": "Screenshot of {name}",
@@ -154,7 +155,9 @@
     "hint": "Pick the reaction that best fits what you felt. Your tap is saved and adds to everyone else who visits this portfolio.",
     "teaser": "React to my portfolio and watch your vote add up live with everyone else's.",
     "thanks": "Thanks for your reaction!",
-    "offline": "Connect Supabase to enable the live counts.",
+    "offline": "Reactions are currently unavailable.",
+    "loadError": "We couldn't load the reactions. Reload the page to try again.",
+    "saveError": "We couldn't save your reaction. Please try again.",
     "aria": "{reaction}: {count} reactions",
     "labels": {
       "celebrate": "Applause",
