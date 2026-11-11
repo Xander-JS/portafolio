@@ -39,7 +39,8 @@ export type IconName =
   | "graduation"
   | "store"
   | "utensils"
-  | "mic";
+  | "mic"
+  | "heart";
 
 export type Social = { id: "github" | "facebook" | "linkedin"; href: string };
 
