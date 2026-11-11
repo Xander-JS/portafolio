@@ -40,3 +40,17 @@ test("responsive factor adjusts horizontal milestone spread", () => {
     "Mobile milestones should be closer to center X"
   );
 });
+
+test("reusable curve targets preserve camera and look coordinates across viewport sizes", () => {
+  for (const factor of [0.4, 0.65, 1]) {
+    const graph = createGraphData(factor);
+    for (const curve of [graph.camCurve, graph.targetCurve]) {
+      const target = curve.getPoint(0);
+      for (const progress of [0, 0.01, 0.25, 0.5, 0.99, 1]) {
+        const expected = curve.getPoint(progress);
+        assert.equal(curve.getPoint(progress, target), target);
+        assert.deepEqual(target.toArray(), expected.toArray());
+      }
+    }
+  }
+});
