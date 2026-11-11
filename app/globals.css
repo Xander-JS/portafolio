@@ -582,3 +582,64 @@ html[data-locale-pending] body {
     animation: none;
   }
 }
+
+/* Home hero photo (LeftContent): a rounded portrait card on a deep red gradient with a soft shadow,
+   a slide-in on load and a slow float. Only transform/opacity animate; the shadow moves with the card's layer. */
+.hero-photo-frame {
+  background:
+    radial-gradient(circle at 45% 30%, var(--red-800), transparent 65%),
+    linear-gradient(160deg, var(--red-950), #1a0405);
+  box-shadow:
+    0 24px 48px -12px rgb(20 20 23 / 0.35),
+    0 8px 16px -8px rgb(20 20 23 / 0.2),
+    inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+.hero-photo {
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-photo[data-hidden] {
+  opacity: 0;
+  transform: translateX(32px) scale(0.96);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-photo {
+    animation: hero-photo-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s backwards;
+  }
+
+  .hero-photo-float {
+    will-change: transform;
+    animation: hero-photo-float 6s ease-in-out 1.2s infinite alternate;
+  }
+
+  .hero-photo[data-hidden] .hero-photo-float {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo {
+    transition: opacity 0.3s;
+  }
+
+  .hero-photo[data-hidden] {
+    transform: none;
+  }
+}
+
+@keyframes hero-photo-in {
+  from {
+    opacity: 0;
+    transform: translateX(32px) scale(0.96);
+  }
+}
+
+@keyframes hero-photo-float {
+  to {
+    transform: translateY(-12px);
+  }
+}
