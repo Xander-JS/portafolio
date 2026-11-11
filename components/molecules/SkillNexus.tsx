@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components/atoms/Icon";
@@ -90,7 +89,6 @@ function NodeOrb({ icon, label }: { icon: IconName; label: string }) {
  */
 export function SkillNexus() {
   const t = useTranslations("skills");
-  const { resolvedTheme } = useTheme();
   const fieldRef = useRef<HTMLDivElement>(null);
   const linkRef = useRef<HTMLCanvasElement>(null);
   const nodeEls = useRef<(HTMLLIElement | null)[]>([]);
@@ -109,12 +107,18 @@ export function SkillNexus() {
     filterRef.current = filter;
   }, [filter]);
 
-  // Keep the thread colour in sync with the theme without restarting the physics.
+  // Read after the theme class changes; React's theme effect can run before the CSS update.
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const v = getComputedStyle(document.documentElement).getPropertyValue("--ink").trim();
-    if (v) lineColorRef.current = v;
-  }, [resolvedTheme, mounted]);
+    const root = document.documentElement;
+    const readColor = () => {
+      const v = getComputedStyle(root).getPropertyValue("--ink").trim();
+      if (v) lineColorRef.current = v;
+    };
+    readColor();
+    const observer = new MutationObserver(readColor);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   const usePhysics = mounted && !reduced;
 
