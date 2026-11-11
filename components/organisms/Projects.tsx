@@ -15,7 +15,12 @@ export function Projects({ summary = false }: { summary?: boolean }) {
       <ModuleHeading id="projects" summary={summary} />
       <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
         {projects.map((p, i) => (
-          <ProjectCard key={p.slug} project={p} featured={i === 0} />
+          <ProjectCard
+            key={p.slug}
+            project={p}
+            featured={i === 0 || p.slug === "smartwatch-app"}
+            imagePosition={p.slug === "smartwatch-app" ? "right" : "left"}
+          />
         ))}
       </div>
       </Section>
