@@ -271,14 +271,14 @@ export function ReactionWall() {
                 <button
                   type="button"
                   onClick={(e) => handleReact(rx.key, e)}
-                  disabled={on || !ready}
+                  disabled={!ready || pending.has(rx.key)}
                   aria-pressed={on}
                   aria-label={t("aria", { reaction: t(`labels.${rx.key}`), count })}
-                  className={`group flex items-center gap-2.5 rounded-full border px-4 py-2.5 transition-all duration-200 ${
+                  className={`group flex items-center gap-2.5 rounded-full border px-4 py-2.5 transition-all duration-200 disabled:opacity-60 ${
                     on
-                      ? "border-primary bg-primary-soft text-primary-soft-ink shadow-[0_6px_18px_-8px_var(--primary)]"
+                      ? "border-primary bg-primary-soft text-primary-soft-ink shadow-[0_6px_18px_-8px_var(--primary)] enabled:hover:-translate-y-0.5"
                       : "border-primary/20 bg-surface/70 text-ink enabled:hover:-translate-y-0.5 enabled:hover:border-primary/60 enabled:hover:shadow-[0_10px_26px_-12px_var(--primary)]"
-                  } ${!ready ? "cursor-not-allowed opacity-60" : on ? "" : "cursor-pointer"}`}
+                  } ${ready ? "cursor-pointer" : "cursor-not-allowed"}`}
                   style={{ backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}
                 >
                   <span
