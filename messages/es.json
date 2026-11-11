@@ -148,6 +148,22 @@
     "sentTitle": "Mensaje listo.",
     "sentBody": "Tu cliente de correo se abrió con el mensaje escrito. Solo falta pulsar enviar allí. Si no se abrió, escríbeme a {email}."
   },
+  "reactions": {
+    "eyebrow": "Muro de reacciones",
+    "title": "¿Qué te pareció mi portafolio?",
+    "hint": "Elige la reacción que mejor describa lo que sentiste. Tu toque se guarda y se suma al de cada persona que visita este portafolio.",
+    "teaser": "Reacciona a mi portafolio y mira cómo tu voto se suma en vivo al de todos.",
+    "thanks": "¡Gracias por tu reacción!",
+    "offline": "Conecta Supabase para activar los conteos en vivo.",
+    "aria": "{reaction}: {count} reacciones",
+    "labels": {
+      "celebrate": "Aplausos",
+      "fire": "Increíble",
+      "idea": "Inspirador",
+      "love": "Me encanta",
+      "rocket": "Al siguiente nivel"
+    }
+  },
   "footer": {
     "rights": "Todos los derechos reservados."
   }
