@@ -32,7 +32,7 @@ export const projects: Project[] = [
       { es: "Publicación por voz con asistencia IA", en: "Voice publishing with AI assistance" },
       { es: "Interfaz en español e inglés", en: "Interface in Spanish and English" },
     ],
-    cover: "/assets/img/apps/app_movil/img_movil.webp",
+    cover: "/assets/img/apps/app_movil/img-movil.webp",
     gallery: [
       "/assets/img/apps/app_movil/01.jpeg",
       "/assets/img/apps/app_movil/02.jpeg",
@@ -103,6 +103,66 @@ export const projects: Project[] = [
     windowsUrl: "https://github.com/Xander-JS/dj_ai_web/releases/download/v1.0.1/SYSTEM.DJ.Setup.1.0.1.exe",
     linuxUrl: "https://github.com/Xander-JS/dj_ai_web/releases/download/v1.0.1/SYSTEM.DJ-1.0.1.AppImage",
     demoUrl: "https://dj-ai-web.vercel.app/",
+  },
+  {
+    slug: "sudo-kill-9",
+    title: { es: "SUDO KILL -9", en: "SUDO KILL -9" },
+    summary: {
+      es: "SUDO KILL -9 es un videojuego de acción y combate táctico en tercera persona, el cual enfrenta al pingüino Tux contra la personificación del sistema operativo Windows con síntesis de voz reactiva e IA local.",
+      en: "SUDO KILL -9 is a third-person tactical action and combat video game that pits Tux the penguin against the personification of the Windows operating system with reactive voice synthesis and local AI.",
+    },
+    description: [
+      {
+        es: "La experiencia traslada la legendaria rivalidad de los sistemas operativos directamente al navegador y al escritorio, garantizando un rendimiento fluido y libre de latencia al ejecutar la lógica de combate y el pipeline de audio íntegramente en local. Combina un sistema de disparos con apuntado dinámico, control de cámaras cinematográficas (orbital e isométrica), arenas de supervivencia por oleadas con efectos visuales de glitch BSOD y un microservicio inteligente que sintetiza líneas de voz para el jefe en tiempo real con latencia cero en memoria.",
+        en: "The platform brings the legendary operating system rivalry directly to the browser and desktop, guaranteeing smooth, latency-free performance by running combat logic and the audio pipeline entirely locally. It combines a dynamic aiming shooting system, cinematic camera control (orbital and isometric), wave-based survival arenas with BSOD glitch visual effects, and an intelligent microservice that synthesizes boss voice lines in real time with zero in-memory latency.",
+      },
+      {
+        es: "Implementado de principio a fin con una arquitectura modular y reactiva en un ciclo ágil de dos meses.",
+        en: "Implemented end-to-end with a modular and reactive architecture in an agile two-month cycle.",
+      },
+    ],
+    type: "personal",
+    role: { es: "Desarrollo de videojuegos", en: "Game development" },
+    duration: { es: "2 meses", en: "2 months" },
+    status: "completed",
+    device: "desktop",
+    stack: ["Unity", "C#", "FastAPI", "edge-tts", "WebGL"],
+    features: [
+      {
+        es: "Combate en tercera persona: mecánicas de apuntado dinámico, esquiva táctica, retroceso responsivo y sistema de salud reactivo",
+        en: "Third-person combat: dynamic aiming mechanics, tactical dodge, responsive recoil, and reactive health system",
+      },
+      {
+        es: "Jefe con síntesis de voz en local: microservicio de TTS reactivo con caché en memoria RAM para diálogos dinámicos del villano",
+        en: "Local voice-synthesized boss: reactive TTS microservice with RAM caching for dynamic villain dialogues",
+      },
+      {
+        es: "Modos de supervivencia y arena: control de oleadas y reaparición perimetral con condiciones de victoria por tiempo y limpieza",
+        en: "Survival and arena modes: wave control and perimeter spawning with time-based and clear-based victory conditions",
+      },
+      {
+        es: "Efectos visuales de impacto: habilidades cinemáticas, proyectiles teledirigidos y transiciones con estética BSOD",
+        en: "Impactful visual effects: cinematic abilities, homing projectiles, and BSOD-aesthetic transitions",
+      },
+      {
+        es: "Despliegue multiplataforma e i18n: soporte nativo para Linux, Windows y WebGL con interfaz y subtítulos localizados",
+        en: "Cross-platform deployment & i18n: native support for Linux, Windows, and WebGL with localized UI and subtitles",
+      },
+    ],
+    cover: "/assets/img/apps/videojuego/linux-home.webp",
+    gallery: [
+      "/assets/img/apps/videojuego/00.png",
+      "/assets/img/apps/videojuego/01.png",
+      "/assets/img/apps/videojuego/02.png",
+      "/assets/img/apps/videojuego/03.png",
+      "/assets/img/apps/videojuego/04.png",
+      "/assets/img/apps/videojuego/05.png",
+      "/assets/img/apps/videojuego/06.png",
+    ],
+    repoUrl: "",
+    windowsUrl: "https://github.com/Xander-JS/sudo-kill-9/releases/download/Win-V1.0/Run_Windows.zip",
+    linuxUrl: "https://github.com/Xander-JS/sudo-kill-9/releases/download/LIN-V1.0/linux.zip",
+    demoUrl: "https://xander-js.github.io/sudo-kill-9/",
   },
   {
     slug: "smartwatch-app",

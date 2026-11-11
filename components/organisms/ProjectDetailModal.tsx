@@ -90,7 +90,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
   const title = project.title[locale] || project.title.es;
   const summary = project.summary[locale] || project.summary.es;
-  const isSingleColumn = project.slug === "dj-ai";
+  const isSingleColumn = project.device === "desktop" || project.slug === "dj-ai";
 
   const actionButtons = (project.windowsUrl || project.linuxUrl || project.apkUrl || project.demoUrl) && (
     <div className="mt-6 flex flex-wrap gap-3">
