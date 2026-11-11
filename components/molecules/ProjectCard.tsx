@@ -21,7 +21,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
   return (
     <>
       <article
-        className={`group relative flex flex-col overflow-hidden rounded-2xl border border-black/15 bg-surface/25 shadow-[0_0_24px_rgba(0,0,0,0.16),0_12px_30px_-6px_rgba(0,0,0,0.28)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:border-black/25 hover:shadow-[0_0_32px_rgba(0,0,0,0.24),0_16px_38px_-6px_rgba(0,0,0,0.36)] dark:border-white/15 dark:shadow-[0_0_28px_rgba(0,0,0,0.8),0_14px_34px_-6px_rgba(0,0,0,0.92)] dark:hover:border-white/25 dark:hover:shadow-[0_0_36px_rgba(0,0,0,0.9),0_18px_42px_-6px_rgba(0,0,0,1)] ${featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""
+        className={`group relative flex flex-col overflow-hidden rounded-2xl border border-black/15 bg-surface/25 shadow-[0_0_12px_rgba(0,0,0,0.08),0_4px_14px_-2px_rgba(0,0,0,0.16)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:border-black/25 hover:shadow-[0_0_16px_rgba(0,0,0,0.12),0_6px_18px_-2px_rgba(0,0,0,0.22)] dark:border-white/15 dark:shadow-[0_0_12px_rgba(255,255,255,0.08),0_4px_14px_-2px_rgba(255,255,255,0.12)] dark:hover:border-white/25 dark:hover:shadow-[0_0_16px_rgba(255,255,255,0.12),0_6px_18px_-2px_rgba(255,255,255,0.18)] ${featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""
           }`}
       >
         {/* Clickable cover to open detail modal */}
