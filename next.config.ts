@@ -1,5 +1,16 @@
 import type { NextConfig } from "next";
 
+if (process.env.VERCEL === "1") {
+  const missing = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"].filter(
+    (name) => !process.env[name]?.trim(),
+  );
+  if (missing.length) {
+    throw new Error(
+      `Reaction wall: missing ${missing.join(", ")}. Configure them in Vercel for this deployment environment and redeploy.`,
+    );
+  }
+}
+
 const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
