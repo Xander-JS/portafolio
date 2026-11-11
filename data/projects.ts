@@ -208,7 +208,7 @@ export const projects: Project[] = [
     cover: "/assets/img/apps/app_reloj/img_reloj.webp",
     gallery: ["", "", ""], // TODO
     repoUrl: "",
-    smartwatchUrl: "#", // TODO: enlace de descarga smartwatch
+    smartwatchUrl: "https://github.com/Xander-JS/haptiMap_watch/releases/download/V1.0/app-debug.zip",
     demoUrl: "",
   },
 ];
