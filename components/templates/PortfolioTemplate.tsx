@@ -2,6 +2,7 @@ import { cacheLife } from "next/cache";
 import type { ReactNode } from "react";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
+import { ModuleTransitionReset } from "@/components/organisms/ModuleTransitionReset";
 
 // Captured in the static page and refreshed daily, so the footer year rolls over on its own.
 export async function currentYear() {
@@ -21,6 +22,7 @@ export async function PortfolioTemplate({
   return (
     <div className="overflow-x-clip">
       <Header />
+      <ModuleTransitionReset />
       <main id="main" tabIndex={-1} className="outline-none">
         {children}
       </main>
