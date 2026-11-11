@@ -5,7 +5,7 @@ export const profile: Profile = {
   email: "alecxandermarlon@gmail.com",
   city: "Pasto", // TODO: your city in Nariño
   university: "[TODO Universidad]", // TODO: your university
-  photo: "/images/profile.jpg", // TODO: replace public/images/profile.jpg with your real photo (portrait, about 4:5)
+  photo: "/assets/img/Perifil/profile-retrato.webp",
   socials: [
     { id: "github", href: "https://github.com/Xander-JS" },
     { id: "facebook", href: "https://www.facebook.com/share/1Dzrw4L2XX/" },
