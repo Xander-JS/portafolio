@@ -209,6 +209,6 @@ export const projects: Project[] = [
     gallery: ["", "", ""], // TODO
     repoUrl: "",
     smartwatchUrl: "#", // TODO: enlace de descarga smartwatch
-    demoUrl: "#", // TODO: enlace web
+    demoUrl: "",
   },
 ];
