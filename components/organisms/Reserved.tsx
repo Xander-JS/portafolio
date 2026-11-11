@@ -1,6 +1,7 @@
 "use client";
 
 import { Section } from "@/components/atoms/Section";
+import { AmbientParticles } from "@/components/molecules/AmbientParticles";
 import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { useLocale } from "@/i18n/Providers";
 
@@ -9,7 +10,9 @@ export function Reserved({ summary = false }: { summary?: boolean }) {
   const isEn = locale === "en";
 
   return (
-    <Section id="reserved">
+    <>
+      <AmbientParticles />
+      <Section id="reserved">
       <ModuleHeading id="reserved" summary={summary} />
       <div className="rounded-3xl border border-primary/30 bg-surface/65 p-8 text-ink backdrop-blur-xs md:p-12">
         <p className="font-mono text-xs font-semibold uppercase tracking-wider text-primary-text">
@@ -26,7 +29,8 @@ export function Reserved({ summary = false }: { summary?: boolean }) {
             : "Próximamente se agregará el contenido de esta sección aquí."}
         </p>
       </div>
-    </Section>
+      </Section>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ import { CalendarDays } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { Section } from "@/components/atoms/Section";
+import { AmbientParticles } from "@/components/molecules/AmbientParticles";
 import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { ExperienceItem } from "@/components/molecules/ExperienceItem";
 import { academic, seminars, work } from "@/data/experience";
@@ -54,7 +55,9 @@ export function Experience({ summary = false }: { summary?: boolean }) {
   };
 
   return (
-    <Section id="experience">
+    <>
+      <AmbientParticles />
+      <Section id="experience">
       <ModuleHeading id="experience" summary={summary} />
 
       {summary ? (
@@ -115,6 +118,7 @@ export function Experience({ summary = false }: { summary?: boolean }) {
           </div>
         </>
       )}
-    </Section>
+      </Section>
+    </>
   );
 }

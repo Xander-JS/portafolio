@@ -31,17 +31,28 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
 
     setWarping(false);
 
-    // Smooth cinematic inertia scroll via Lenis
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Smooth cinematic inertia scroll via Lenis. Users who ask for reduced motion get plain scrolling.
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // exponential smooth decay
-      smoothWheel: true,
+      smoothWheel: !prefersReducedMotion,
       touchMultiplier: 1.5,
     });
 
+    // Cache the scroll range so the per-scroll handler never forces a synchronous layout (reflow).
+    // scrollHeight only changes on resize, so we recompute it there instead of on every scroll frame.
+    const computeMax = () => document.documentElement.scrollHeight - window.innerHeight;
+    let maxScroll = computeMax();
+
     const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? window.scrollY / max : 0);
+      setProgress(maxScroll > 0 ? window.scrollY / maxScroll : 0);
+    };
+
+    const onResize = () => {
+      maxScroll = computeMax();
+      onScroll();
     };
 
     lenis.on("scroll", onScroll);
@@ -53,7 +64,8 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
       window.history.replaceState(null, "", "/");
 
       const jumpToContact = () => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const max = computeMax();
+        maxScroll = max;
         if (max > 0) {
           window.scrollTo({ top: max, left: 0, behavior: "instant" });
           lenis.scrollTo(max, { immediate: true });
@@ -74,17 +86,18 @@ export function ScrollytellingTemplate({ year }: { year: number }) {
 
     let rafId: number;
     function raf(time: number) {
-      lenis.raf(time);
+      // Skip Lenis work while the tab is backgrounded (no visible scroll to animate).
+      if (!document.hidden) lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
 
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       if (contactTimer) clearTimeout(contactTimer);
       cancelAnimationFrame(rafId);
       lenis.destroy();
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, [setWarping, setProgress]);
 

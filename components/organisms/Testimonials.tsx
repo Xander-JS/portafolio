@@ -3,6 +3,7 @@
 import { Quote, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/atoms/Section";
+import { AmbientParticles } from "@/components/molecules/AmbientParticles";
 import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { TestimonialCard } from "@/components/molecules/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
@@ -13,7 +14,9 @@ export function Testimonials({ summary = false }: { summary?: boolean }) {
   const filled = testimonials.filter((x) => x.name);
 
   return (
-    <Section id="testimonials">
+    <>
+      <AmbientParticles />
+      <Section id="testimonials">
       <ModuleHeading id="testimonials" summary={summary} />
       {filled.length ? (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
@@ -51,6 +54,7 @@ export function Testimonials({ summary = false }: { summary?: boolean }) {
           </ul>
         </div>
       )}
-    </Section>
+      </Section>
+    </>
   );
 }

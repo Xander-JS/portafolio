@@ -17,6 +17,12 @@ export function TypewriterHeading({ text, speed = 28, className = "" }: Props) {
   const isTyping = displayed.length < text.length;
 
   useEffect(() => {
+    // Respect reduced-motion: reveal the full heading at once instead of the per-character animation.
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const timeout = setTimeout(() => setDisplayed(text), 0);
+      return () => clearTimeout(timeout);
+    }
+
     let index = 0;
     const interval = setInterval(() => {
       index++;

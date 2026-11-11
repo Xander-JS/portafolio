@@ -50,8 +50,12 @@ function Constellation({
 }) {
   const activeIndex = useScrollStore((s) => s.index);
 
-  const { viewport } = useThree();
+  const { viewport, gl } = useThree();
   const aspect = viewport.aspect || 1.77;
+
+  // One-way adaptive quality: if the average frame time stays slow for a sustained window,
+  // drop the drawing-buffer pixel ratio to 1x once. Cheap, never ramps back up, so it can't oscillate.
+  const perfRef = useRef({ acc: 0, count: 0, regressed: false });
 
   // Responsive horizontal adaptation: adapts spread gracefully for portrait / mobile
   const rawFactor = Math.min(1.0, Math.max(0.38, aspect / 1.6));
@@ -91,6 +95,23 @@ function Constellation({
 
   useFrame((state, delta) => {
     const { progress, isWarping } = useScrollStore.getState();
+
+    // Sustained-slowness detection → single pixel-ratio regression to protect the frame rate.
+    // Ignore abnormal frames (>100ms): tab-resume clock jumps and one-off hitches aren't sustained load.
+    const perf = perfRef.current;
+    if (!perf.regressed && delta < 0.1) {
+      perf.acc += delta;
+      perf.count += 1;
+      if (perf.count >= 90) {
+        const avgDelta = perf.acc / perf.count;
+        if (avgDelta > 1 / 45 && gl.getPixelRatio() > 1) {
+          gl.setPixelRatio(1);
+          perf.regressed = true;
+        }
+        perf.acc = 0;
+        perf.count = 0;
+      }
+    }
 
     // Smooth scroll inertia with delta damping
     smoothProgress.current = MathUtils.damp(
@@ -262,6 +283,24 @@ function Constellation({
   );
 }
 
+/**
+ * Picks a render quality tier once per device so phones and low-power machines don't pay for a
+ * high pixel ratio + MSAA they can't sustain, while desktops keep the crisp look.
+ * - Desktop: up to 2x pixel ratio, antialiasing on.
+ * - Mobile / low-power: capped at 1.5x, antialiasing off (the biggest mobile GPU saving).
+ */
+function getDeviceTier(): { dpr: [number, number]; antialias: boolean } {
+  if (typeof window === "undefined") return { dpr: [1, 2], antialias: true };
+  // Touch pointer + small viewport reliably identify phones/tablets. navigator.deviceMemory is intentionally
+  // left out: Chrome reports it coarsely (capped, often 4 on capable desktops) so it wrongly downgrades them.
+  // The one-way adaptive regression in Constellation is the safety net for any device that still runs slow.
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const smallViewport = window.innerWidth < 768;
+  const lowCores = (navigator.hardwareConcurrency ?? 8) <= 4;
+  const lowPower = coarsePointer || smallViewport || lowCores;
+  return lowPower ? { dpr: [1, 1.5], antialias: false } : { dpr: [1, 2], antialias: true };
+}
+
 /** The full-screen fixed 3D background (z-index 0). Mounted client-only (no SSR) by the template. */
 export function Scene() {
   const router = useRouter();
@@ -270,6 +309,17 @@ export function Scene() {
   const palette = resolvedTheme === "light" ? THEME_PALETTES.light : THEME_PALETTES.dark;
   const [canvasKey, setCanvasKey] = useState(0);
   const isFirstMount = useRef(true);
+
+  // Device render tier chosen once on the client (never during SSR).
+  const [tier] = useState(getDeviceTier);
+
+  // Stop rendering entirely while the tab is hidden; resume on return. Saves GPU/battery in the background.
+  const [frameloop, setFrameloop] = useState<"always" | "never">("always");
+  useEffect(() => {
+    const onVisibility = () => setFrameloop(document.hidden ? "never" : "always");
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
 
   // Next.js 16 <Activity> keeps this component mounted while running effect cleanups on route leave,
   // which triggers R3F's unmountComponentAtNode(canvas) and forceContextLoss(). Incrementing the key
@@ -293,9 +343,11 @@ export function Scene() {
   return (
     <Canvas
       key={canvasKey}
+      frameloop={frameloop}
       camera={{ position: [0, 0, 10], fov: 50 }}
-      dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true }}
+      dpr={tier.dpr}
+      gl={{ antialias: tier.antialias, alpha: true, powerPreference: "high-performance" }}
+      performance={{ min: 0.5 }}
     >
       <Constellation palette={palette} onSelectHref={handleSelectHref} />
     </Canvas>

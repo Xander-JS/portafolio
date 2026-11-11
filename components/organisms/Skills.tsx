@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/atoms/Section";
+import { AmbientParticles } from "@/components/molecules/AmbientParticles";
 import { ModuleHeading } from "@/components/molecules/ModuleHeading";
 import { SkillItem } from "@/components/molecules/SkillItem";
 import { skillGroups, toolGroups } from "@/data/skills";
@@ -10,7 +11,9 @@ import { skillGroups, toolGroups } from "@/data/skills";
 export function Skills({ summary = false }: { summary?: boolean }) {
   const t = useTranslations("skills");
   return (
-    <Section id="skills">
+    <>
+      <AmbientParticles />
+      <Section id="skills">
       <ModuleHeading id="skills" summary={summary} />
       {summary ? (
         <ul className="flex flex-wrap gap-2.5">
@@ -32,6 +35,7 @@ export function Skills({ summary = false }: { summary?: boolean }) {
           ))}
         </div>
       )}
-    </Section>
+      </Section>
+    </>
   );
 }
