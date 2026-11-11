@@ -111,7 +111,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
           onClick={(e) => {
             if (project.windowsUrl === "#") e.preventDefault();
           }}
-          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
+          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground dark:text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
           title={project.windowsUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
         >
           <Download className="size-4" />
@@ -129,7 +129,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
           onClick={(e) => {
             if (project.linuxUrl === "#") e.preventDefault();
           }}
-          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
+          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground dark:text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
           title={project.linuxUrl === "#" ? (locale === "en" ? "Download link coming soon" : "Enlace de descarga disponible pronto") : undefined}
         >
           <Download className="size-4" />
@@ -147,7 +147,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
           onClick={(e) => {
             if (project.apkUrl === "#") e.preventDefault();
           }}
-          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
+          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground dark:text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_0_28px_rgba(220,38,38,0.5)] active:scale-[0.98]"
         >
           <Download className="size-4" />
           <span>{t("downloadApk")}</span>
@@ -321,7 +321,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                       <ul className="mt-3.5 grid gap-2.5 sm:grid-cols-2 list-none p-0 m-0">
                         {project.features.map((f, i) => (
                           <li key={i} className="flex items-start gap-2.5 text-sm text-ink sm:text-base">
-                            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground dark:text-white">
                               <Check className="size-3" />
                             </span>
                             <span>{f[locale] || f.es}</span>
@@ -462,7 +462,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                     <ul className="mt-3 space-y-2 list-none p-0 m-0">
                       {project.features.map((f, i) => (
                         <li key={i} className="flex items-start gap-2.5 text-sm text-ink sm:text-base">
-                          <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                          <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground dark:text-white">
                             <Check className="size-3" />
                           </span>
                           <span>{f[locale] || f.es}</span>
