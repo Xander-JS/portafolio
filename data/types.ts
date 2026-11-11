@@ -104,6 +104,7 @@ export type AcademicItem = {
   place: Localized;
   period: Localized;
   summary: Localized;
+  skills?: Localized[];
 };
 
 export type Seminar = { id: string; name: Localized; topic: Localized; date: string };
